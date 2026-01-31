@@ -4,136 +4,533 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
   <meta name="theme-color" content="#061b14"/>
-  <title>DIGIY — Porte PIN</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <title>DIGIY RESTO PRO — Cockpit</title>
+
+  <script src="./guard.js"></script>
+
   <style>
-    :root{--bg:#061b14;--card:#0b2a1f;--line:rgba(255,255,255,.14);--text:#eafff1;--muted:rgba(234,255,241,.72);--gold:#facc15;--ok:#22c55e;--bad:#fb7185;--shadow:0 18px 55px rgba(0,0,0,.45)}
+    :root{
+      --bg:#061b14; --bg2:#0a2b1f; --line:rgba(255,255,255,.14);
+      --text:#eafff1; --muted:rgba(234,255,241,.72);
+      --gold:#facc15; --ok:#22c55e; --bad:#fb7185;
+      --shadow:0 18px 55px rgba(0,0,0,.45);
+    }
     *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;display:grid;place-items:center;padding:18px;background:radial-gradient(circle at top, rgba(250,204,21,.10), transparent 55%),linear-gradient(135deg,#04160f,#0a2b1f);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto}
-    .card{width:min(520px,92vw);background:linear-gradient(145deg,rgba(11,42,31,.96),rgba(6,35,25,.96));border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:18px}
-    .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
-    .brand{display:flex;align-items:center;gap:10px}
-    .ico{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 30% 0,var(--gold),transparent 60%);color:#062015;font-weight:1000;border:1px solid rgba(250,204,21,.35)}
-    .t{font-weight:1000;letter-spacing:.12em;font-size:12px}
-    .sub{font-size:12px;color:var(--muted);margin-top:4px}
-    .pill{border:1px solid var(--line);background:rgba(250,204,21,.10);padding:7px 10px;border-radius:999px;font-size:12px;font-weight:900}
-    .sep{height:1px;background:var(--line);margin:14px 0}
-    .mini{margin-top:10px;font-size:12px;color:var(--muted)}
-    .mini b{color:var(--text)}
-    label{display:block;font-size:12px;color:var(--muted);margin:8px 0 6px}
-    input{width:100%;padding:14px;border-radius:14px;border:1px solid var(--line);background:rgba(0,0,0,.22);color:var(--text);font-size:16px;font-weight:900;letter-spacing:.14em;outline:none}
-    button{width:100%;margin-top:12px;padding:14px;border-radius:14px;border:none;background:linear-gradient(90deg,var(--ok),var(--gold));color:#062015;font-weight:1000;font-size:15px;cursor:pointer}
-    button:disabled{opacity:.6;cursor:not-allowed}
-    .msg{margin-top:12px;font-size:12px;color:var(--muted);line-height:1.5}
-    .ok{color:var(--ok);font-weight:900}
-    .bad{color:var(--bad);font-weight:900}
+    body{
+      margin:0; color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto;
+      background:
+        radial-gradient(circle at top, rgba(250,204,21,.10), transparent 55%),
+        linear-gradient(135deg,var(--bg),var(--bg2));
+      padding:16px;
+    }
+    .wrap{max-width:1140px;margin:0 auto}
+    .top{
+      display:flex;justify-content:space-between;align-items:center;gap:12px;
+      background:linear-gradient(145deg,rgba(11,42,31,.96),rgba(6,35,25,.96));
+      border:1px solid var(--line); border-radius:22px; box-shadow:var(--shadow);
+      padding:16px;
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .ico{
+      width:48px;height:48px;border-radius:50%;
+      display:grid;place-items:center;
+      background:radial-gradient(circle at 30% 0,var(--gold),transparent 60%);
+      color:#062015;font-weight:1000;border:1px solid rgba(250,204,21,.35);
+    }
+    h1{margin:0;font-size:16px;letter-spacing:.10em}
+    .sub{margin-top:5px;font-size:12px;color:var(--muted);line-height:1.4}
+    .pill{
+      border:1px solid var(--line); background:rgba(250,204,21,.10);
+      padding:7px 10px;border-radius:999px;font-size:12px;font-weight:900;white-space:nowrap;
+    }
+
+    .grid{display:grid;gap:12px;margin-top:12px}
+    @media(min-width:980px){ .grid{grid-template-columns:1.2fr .8fr} }
+
+    .card{
+      background:linear-gradient(145deg,rgba(11,42,31,.92),rgba(6,35,25,.92));
+      border:1px solid var(--line); border-radius:22px; box-shadow:var(--shadow);
+      padding:14px;
+    }
+    .title{font-weight:1000;letter-spacing:.08em;font-size:12px;color:rgba(234,255,241,.85)}
+    .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .btn{
+      flex:1; min-width:210px;
+      padding:12px 14px;border-radius:14px;border:1px solid var(--line);
+      background:rgba(0,0,0,.18); color:var(--text);
+      font-weight:1000; cursor:pointer;
+    }
+    .btn:hover{border-color:rgba(250,204,21,.55)}
+    .btn.primary{
+      background:linear-gradient(90deg,var(--ok),var(--gold));
+      color:#062015;border:none;
+    }
+    .btn.danger{
+      border-color:rgba(251,113,133,.35);
+      background:rgba(251,113,133,.10);
+    }
+
+    .kpis{display:grid;gap:10px;margin-top:10px}
+    @media(min-width:520px){ .kpis{grid-template-columns:repeat(2,1fr)} }
+    .kpi{
+      padding:12px;border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.18);
+    }
+    .kpi .k{font-size:12px;color:var(--muted)}
+    .kpi .v{font-size:20px;font-weight:1000;margin-top:6px}
+    .kpi .s{font-size:12px;color:rgba(234,255,241,.78);margin-top:4px}
+
+    .split{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    select, input, textarea{
+      border-radius:14px;border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.18); color:var(--text);
+      padding:10px 12px; outline:none; font-weight:900;
+      width:100%;
+    }
+    textarea{min-height:80px;resize:vertical;font-weight:700}
+
+    .list{margin-top:10px;border:1px solid rgba(255,255,255,.14);border-radius:16px;overflow:hidden}
+    .item{
+      padding:12px;border-top:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.14);
+      display:flex;justify-content:space-between;gap:10px;align-items:flex-start;
+    }
+    .item:first-child{border-top:none}
+    .a{font-weight:1000}
+    .b{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.35}
+    .badge{
+      font-size:12px;font-weight:900;padding:6px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(250,204,21,.10);
+      white-space:nowrap;
+    }
+    .badge.ok{background:rgba(34,197,94,.12); border-color:rgba(34,197,94,.35)}
+    .badge.bad{background:rgba(251,113,133,.12); border-color:rgba(251,113,133,.35)}
+    .badge.neutral{background:rgba(148,163,184,.10); border-color:rgba(148,163,184,.28)}
+
+    .tinybtn{
+      padding:8px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.18);color:var(--text);font-weight:1000;cursor:pointer;
+    }
+    .tinybtn:hover{border-color:rgba(250,204,21,.55)}
+
+    .modal{
+      position:fixed; inset:0; display:none;
+      background:rgba(0,0,0,.55);
+      align-items:center; justify-content:center;
+      padding:18px;
+    }
+    .modal .box{
+      width:min(780px,94vw);
+      background:linear-gradient(145deg,rgba(11,42,31,.98),rgba(6,35,25,.98));
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:18px;
+      padding:16px;
+      box-shadow:0 24px 60px rgba(0,0,0,.65);
+    }
+    label{display:block;font-size:12px;color:var(--muted);margin:6px 0}
+    .fgrid{display:grid;gap:10px;margin-top:10px}
+    @media(min-width:760px){ .fgrid{grid-template-columns:1fr 1fr} }
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .actions button{
+      flex:1; min-width:190px;
+      padding:12px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.16);
+      background:rgba(250,204,21,.12);
+      color:var(--text);font-weight:1000;cursor:pointer;
+    }
+    .actions .primary{
+      background:linear-gradient(90deg,var(--ok),var(--gold));
+      color:#062015;border:none;
+    }
+    .close{
+      margin-top:10px;width:100%;
+      padding:12px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.18);
+      color:var(--text);font-weight:1000;cursor:pointer;
+    }
+    .hint{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.45}
+    .tiny{font-size:11px;color:rgba(234,255,241,.66)}
   </style>
 </head>
+
 <body>
-  <div class="card">
-    <div class="top">
-      <div class="brand">
-        <div class="ico">🦅</div>
-        <div>
-          <div class="t" id="title">PORTE PIN</div>
-          <div class="sub" id="subtitle">Chargement…</div>
+<div class="wrap">
+
+  <div class="top">
+    <div class="brand">
+      <div class="ico">🦅</div>
+      <div>
+        <h1>🍽️ RESTO PRO — Cockpit</h1>
+        <div class="sub">
+          SLUG: <b id="slug">—</b> • OWNER: <b id="owner">—</b><br>
+          Statut: <b class="muted" id="stat">session OK</b>
         </div>
       </div>
-      <div class="pill" id="modPill">—</div>
     </div>
-
-    <div class="sep"></div>
-    <div class="mini">SLUG : <b id="slugBox">—</b></div>
-
-    <label for="pin">Entre ton PIN</label>
-    <input id="pin" type="password" inputmode="numeric" autocomplete="one-time-code" placeholder="••••" maxlength="8"/>
-
-    <button id="go">🚀 ENTRER</button>
-    <div class="msg" id="msg"></div>
+    <div class="pill">resto_pro</div>
   </div>
 
+  <div class="grid">
+
+    <!-- LEFT -->
+    <div class="card">
+      <div class="title">⚡ ACTIONS RAPIDES</div>
+      <div class="row">
+        <button class="btn primary" id="btnNew">➕ Nouveau ticket</button>
+        <button class="btn" id="btnToday">📍 Aujourd’hui</button>
+        <button class="btn" id="btnPulse">🔔 Inbox</button>
+      </div>
+
+      <div style="height:10px"></div>
+      <div class="title">🌡️ TEMPÉRATURE RESTO</div>
+      <div class="kpis">
+        <div class="kpi">
+          <div class="k">Tickets ouverts</div>
+          <div class="v" id="kOpen">—</div>
+          <div class="s">en cours</div>
+        </div>
+        <div class="kpi">
+          <div class="k">Prêts</div>
+          <div class="v" id="kReady">—</div>
+          <div class="s">à servir</div>
+        </div>
+        <div class="kpi">
+          <div class="k">Servis</div>
+          <div class="v" id="kServed">—</div>
+          <div class="s">terminés</div>
+        </div>
+        <div class="kpi">
+          <div class="k">CA du jour</div>
+          <div class="v" id="kCA">—</div>
+          <div class="s">estimé</div>
+        </div>
+      </div>
+
+      <div style="height:10px"></div>
+      <div class="split">
+        <div class="title" style="flex:1">📋 TICKETS</div>
+        <select id="filter" style="max-width:260px">
+          <option value="all">Tous</option>
+          <option value="open">Ouverts</option>
+          <option value="ready">Prêts</option>
+          <option value="served">Servis</option>
+          <option value="cancelled">Annulés</option>
+        </select>
+        <input id="q" placeholder="Recherche: table / nom / note…" style="max-width:260px">
+      </div>
+
+      <div class="list" id="list"></div>
+
+      <div class="hint">
+        <b>V1 Terrain :</b> tickets stockés localement par slug (ça marche direct).<br>
+        <span class="tiny">V2 : menu produits + caisse + paiements + impressions + Pulse.</span>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="card">
+      <div class="title">🛟 SUPPORT</div>
+      <div class="row">
+        <button class="btn" id="btnHelp">💬 WhatsApp Support</button>
+        <button class="btn" id="btnLogout">🚪 Déconnexion</button>
+      </div>
+
+      <div style="height:12px"></div>
+      <div class="title">🧩 OUTILS</div>
+      <div class="row">
+        <button class="btn" id="btnExport">⬇️ Export JSON</button>
+        <button class="btn danger" id="btnReset">🧹 Reset Démo</button>
+      </div>
+
+      <div style="height:12px"></div>
+      <div class="title">⚙️ Raccourcis</div>
+      <div class="row">
+        <button class="btn" id="btnAddTable">➕ Table rapide</button>
+        <button class="btn" id="btnPrint">🖨️ Imprimer</button>
+      </div>
+
+      <div class="list" style="margin-top:10px">
+        <div class="item">
+          <div>
+            <div class="a">🔔 Inbox</div>
+            <div class="b">V2 : commandes en ligne + notifications cuisine.</div>
+          </div>
+          <div class="badge neutral">V2</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL NEW TICKET -->
+<div class="modal" id="modalNew">
+  <div class="box">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+      <div style="font-weight:1000">➕ Nouveau ticket</div>
+      <div class="badge neutral" id="mSlug">—</div>
+    </div>
+
+    <div class="fgrid">
+      <div>
+        <label>Table</label>
+        <input id="table" placeholder="Ex: T1 / Terrasse / VIP">
+      </div>
+      <div>
+        <label>Nom client (option)</label>
+        <input id="client" placeholder="Ex: Mamadou">
+      </div>
+      <div>
+        <label>Total estimé (FCFA)</label>
+        <input id="amount" inputmode="numeric" placeholder="Ex: 7500">
+      </div>
+      <div>
+        <label>Mode</label>
+        <select id="mode">
+          <option value="sur_place">Sur place</option>
+          <option value="a_emporter">À emporter</option>
+          <option value="livraison">Livraison</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="margin-top:6px">
+      <label>Commande / Note</label>
+      <textarea id="note" placeholder="Ex: 2 thieb, 1 jus, sans piment…"></textarea>
+    </div>
+
+    <div class="actions">
+      <button class="primary" id="save">✅ Enregistrer</button>
+      <button id="cancel">Annuler</button>
+    </div>
+
+    <button class="close" id="close">Fermer</button>
+  </div>
+</div>
+
 <script>
-(async () => {
-  // ✅ À RÉGLER PAR MODULE
-  const MODULE_CODE = "resto_pro";
-  const NEXT_URL    = "cockpit.html";
+  const s = window.DIGIY_ACCESS || {};
+  const slug = (s.slug || "").toLowerCase();
+  document.getElementById("slug").textContent = s.slug || "—";
+  document.getElementById("owner").textContent = s.owner_id || "—";
 
-  const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsFSBK6AbMeOid2LrIjcTdA";
-  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const KEY = "DIGIY_RESTO_TICKETS::" + (slug || "noslug");
+  const KEY_TABLES = "DIGIY_RESTO_TABLES::" + (slug || "noslug");
 
-  const $ = (id)=>document.getElementById(id);
-  $("modPill").textContent = MODULE_CODE;
-  $("title").textContent = "PORTE PIN — " + MODULE_CODE.toUpperCase();
+  function uid(){
+    return (crypto?.randomUUID ? crypto.randomUUID() : ("id_"+Math.random().toString(16).slice(2)+Date.now()));
+  }
+  function todayKey(){
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = String(d.getMonth()+1).padStart(2,"0");
+    const day = String(d.getDate()).padStart(2,"0");
+    return `${y}-${m}-${day}`;
+  }
+  function nowISO(){ return new Date().toISOString(); }
+  function load(key){
+    try{ return JSON.parse(localStorage.getItem(key) || "[]"); }catch(_){ return []; }
+  }
+  function save(key, rows){ localStorage.setItem(key, JSON.stringify(rows)); }
 
-  const url = new URL(location.href);
-  const slug = (url.searchParams.get("slug") || "").trim().toLowerCase();
-
-  $("slugBox").textContent = slug || "—";
-  $("subtitle").textContent = slug ? "Accès sécurisé — PIN requis" : "SLUG manquant";
-
-  const msg = (html)=>{ $("msg").innerHTML = html; };
-
-  if(!slug){
-    msg(`<span class="bad">❌ SLUG manquant.</span><br>Reviens depuis ton Espace PRO.`);
-    $("go").disabled = true;
-    return;
+  function money(v){
+    const n = Number(String(v||"").replace(/[^\d]/g,"")) || 0;
+    return n ? (n.toLocaleString("fr-FR") + " FCFA") : "—";
+  }
+  function badge(st){
+    if(st==="open") return `<span class="badge neutral">OUVERT</span>`;
+    if(st==="ready") return `<span class="badge ok">PRÊT</span>`;
+    if(st==="served") return `<span class="badge ok">SERVI</span>`;
+    if(st==="cancelled") return `<span class="badge bad">ANNULÉ</span>`;
+    return `<span class="badge neutral">${String(st||"—").toUpperCase()}</span>`;
   }
 
-  setTimeout(()=>$("pin").focus(), 150);
-
-  function saveSessions(payload){
-    const ts = Date.now();
-    localStorage.setItem("DIGIY_ACCESS", JSON.stringify({
-      slug: payload.slug, phone: payload.phone, owner_id: payload.owner_id, ts
-    }));
-    localStorage.setItem("DIGIY_SESSION_" + MODULE_CODE.toUpperCase(), JSON.stringify({
-      slug: payload.slug, phone: payload.phone, owner_id: payload.owner_id, module: MODULE_CODE, ts
-    }));
+  function matches(r, q){
+    q = (q||"").trim().toLowerCase();
+    if(!q) return true;
+    const hay = [
+      r.table, r.client, r.mode, r.note, r.status
+    ].filter(Boolean).join(" ").toLowerCase();
+    return hay.includes(q);
   }
 
-  async function enter(){
-    const pin = $("pin").value.trim();
-    if(pin.length < 3){ msg(`<span class="bad">❌ PIN invalide.</span>`); return; }
+  function render(){
+    const rows = load(KEY).sort((a,b)=> (b.created_at||"").localeCompare(a.created_at||""));
+    const filter = document.getElementById("filter").value;
+    const q = document.getElementById("q").value;
 
-    $("go").disabled = true;
-    msg(`Vérification en cours…`);
+    const open = rows.filter(r=>r.status==="open");
+    const ready = rows.filter(r=>r.status==="ready");
+    const served = rows.filter(r=>r.status==="served");
+    const day = todayKey();
+    const caDay = rows
+      .filter(r=>r.day_key===day && (r.status==="open" || r.status==="ready" || r.status==="served"))
+      .reduce((sum,r)=> sum + (Number(String(r.amount||"").replace(/[^\d]/g,""))||0), 0);
 
-    const { data, error } = await sb.rpc("digiy_verify_access", {
-      p_slug: slug,
-      p_pin: pin,
-      p_module: MODULE_CODE
-    });
+    document.getElementById("kOpen").textContent = String(open.length);
+    document.getElementById("kReady").textContent = String(ready.length);
+    document.getElementById("kServed").textContent = String(served.length);
+    document.getElementById("kCA").textContent = caDay ? (caDay.toLocaleString("fr-FR")) : "0";
 
-    if(error){
-      $("go").disabled = false;
-      msg(`<span class="bad">❌ Erreur.</span><br>${String(error.message || error)}`);
+    let view = rows.filter(r=>matches(r,q));
+    if(filter !== "all") view = view.filter(r=>r.status===filter);
+
+    const list = document.getElementById("list");
+    list.innerHTML = "";
+
+    if(view.length===0){
+      list.innerHTML = `
+        <div class="item">
+          <div>
+            <div class="a">Aucun ticket</div>
+            <div class="b">Clique “Nouveau ticket” pour commencer.</div>
+          </div>
+          <div class="badge neutral">VIDE</div>
+        </div>`;
       return;
     }
 
-    if(!data?.ok){
-      $("go").disabled = false;
-      if(data?.reason === "module_inactive"){
-        msg(`<span class="bad">🔒 Module non actif.</span><br>Activation en cours.`);
-        return;
-      }
-      msg(`<span class="bad">❌ Accès refusé.</span><br>PIN incorrect.`);
-      return;
+    for(const r of view){
+      const title = `Table: ${r.table || "—"} • ${r.mode || "—"}`;
+      const sub = [
+        r.client ? `Client: ${r.client}` : null,
+        `Total: ${money(r.amount)}`,
+        r.note ? `Commande: ${r.note}` : null,
+        `Créé: ${new Date(r.created_at).toLocaleString("fr-FR")}`
+      ].filter(Boolean).join("<br>");
+
+      const item = document.createElement("div");
+      item.className = "item";
+      item.innerHTML = `
+        <div style="flex:1">
+          <div class="a">${title}</div>
+          <div class="b">${sub}</div>
+          <div class="row" style="margin-top:10px">
+            <button class="tinybtn" data-act="ready" data-id="${r.id}">🍳 Prêt</button>
+            <button class="tinybtn" data-act="served" data-id="${r.id}">✅ Servi</button>
+            <button class="tinybtn" data-act="cancel" data-id="${r.id}">🧨 Annuler</button>
+            <button class="tinybtn" data-act="del" data-id="${r.id}">🗑️ Supprimer</button>
+          </div>
+        </div>
+        <div>${badge(r.status)}</div>
+      `;
+      list.appendChild(item);
     }
-
-    saveSessions(data);
-    msg(`<span class="ok">✅ Accès validé.</span> Ouverture du cockpit…`);
-
-    setTimeout(()=>{
-      const next = new URL(NEXT_URL, location.href);
-      next.searchParams.set("slug", slug);
-      location.href = next.toString();
-    }, 450);
   }
 
-  $("go").addEventListener("click", enter);
-  $("pin").addEventListener("keydown", (e)=>{ if(e.key === "Enter") enter(); });
-})();
+  function update(id, patch){
+    const rows = load(KEY);
+    const i = rows.findIndex(x=>x.id===id);
+    if(i<0) return;
+    rows[i] = { ...rows[i], ...patch, updated_at: nowISO() };
+    save(KEY, rows);
+    render();
+  }
+  function remove(id){
+    save(KEY, load(KEY).filter(x=>x.id!==id));
+    render();
+  }
+
+  // modal
+  const modal = document.getElementById("modalNew");
+  const openModal = ()=>{
+    document.getElementById("mSlug").textContent = slug || "—";
+    modal.style.display = "flex";
+    setTimeout(()=>document.getElementById("table").focus(), 150);
+  };
+  const closeModal = ()=>{ modal.style.display = "none"; };
+
+  document.getElementById("btnNew").onclick = openModal;
+  document.getElementById("cancel").onclick = closeModal;
+  document.getElementById("close").onclick = closeModal;
+  modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
+
+  document.getElementById("save").onclick = ()=>{
+    const t = {
+      id: uid(),
+      slug, owner_id: s.owner_id || null,
+      status: "open",
+      day_key: todayKey(),
+      table: document.getElementById("table").value.trim(),
+      client: document.getElementById("client").value.trim(),
+      amount: document.getElementById("amount").value.trim(),
+      mode: document.getElementById("mode").value,
+      note: document.getElementById("note").value.trim(),
+      created_at: nowISO()
+    };
+    const rows = load(KEY);
+    rows.unshift(t);
+    save(KEY, rows);
+
+    ["table","client","amount","note"].forEach(id=>document.getElementById(id).value="");
+    document.getElementById("mode").value = "sur_place";
+
+    closeModal();
+    render();
+  };
+
+  // actions list
+  document.addEventListener("click",(e)=>{
+    const b = e.target.closest("[data-act]");
+    if(!b) return;
+    const id = b.getAttribute("data-id");
+    const act = b.getAttribute("data-act");
+    if(act==="ready") return update(id,{ status:"ready" });
+    if(act==="served") return update(id,{ status:"served" });
+    if(act==="cancel") return update(id,{ status:"cancelled" });
+    if(act==="del") return remove(id);
+  });
+
+  // quicks
+  document.getElementById("btnToday").onclick = ()=>{
+    const tk = todayKey();
+    document.getElementById("q").value = tk; // astuce: recherche date si tu notes les dates dans note
+    render();
+    alert("📍 CA du jour est calculé sur les tickets du jour. (V2: vraie caisse + paiements)");
+  };
+  document.getElementById("btnPulse").onclick = ()=>alert("🔔 Inbox: V2 commandes online + notif cuisine.");
+  document.getElementById("q").oninput = render;
+  document.getElementById("filter").onchange = render;
+
+  // support
+  document.getElementById("btnHelp").onclick = ()=>{
+    const num = "+221771342889";
+    const txt = encodeURIComponent("DIGIY Support — RESTO PRO. Slug: " + (slug||"") + " • Besoin d’aide.");
+    location.href = "https://wa.me/" + num.replace("+","") + "?text=" + txt;
+  };
+
+  // logout
+  document.getElementById("btnLogout").onclick = ()=>{
+    localStorage.removeItem("DIGIY_ACCESS");
+    location.href = "./pin.html" + (slug ? ("?slug="+encodeURIComponent(slug)) : "");
+  };
+
+  // tools
+  document.getElementById("btnExport").onclick = ()=>{
+    const rows = load(KEY);
+    const blob = new Blob([JSON.stringify(rows,null,2)], { type:"application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "resto-" + (slug||"pro") + ".json";
+    a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 800);
+  };
+  document.getElementById("btnReset").onclick = ()=>{
+    if(confirm("Reset démo pour ce slug ?")){
+      localStorage.removeItem(KEY);
+      localStorage.removeItem(KEY_TABLES);
+      render();
+    }
+  };
+  document.getElementById("btnAddTable").onclick = ()=>{
+    alert("➕ Table rapide: V2 on gère le plan de salle + tables + serveur.");
+  };
+  document.getElementById("btnPrint").onclick = ()=>window.print();
+
+  // init
+  render();
 </script>
 </body>
 </html>
