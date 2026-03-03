@@ -6,7 +6,17 @@
   <meta name="theme-color" content="#061b14"/>
   <title>DIGIY RESTO PRO — Cockpit</title>
 
-  <script src="./guard.js"></script>
+  <!-- ✅ Supabase obligatoire AVANT le guard -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- ✅ Tes clés (cockpit aussi) -->
+  <script>
+    window.DIGIY_SUPABASE_URL  = "https://wesqmwjjtsefyjnluosj.supabase.co";
+    window.DIGIY_SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsFSBK6AbMeOid2LrIjcTdA";
+  </script>
+
+  <!-- ✅ Guard RESTO : mets MODULE="RESTO" dans ce fichier -->
+  <script src="./guard.js?v=resto-pro-1"></script>
 
   <style>
     :root{
@@ -165,11 +175,11 @@
         <h1>🍽️ RESTO PRO — Cockpit</h1>
         <div class="sub">
           SLUG: <b id="slug">—</b> • OWNER: <b id="owner">—</b><br>
-          Statut: <b class="muted" id="stat">session OK</b>
+          Statut: <b class="muted" id="stat">chargement…</b>
         </div>
       </div>
     </div>
-    <div class="pill">resto_pro</div>
+    <div class="pill">pro_resto</div>
   </div>
 
   <div class="grid">
@@ -254,6 +264,16 @@
       <div class="list" style="margin-top:10px">
         <div class="item">
           <div>
+            <div class="a">💳 Activation</div>
+            <div class="b">Si l’abonnement RESTO n’est pas actif, clique pour payer.</div>
+          </div>
+          <a class="badge neutral" id="btnPay" href="#" target="_blank" rel="noopener">ACTIVER</a>
+        </div>
+      </div>
+
+      <div class="list" style="margin-top:10px">
+        <div class="item">
+          <div>
             <div class="a">🔔 Inbox</div>
             <div class="b">V2 : commandes en ligne + notifications cuisine.</div>
           </div>
@@ -311,226 +331,286 @@
 </div>
 
 <script>
-  const s = window.DIGIY_ACCESS || {};
-  const slug = (s.slug || "").toLowerCase();
-  document.getElementById("slug").textContent = s.slug || "—";
-  document.getElementById("owner").textContent = s.owner_id || "—";
-
-  const KEY = "DIGIY_RESTO_TICKETS::" + (slug || "noslug");
-  const KEY_TABLES = "DIGIY_RESTO_TABLES::" + (slug || "noslug");
-
-  function uid(){
-    return (crypto?.randomUUID ? crypto.randomUUID() : ("id_"+Math.random().toString(16).slice(2)+Date.now()));
+  // ✅ Session : toujours depuis localStorage (source de vérité côté front)
+  function readAccess(){
+    try{ return JSON.parse(localStorage.getItem("DIGIY_ACCESS")||"null"); }catch(_){ return null; }
   }
-  function todayKey(){
-    const d = new Date();
-    const y = d.getFullYear();
-    const m = String(d.getMonth()+1).padStart(2,"0");
-    const day = String(d.getDate()).padStart(2,"0");
-    return `${y}-${m}-${day}`;
-  }
-  function nowISO(){ return new Date().toISOString(); }
-  function load(key){
-    try{ return JSON.parse(localStorage.getItem(key) || "[]"); }catch(_){ return []; }
-  }
-  function save(key, rows){ localStorage.setItem(key, JSON.stringify(rows)); }
-
-  function money(v){
-    const n = Number(String(v||"").replace(/[^\d]/g,"")) || 0;
-    return n ? (n.toLocaleString("fr-FR") + " FCFA") : "—";
-  }
-  function badge(st){
-    if(st==="open") return `<span class="badge neutral">OUVERT</span>`;
-    if(st==="ready") return `<span class="badge ok">PRÊT</span>`;
-    if(st==="served") return `<span class="badge ok">SERVI</span>`;
-    if(st==="cancelled") return `<span class="badge bad">ANNULÉ</span>`;
-    return `<span class="badge neutral">${String(st||"—").toUpperCase()}</span>`;
+  function getSlugFromUrl(){
+    return (new URL(location.href).searchParams.get("slug")||"").trim().toLowerCase();
   }
 
-  function matches(r, q){
-    q = (q||"").trim().toLowerCase();
-    if(!q) return true;
-    const hay = [
-      r.table, r.client, r.mode, r.note, r.status
-    ].filter(Boolean).join(" ").toLowerCase();
-    return hay.includes(q);
-  }
+  // ✅ Boot Guard (attend PIN+ABO)
+  (async ()=>{
+    const urlSlug = getSlugFromUrl();
+    const sess = readAccess();
+    const slug = (urlSlug || sess?.slug || "").toLowerCase();
 
-  function render(){
-    const rows = load(KEY).sort((a,b)=> (b.created_at||"").localeCompare(a.created_at||""));
-    const filter = document.getElementById("filter").value;
-    const q = document.getElementById("q").value;
+    // garde une copie globale pour ton code existant
+    window.DIGIY_ACCESS = sess || {};
 
-    const open = rows.filter(r=>r.status==="open");
-    const ready = rows.filter(r=>r.status==="ready");
-    const served = rows.filter(r=>r.status==="served");
-    const day = todayKey();
-    const caDay = rows
-      .filter(r=>r.day_key===day && (r.status==="open" || r.status==="ready" || r.status==="served"))
-      .reduce((sum,r)=> sum + (Number(String(r.amount||"").replace(/[^\d]/g,""))||0), 0);
+    document.getElementById("slug").textContent = slug || "—";
+    document.getElementById("owner").textContent = (sess?.owner_id || "—");
 
-    document.getElementById("kOpen").textContent = String(open.length);
-    document.getElementById("kReady").textContent = String(ready.length);
-    document.getElementById("kServed").textContent = String(served.length);
-    document.getElementById("kCA").textContent = caDay ? (caDay.toLocaleString("fr-FR")) : "0";
+    // lien activer
+    const pay = new URL("https://commencer-a-payer.digiylyfe.com/");
+    pay.searchParams.set("module","RESTO");
+    if(slug) pay.searchParams.set("slug", slug);
+    document.getElementById("btnPay").href = pay.toString();
 
-    let view = rows.filter(r=>matches(r,q));
-    if(filter !== "all") view = view.filter(r=>r.status===filter);
-
-    const list = document.getElementById("list");
-    list.innerHTML = "";
-
-    if(view.length===0){
-      list.innerHTML = `
-        <div class="item">
-          <div>
-            <div class="a">Aucun ticket</div>
-            <div class="b">Clique “Nouveau ticket” pour commencer.</div>
-          </div>
-          <div class="badge neutral">VIDE</div>
-        </div>`;
+    // Si pas de slug -> on stop
+    if(!slug){
+      document.getElementById("stat").textContent = "SLUG manquant — passe par le lien QR (?slug=resto-...)";
       return;
     }
 
-    for(const r of view){
-      const title = `Table: ${r.table || "—"} • ${r.mode || "—"}`;
-      const sub = [
-        r.client ? `Client: ${r.client}` : null,
-        `Total: ${money(r.amount)}`,
-        r.note ? `Commande: ${r.note}` : null,
-        `Créé: ${new Date(r.created_at).toLocaleString("fr-FR")}`
-      ].filter(Boolean).join("<br>");
+    // Attendre le guard (il doit remplir window.DIGIY_GUARD.state)
+    try{
+      const st = await (window.DIGIY_GUARD?.ready || window.digiyRequireAccess?.());
+      if(!st || st.ok === false){
+        document.getElementById("stat").textContent = "Guard error";
+        return;
+      }
 
-      const item = document.createElement("div");
-      item.className = "item";
-      item.innerHTML = `
-        <div style="flex:1">
-          <div class="a">${title}</div>
-          <div class="b">${sub}</div>
-          <div class="row" style="margin-top:10px">
-            <button class="tinybtn" data-act="ready" data-id="${r.id}">🍳 Prêt</button>
-            <button class="tinybtn" data-act="served" data-id="${r.id}">✅ Servi</button>
-            <button class="tinybtn" data-act="cancel" data-id="${r.id}">🧨 Annuler</button>
-            <button class="tinybtn" data-act="del" data-id="${r.id}">🗑️ Supprimer</button>
-          </div>
-        </div>
-        <div>${badge(r.status)}</div>
-      `;
-      list.appendChild(item);
+      // PIN OK ?
+      if(!st.pin_ok){
+        document.getElementById("stat").textContent = "PIN requis";
+        // redirige vers ta page PIN RESTO (adapte le nom si besoin)
+        location.replace("./pin-resto.html?slug="+encodeURIComponent(slug));
+        return;
+      }
+
+      // ABO OK ?
+      if(!st.access_ok){
+        document.getElementById("stat").textContent = "Abonnement RESTO inactif — active le module";
+        // on ne force pas la redirection, on laisse cliquer "ACTIVER"
+        return;
+      }
+
+      document.getElementById("stat").textContent = "session OK (PIN + ABO)";
+      // OK, on laisse ton app tourner
+      startApp(slug, sess?.owner_id || null);
+
+    }catch(e){
+      document.getElementById("stat").textContent = "Erreur guard: " + (e?.message||e);
     }
-  }
+  })();
 
-  function update(id, patch){
-    const rows = load(KEY);
-    const i = rows.findIndex(x=>x.id===id);
-    if(i<0) return;
-    rows[i] = { ...rows[i], ...patch, updated_at: nowISO() };
-    save(KEY, rows);
-    render();
-  }
-  function remove(id){
-    save(KEY, load(KEY).filter(x=>x.id!==id));
-    render();
-  }
+  // ✅ Ton app RESTO (inchangée, juste encapsulée)
+  function startApp(slug, owner_id){
+    const s = window.DIGIY_ACCESS || {};
+    // normalise ce que ton code utilise
+    s.slug = slug;
+    s.owner_id = owner_id || s.owner_id || null;
+    window.DIGIY_ACCESS = s;
 
-  // modal
-  const modal = document.getElementById("modalNew");
-  const openModal = ()=>{
-    document.getElementById("mSlug").textContent = slug || "—";
-    modal.style.display = "flex";
-    setTimeout(()=>document.getElementById("table").focus(), 150);
-  };
-  const closeModal = ()=>{ modal.style.display = "none"; };
+    // ---- TON CODE EXISTANT (quasi identique) ----
+    document.getElementById("slug").textContent = s.slug || "—";
+    document.getElementById("owner").textContent = s.owner_id || "—";
 
-  document.getElementById("btnNew").onclick = openModal;
-  document.getElementById("cancel").onclick = closeModal;
-  document.getElementById("close").onclick = closeModal;
-  modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
+    const KEY = "DIGIY_RESTO_TICKETS::" + (slug || "noslug");
+    const KEY_TABLES = "DIGIY_RESTO_TABLES::" + (slug || "noslug");
 
-  document.getElementById("save").onclick = ()=>{
-    const t = {
-      id: uid(),
-      slug, owner_id: s.owner_id || null,
-      status: "open",
-      day_key: todayKey(),
-      table: document.getElementById("table").value.trim(),
-      client: document.getElementById("client").value.trim(),
-      amount: document.getElementById("amount").value.trim(),
-      mode: document.getElementById("mode").value,
-      note: document.getElementById("note").value.trim(),
-      created_at: nowISO()
-    };
-    const rows = load(KEY);
-    rows.unshift(t);
-    save(KEY, rows);
+    function uid(){
+      return (crypto?.randomUUID ? crypto.randomUUID() : ("id_"+Math.random().toString(16).slice(2)+Date.now()));
+    }
+    function todayKey(){
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth()+1).padStart(2,"0");
+      const day = String(d.getDate()).padStart(2,"0");
+      return `${y}-${m}-${day}`;
+    }
+    function nowISO(){ return new Date().toISOString(); }
+    function load(key){
+      try{ return JSON.parse(localStorage.getItem(key) || "[]"); }catch(_){ return []; }
+    }
+    function save(key, rows){ localStorage.setItem(key, JSON.stringify(rows)); }
 
-    ["table","client","amount","note"].forEach(id=>document.getElementById(id).value="");
-    document.getElementById("mode").value = "sur_place";
+    function money(v){
+      const n = Number(String(v||"").replace(/[^\d]/g,"")) || 0;
+      return n ? (n.toLocaleString("fr-FR") + " FCFA") : "—";
+    }
+    function badge(st){
+      if(st==="open") return `<span class="badge neutral">OUVERT</span>`;
+      if(st==="ready") return `<span class="badge ok">PRÊT</span>`;
+      if(st==="served") return `<span class="badge ok">SERVI</span>`;
+      if(st==="cancelled") return `<span class="badge bad">ANNULÉ</span>`;
+      return `<span class="badge neutral">${String(st||"—").toUpperCase()}</span>`;
+    }
 
-    closeModal();
-    render();
-  };
+    function matches(r, q){
+      q = (q||"").trim().toLowerCase();
+      if(!q) return true;
+      const hay = [r.table, r.client, r.mode, r.note, r.status].filter(Boolean).join(" ").toLowerCase();
+      return hay.includes(q);
+    }
 
-  // actions list
-  document.addEventListener("click",(e)=>{
-    const b = e.target.closest("[data-act]");
-    if(!b) return;
-    const id = b.getAttribute("data-id");
-    const act = b.getAttribute("data-act");
-    if(act==="ready") return update(id,{ status:"ready" });
-    if(act==="served") return update(id,{ status:"served" });
-    if(act==="cancel") return update(id,{ status:"cancelled" });
-    if(act==="del") return remove(id);
-  });
+    function render(){
+      const rows = load(KEY).sort((a,b)=> (b.created_at||"").localeCompare(a.created_at||""));
+      const filter = document.getElementById("filter").value;
+      const q = document.getElementById("q").value;
 
-  // quicks
-  document.getElementById("btnToday").onclick = ()=>{
-    const tk = todayKey();
-    document.getElementById("q").value = tk; // astuce: recherche date si tu notes les dates dans note
-    render();
-    alert("📍 CA du jour est calculé sur les tickets du jour. (V2: vraie caisse + paiements)");
-  };
-  document.getElementById("btnPulse").onclick = ()=>alert("🔔 Inbox: V2 commandes online + notif cuisine.");
-  document.getElementById("q").oninput = render;
-  document.getElementById("filter").onchange = render;
+      const open = rows.filter(r=>r.status==="open");
+      const ready = rows.filter(r=>r.status==="ready");
+      const served = rows.filter(r=>r.status==="served");
+      const day = todayKey();
+      const caDay = rows
+        .filter(r=>r.day_key===day && (r.status==="open" || r.status==="ready" || r.status==="served"))
+        .reduce((sum,r)=> sum + (Number(String(r.amount||"").replace(/[^\d]/g,""))||0), 0);
 
-  // support
-  document.getElementById("btnHelp").onclick = ()=>{
-    const num = "+221771342889";
-    const txt = encodeURIComponent("DIGIY Support — RESTO PRO. Slug: " + (slug||"") + " • Besoin d’aide.");
-    location.href = "https://wa.me/" + num.replace("+","") + "?text=" + txt;
-  };
+      document.getElementById("kOpen").textContent = String(open.length);
+      document.getElementById("kReady").textContent = String(ready.length);
+      document.getElementById("kServed").textContent = String(served.length);
+      document.getElementById("kCA").textContent = caDay ? (caDay.toLocaleString("fr-FR")) : "0";
 
-  // logout
-  document.getElementById("btnLogout").onclick = ()=>{
-    localStorage.removeItem("DIGIY_ACCESS");
-    location.href = "./pin.html" + (slug ? ("?slug="+encodeURIComponent(slug)) : "");
-  };
+      let view = rows.filter(r=>matches(r,q));
+      if(filter !== "all") view = view.filter(r=>r.status===filter);
 
-  // tools
-  document.getElementById("btnExport").onclick = ()=>{
-    const rows = load(KEY);
-    const blob = new Blob([JSON.stringify(rows,null,2)], { type:"application/json" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "resto-" + (slug||"pro") + ".json";
-    a.click();
-    setTimeout(()=>URL.revokeObjectURL(a.href), 800);
-  };
-  document.getElementById("btnReset").onclick = ()=>{
-    if(confirm("Reset démo pour ce slug ?")){
-      localStorage.removeItem(KEY);
-      localStorage.removeItem(KEY_TABLES);
+      const list = document.getElementById("list");
+      list.innerHTML = "";
+
+      if(view.length===0){
+        list.innerHTML = `
+          <div class="item">
+            <div>
+              <div class="a">Aucun ticket</div>
+              <div class="b">Clique “Nouveau ticket” pour commencer.</div>
+            </div>
+            <div class="badge neutral">VIDE</div>
+          </div>`;
+        return;
+      }
+
+      for(const r of view){
+        const title = `Table: ${r.table || "—"} • ${r.mode || "—"}`;
+        const sub = [
+          r.client ? `Client: ${r.client}` : null,
+          `Total: ${money(r.amount)}`,
+          r.note ? `Commande: ${r.note}` : null,
+          `Créé: ${new Date(r.created_at).toLocaleString("fr-FR")}`
+        ].filter(Boolean).join("<br>");
+
+        const item = document.createElement("div");
+        item.className = "item";
+        item.innerHTML = `
+          <div style="flex:1">
+            <div class="a">${title}</div>
+            <div class="b">${sub}</div>
+            <div class="row" style="margin-top:10px">
+              <button class="tinybtn" data-act="ready" data-id="${r.id}">🍳 Prêt</button>
+              <button class="tinybtn" data-act="served" data-id="${r.id}">✅ Servi</button>
+              <button class="tinybtn" data-act="cancel" data-id="${r.id}">🧨 Annuler</button>
+              <button class="tinybtn" data-act="del" data-id="${r.id}">🗑️ Supprimer</button>
+            </div>
+          </div>
+          <div>${badge(r.status)}</div>
+        `;
+        list.appendChild(item);
+      }
+    }
+
+    function update(id, patch){
+      const rows = load(KEY);
+      const i = rows.findIndex(x=>x.id===id);
+      if(i<0) return;
+      rows[i] = { ...rows[i], ...patch, updated_at: nowISO() };
+      save(KEY, rows);
       render();
     }
-  };
-  document.getElementById("btnAddTable").onclick = ()=>{
-    alert("➕ Table rapide: V2 on gère le plan de salle + tables + serveur.");
-  };
-  document.getElementById("btnPrint").onclick = ()=>window.print();
+    function remove(id){
+      save(KEY, load(KEY).filter(x=>x.id!==id));
+      render();
+    }
 
-  // init
-  render();
+    // modal
+    const modal = document.getElementById("modalNew");
+    const openModal = ()=>{
+      document.getElementById("mSlug").textContent = slug || "—";
+      modal.style.display = "flex";
+      setTimeout(()=>document.getElementById("table").focus(), 150);
+    };
+    const closeModal = ()=>{ modal.style.display = "none"; };
+
+    document.getElementById("btnNew").onclick = openModal;
+    document.getElementById("cancel").onclick = closeModal;
+    document.getElementById("close").onclick = closeModal;
+    modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
+
+    document.getElementById("save").onclick = ()=>{
+      const t = {
+        id: uid(),
+        slug, owner_id: s.owner_id || null,
+        status: "open",
+        day_key: todayKey(),
+        table: document.getElementById("table").value.trim(),
+        client: document.getElementById("client").value.trim(),
+        amount: document.getElementById("amount").value.trim(),
+        mode: document.getElementById("mode").value,
+        note: document.getElementById("note").value.trim(),
+        created_at: nowISO()
+      };
+      const rows = load(KEY);
+      rows.unshift(t);
+      save(KEY, rows);
+
+      ["table","client","amount","note"].forEach(id=>document.getElementById(id).value="");
+      document.getElementById("mode").value = "sur_place";
+
+      closeModal();
+      render();
+    };
+
+    document.addEventListener("click",(e)=>{
+      const b = e.target.closest("[data-act]");
+      if(!b) return;
+      const id = b.getAttribute("data-id");
+      const act = b.getAttribute("data-act");
+      if(act==="ready") return update(id,{ status:"ready" });
+      if(act==="served") return update(id,{ status:"served" });
+      if(act==="cancel") return update(id,{ status:"cancelled" });
+      if(act==="del") return remove(id);
+    });
+
+    document.getElementById("btnToday").onclick = ()=>{
+      render();
+      alert("📍 CA du jour est calculé sur les tickets du jour. (V2: vraie caisse + paiements)");
+    };
+    document.getElementById("btnPulse").onclick = ()=>alert("🔔 Inbox: V2 commandes online + notif cuisine.");
+    document.getElementById("q").oninput = render;
+    document.getElementById("filter").onchange = render;
+
+    document.getElementById("btnHelp").onclick = ()=>{
+      const num = "+221771342889";
+      const txt = encodeURIComponent("DIGIY Support — RESTO PRO. Slug: " + (slug||"") + " • Besoin d’aide.");
+      location.href = "https://wa.me/" + num.replace("+","") + "?text=" + txt;
+    };
+
+    document.getElementById("btnLogout").onclick = ()=>{
+      localStorage.removeItem("DIGIY_ACCESS");
+      location.href = "./pin-resto.html" + (slug ? ("?slug="+encodeURIComponent(slug)) : "");
+    };
+
+    document.getElementById("btnExport").onclick = ()=>{
+      const rows = load(KEY);
+      const blob = new Blob([JSON.stringify(rows,null,2)], { type:"application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "resto-" + (slug||"pro") + ".json";
+      a.click();
+      setTimeout(()=>URL.revokeObjectURL(a.href), 800);
+    };
+    document.getElementById("btnReset").onclick = ()=>{
+      if(confirm("Reset démo pour ce slug ?")){
+        localStorage.removeItem(KEY);
+        localStorage.removeItem(KEY_TABLES);
+        render();
+      }
+    };
+    document.getElementById("btnAddTable").onclick = ()=> alert("➕ Table rapide: V2 plan de salle + tables + serveur.");
+    document.getElementById("btnPrint").onclick = ()=>window.print();
+
+    render();
+  }
 </script>
 </body>
 </html>
