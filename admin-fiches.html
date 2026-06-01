@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="robots" content="noindex,nofollow"/>
+<meta name="theme-color" content="#062612"/>
+<title>ADMIN RESTO — Validation fiches</title>
+<script>
+window.DIGIY_SUPABASE_URL="https://wesqmwjjtsefyjnluosj.supabase.co";
+window.DIGIY_SUPABASE_ANON_KEY="sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3";
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#062612;--bg2:#0d3f25;--gold:#facc15;--text:#f0fff5;--muted:rgba(240,255,245,.74);--line:rgba(255,255,255,.16);--soft:rgba(255,255,255,.08);--ok:#22c55e;--bad:#fb7185}*{box-sizing:border-box}body{margin:0;min-height:100dvh;background:linear-gradient(180deg,var(--bg2),var(--bg));color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-weight:900;padding:14px}a{color:inherit}.wrap{width:min(1050px,100%);margin:auto;display:grid;gap:14px}.card{border:1px solid var(--line);border-radius:22px;background:var(--soft);padding:16px}.hero{border-color:rgba(250,204,21,.34);background:linear-gradient(135deg,rgba(250,204,21,.14),rgba(34,197,94,.12))}.k{color:#fff0a8;font-size:12px;letter-spacing:.14em;text-transform:uppercase}h1{margin:8px 0;font-size:clamp(34px,10vw,72px);line-height:.9;letter-spacing:-.055em}.lead{color:var(--muted);line-height:1.35}input,select,textarea{width:100%;border:1px solid rgba(250,204,21,.28);border-radius:16px;background:#031b0d;color:#fff;padding:12px;font:900 16px system-ui;outline:none}textarea{min-height:74px}.row{display:grid;grid-template-columns:1fr;gap:10px}@media(min-width:760px){.row{grid-template-columns:1fr 1fr 1fr}}.actions{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}@media(min-width:760px){.actions{grid-template-columns:repeat(4,1fr)}}button{min-height:46px;border-radius:14px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.1);color:#fff;font-weight:1000;cursor:pointer}.go{background:linear-gradient(135deg,#22c55e,#facc15);color:#06130e}.badBtn{background:rgba(251,113,133,.14);border-color:rgba(251,113,133,.35)}.list{display:grid;gap:12px}.item{border:1px solid rgba(255,255,255,.14);border-radius:20px;background:rgba(3,27,13,.62);padding:14px}.top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.name{font-size:24px;line-height:1.05;font-weight:1000}.meta{color:var(--muted);font-size:13px;line-height:1.45;margin-top:6px}.badge{border:1px solid rgba(250,204,21,.35);background:rgba(250,204,21,.12);color:#fde68a;border-radius:999px;padding:6px 10px;font-size:12px;white-space:nowrap}.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}.photos div{min-height:86px;border:1px solid rgba(255,255,255,.12);border-radius:14px;overflow:hidden;background:rgba(255,255,255,.06);display:grid;place-items:center;color:var(--muted);font-size:12px}.photos img{width:100%;height:100%;object-fit:cover}.msg{white-space:pre-wrap;background:#031b0d;border:1px solid rgba(250,204,21,.22);border-radius:16px;padding:12px;color:#fde68a;display:none}.msg.show{display:block}.empty{color:var(--muted);padding:12px}.small{font-size:13px;color:var(--muted);line-height:1.4}
+</style>
+</head>
+<body>
+<main class="wrap">
+<section class="card hero"><div class="k">🔐 ADMIN DIGIY · RESTO</div><h1>Validation fiches</h1><p class="lead">Voir les fiches RESTO envoyées en attente, publier ou refuser. Aucun service_role dans le navigateur : validation par code admin RPC.</p></section>
+<section class="card"><div class="row"><input id="code" type="password" placeholder="Code admin RESTO"><select id="status"><option value="pending">En attente</option><option value="published">Publiées</option><option value="rejected">Refusées</option><option value="all">Toutes</option></select><button class="go" id="load">Charger les fiches</button></div><div class="msg" id="msg"></div><p class="small">Avant usage : exécuter <b>supabase/digiy_resto_fiches.sql</b>, puis <b>supabase/digiy_resto_admin_code.sql</b> avec ton vrai code admin.</p></section>
+<section class="list" id="list"></section>
+</main>
+<script>
+(function(){
+function $(id){return document.getElementById(id)}
+function msg(t){const m=$('msg');m.textContent=t;m.classList.add('show')}
+function sb(){return window.supabase.createClient(window.DIGIY_SUPABASE_URL,window.DIGIY_SUPABASE_ANON_KEY,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}})}
+function safe(s){return String(s||'').replace(/[<>]/g,'')}
+function photo(url,label){return '<div>'+(url?'<img src="'+safe(url)+'" alt="'+label+'">':label)+'</div>'}
+async function load(){const code=$('code').value.trim();if(!code){msg('Code admin requis.');return}msg('Chargement…');const {data,error}=await sb().rpc('digiy_resto_admin_list_fiches',{p_admin_code:code,p_status:$('status').value});if(error){msg('Erreur : '+error.message);return}render(data||[]);msg((data||[]).length+' fiche(s).')}
+function render(rows){const list=$('list');list.innerHTML='';if(!rows.length){list.innerHTML='<div class="card empty">Aucune fiche.</div>';return}rows.forEach(r=>{const el=document.createElement('article');el.className='item';el.innerHTML='<div class="top"><div><div class="name">'+safe(r.nom_restaurant||'Restaurant sans nom')+'</div><div class="meta">Slug : '+safe(r.slug)+'<br>Tél : '+safe(r.phone_pro)+' · WhatsApp : '+safe(r.whatsapp)+'<br>Cuisine : '+safe(r.cuisine)+' · Ambiance : '+safe(r.ambiance)+'<br>Adresse : '+safe(r.adresse)+'<br>Soumise : '+safe(r.submitted_at)+'</div></div><span class="badge">'+safe(r.status)+'</span></div><p class="meta">'+safe(r.description)+'</p><div class="meta"><b>Carte :</b> '+safe(r.carte_titre||'—')+'<br>'+safe(r.carte_texte||'')+'</div><div class="photos">'+photo(r.photo_principale_url,'Photo principale')+photo(r.photo_2_url,'Photo 2')+photo(r.photo_3_url,'Photo 3')+'</div><textarea data-note="'+r.id+'" placeholder="Note admin / correction"></textarea><div class="actions"><button class="go" data-act="publish" data-id="'+r.id+'">✅ Publier</button><button class="badBtn" data-act="reject" data-id="'+r.id+'">❌ Refuser</button><a href="'+safe(r.google_maps_url||'#')+'" target="_blank"><button type="button">Maps</button></a><a href="'+safe(r.carte_url||r.carte_photo_url||'#')+'" target="_blank"><button type="button">Carte</button></a></div>';list.appendChild(el)})}
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-act]');if(!b)return;const code=$('code').value.trim();const id=b.getAttribute('data-id');const note=document.querySelector('[data-note="'+id+'"]').value.trim();const act=b.getAttribute('data-act');msg('Action en cours…');const rpc=act==='publish'?'digiy_resto_admin_publish_fiche':'digiy_resto_admin_reject_fiche';const {data,error}=await sb().rpc(rpc,{p_admin_code:code,p_id:id,p_admin_note:note});if(error){msg('Erreur : '+error.message);return}const row=Array.isArray(data)?data[0]:data;msg(row&&row.message?row.message:'Action terminée.');load()});
+$('load').onclick=load;
+})();
+</script>
+</body>
+</html>
