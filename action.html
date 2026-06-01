@@ -13,7 +13,7 @@
 <body>
 <header class="top"><a href="./hub.html">← HUB</a><b>RESTO ACTION</b><span>⚡</span></header>
 <main class="wrap">
-<section class="card"><div class="k">🍽️ RESTO · modèles client</div><h1>Confirme propre.</h1><p class="lead">Prépare un message client : réservation prise en compte, meilleure table selon disponibilité, ou attente courte. Le restaurant relit et valide avant envoi.</p><textarea id="txt">Bonjour, votre demande de réservation est bien prise en compte. Nous vous réservons la meilleure table disponible selon l’arrivée et l’organisation du service. Merci et à très bientôt.</textarea><div class="actions"><button class="btn go" id="listen" type="button">🎙️ Écouter</button><button class="btn" id="prep" type="button">⚡ Préparer</button><button class="btn gold" id="copy" type="button">📋 Copier</button><button class="btn dark" id="clear" type="button">🧹 Effacer</button></div><p class="mini" id="status">Prêt. Rien n’est envoyé automatiquement.</p></section>
+<section class="card"><div class="k">🍽️ RESTO · modèles client</div><h1>Confirme propre.</h1><p class="lead">Prépare un message client : réservation prise en compte, meilleure table selon disponibilité, ou attente courte. Le restaurant relit et valide avant envoi.</p><textarea id="txt">Bonjour, votre demande de réservation est bien prise en compte. Nous vous réservons la meilleure table disponible selon l’arrivée et l’organisation du service. Merci et à très bientôt.</textarea><div class="actions"><button class="btn go" id="listen" type="button">🎙️ Écouter</button><button class="btn" id="prep" type="button">⚡ Préparer</button><button class="btn gold" id="copy" type="button">📋 Copier</button><a class="btn dark" href="./pense-bete.html">📝 Pense-bête</a></div><p class="mini" id="status">Prêt. Rien n’est envoyé automatiquement.</p></section>
 <section class="card"><div class="k">🧩 Exemples prêts à adapter</div><div class="templates">
 <button class="tpl" data-tpl="Bonjour, votre réservation est bien prise en compte pour [jour] à [heure] pour [nombre] personne(s). Merci pour votre confiance, nous vous attendons avec plaisir.">✅ Confirmation simple</button>
 <button class="tpl" data-tpl="Bonjour, votre réservation est bien prise en compte. Nous ferons le nécessaire pour vous réserver la meilleure table disponible selon l’arrivée et l’organisation du service. Merci et à très bientôt.">🌟 Meilleure table possible</button>
@@ -26,7 +26,7 @@
 </div></section>
 <section class="card"><h2>📋 Message préparé</h2><div class="msg" id="msg">Aucun message préparé.</div></section>
 </main>
-<nav class="bar"><a href="./hub.html">HUB</a><a class="on" href="./action.html">Action</a><a href="./oreille.html">Oreille</a><a href="./cockpit.html">Fiche</a><a href="./pin.html">PIN</a></nav>
+<nav class="bar"><a href="./hub.html">HUB</a><a class="on" href="./action.html">Action</a><a href="./pense-bete.html">Pense</a><a href="./calendrier.html">Résa</a><a href="./pin.html">PIN</a></nav>
 <div class="toast" id="toast"></div>
 <script>
 (function(){
@@ -35,7 +35,7 @@ function sessionOk(){var keys=['digiy_resto_session','digiy_resto_guard_session'
 if(!sessionOk()){location.replace('./pin.html');return}
 function prepare(){var raw=$('txt').value.trim();var msg=['RESTO — message client préparé',raw,'','À relire par le restaurant avant envoi.','Validation humaine obligatoire. Rien n’est envoyé automatiquement.'].join('\n');$('msg').textContent=msg;try{localStorage.setItem('DIGIY_RESTO_ACTION_LATEST',JSON.stringify({raw:raw,msg:msg,preparedAt:new Date().toISOString()}))}catch(e){}$('status').textContent='Message RESTO préparé.';toast('Message prêt')}
 document.addEventListener('click',function(e){var b=e.target.closest('[data-tpl]');if(!b)return;$('txt').value=b.getAttribute('data-tpl')||'';prepare()});
-$('prep').onclick=prepare;$('copy').onclick=function(){prepare();navigator.clipboard&&navigator.clipboard.writeText($('msg').textContent);toast('Copié')};$('clear').onclick=function(){$('txt').value='';$('msg').textContent='Aucun message préparé.'};$('listen').onclick=function(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){toast('Micro non disponible');return}var r=new SR();r.lang='fr-FR';r.onresult=function(e){$('txt').value=e.results[0][0].transcript;prepare()};r.start();toast('Micro ouvert')};
+$('prep').onclick=prepare;$('copy').onclick=function(){prepare();navigator.clipboard&&navigator.clipboard.writeText($('msg').textContent);toast('Copié')};$('listen').onclick=function(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){toast('Micro non disponible');return}var r=new SR();r.lang='fr-FR';r.onresult=function(e){$('txt').value=e.results[0][0].transcript;prepare()};r.start();toast('Micro ouvert')};
 })();
 </script>
 </body>
