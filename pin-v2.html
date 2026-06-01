@@ -3,143 +3,33 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#061b14" />
-  <title>DIGIY PRO RESTO — Accès PIN v2</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <meta name="robots" content="noindex" />
+  <title>DIGIY RESTO — Redirection PIN</title>
   <style>
-    :root{--bg:#061b14;--bg2:#0a2b1f;--line:rgba(255,255,255,.15);--text:#eafff1;--muted:rgba(234,255,241,.74);--gold:#facc15;--ok:#22c55e;--bad:#fb7185;--soft:rgba(255,255,255,.065)}
-    *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
-    body{margin:0;min-height:100vh;display:grid;place-items:center;padding:16px;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;background:radial-gradient(circle at top left,rgba(250,204,21,.18),transparent 42%),radial-gradient(circle at bottom right,rgba(34,197,94,.18),transparent 40%),linear-gradient(135deg,var(--bg),var(--bg2));color:var(--text)}
-    .card{width:min(560px,100%);border:1px solid var(--line);border-radius:26px;padding:18px;background:linear-gradient(145deg,rgba(11,42,31,.97),rgba(6,35,25,.97));box-shadow:0 18px 55px rgba(0,0,0,.46)}
-    .top{display:flex;align-items:center;gap:12px}.ico{width:52px;height:52px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(135deg,var(--gold),#f97316);color:#062015;font-size:25px;font-weight:1000;flex:0 0 auto}.eyebrow{font-size:12px;color:var(--gold);font-weight:1000;letter-spacing:.14em;text-transform:uppercase}.sub{margin-top:8px;color:var(--muted);font-weight:750;line-height:1.45}h1{margin:0;font-size:clamp(25px,6vw,34px);line-height:1.05;letter-spacing:-.03em}.box{margin-top:14px;border:1px solid rgba(34,197,94,.35);background:rgba(3,20,14,.44);border-radius:20px;padding:13px;line-height:1.5;font-weight:750}.box b{color:var(--gold)}label{display:block;margin:14px 0 8px;color:#d1fae5;font-weight:950}.pin-wrap{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:rgba(0,0,0,.22);border-radius:18px;padding:4px 6px 4px 12px}input{width:100%;min-width:0;padding:14px 4px;border:0;background:transparent;color:var(--text);font-size:22px;font-weight:1000;letter-spacing:.22em;outline:none}.mini{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:var(--text);border-radius:999px;padding:10px 11px;font-weight:1000;cursor:pointer}.primary{width:100%;margin-top:13px;border:0;border-radius:18px;min-height:54px;padding:16px 14px;background:linear-gradient(90deg,var(--ok),var(--gold));color:#062015;font-weight:1000;font-size:17px;cursor:pointer}.primary:disabled{opacity:.62;cursor:not-allowed}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.link,.small-btn{border:1px solid var(--line);background:var(--soft);color:var(--text);text-decoration:none;border-radius:16px;min-height:48px;padding:12px 10px;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:1000;font-size:14px;cursor:pointer}.msg{margin-top:12px;color:var(--muted);line-height:1.55;font-weight:750;min-height:22px}.ok{color:var(--ok);font-weight:1000}.bad{color:var(--bad);font-weight:1000}.hint{margin-top:10px;font-size:12px;color:rgba(234,255,241,.62);line-height:1.45;font-weight:750}.open-btn{display:none;margin-top:12px;border-color:rgba(250,204,21,.45);background:rgba(250,204,21,.12);color:#fef3c7}
-    @media(max-width:560px){body{padding:0}.card{min-height:100vh;border-radius:0;border-left:0;border-right:0;display:flex;align-items:center}.inside{width:100%}.row{grid-template-columns:1fr}h1{font-size:30px}.sub{font-size:16px}}
+    body{margin:0;min-height:100vh;display:grid;place-items:center;background:#020617;color:#f9fafb;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:18px;text-align:center}
+    .card{width:min(420px,100%);border:1px solid rgba(148,163,184,.25);border-radius:24px;padding:22px;background:rgba(255,255,255,.04)}
+    .ico{font-size:38px}.msg{margin-top:10px;color:#cbd5e1;font-weight:850;line-height:1.5}.btn{margin-top:14px;display:inline-flex;min-height:44px;align-items:center;justify-content:center;border-radius:999px;padding:10px 14px;border:1px solid rgba(250,204,21,.35);background:rgba(250,204,21,.12);color:#fde68a;text-decoration:none;font-weight:1000}
   </style>
 </head>
 <body>
-  <main class="card"><div class="inside">
-    <div class="top"><div class="ico">🍽️</div><div><div class="eyebrow">DIGIY PRO RESTO</div><h1>Entrer dans mon espace</h1><div class="sub" id="subtitle">Lecture du restaurant…</div></div></div>
-    <div class="box">Ici, on protège le restaurant. Le pro garde <b>son nom</b>, <b>son client</b>, <b>son argent</b> et <b>sa relation</b>.</div>
-    <div class="row"><button class="small-btn" type="button" id="listenBtn">🎧 Écouter</button><button class="small-btn" type="button" id="stopBtn">⏹ Stop</button></div>
-    <label for="pin">Ton PIN RESTO</label>
-    <div class="pin-wrap"><input id="pin" type="password" inputmode="numeric" autocomplete="one-time-code" placeholder="••••" maxlength="8"/><button class="mini" type="button" id="togglePin">Voir</button></div>
-    <button id="go" class="primary" type="button">🚀 Entrer dans mon espace</button>
-    <button id="openSpace" class="link open-btn" type="button">Ouvrir mon espace RESTO</button>
-    <div class="msg" id="msg"></div>
-    <div class="row"><a class="link" id="payLink" href="https://commencer-a-payer.digiylyfe.com/?module=RESTO" target="_blank" rel="noopener">💳 Activer RESTO</a><a class="link" href="https://wa.me/221771342889" target="_blank" rel="noopener">🛟 Support WhatsApp</a></div>
-    <div class="hint" id="hint"></div>
-  </div></main>
-<script>
-(async function(){
-  "use strict";
-  const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
-  const MODULE_CANDIDATES = [
-    "pro_resto","RESTO","resto","PRO_RESTO","pro-resto",
-    "DIGIY_RESTO","digiy_resto","RESTAURANT","restaurant",
-    "TABLE","table","DIGIY_TABLE","digiy_table","pro_table",
-    "RESA_RESTO","resa_resto","PRO_RESA_RESTO","pro_resa_resto","pro-resa-resto",
-    "RESA","resa"
-  ];
-  const NEXT_URL = "./cockpit.html";
-  const SESSION_TTL_MS = 8 * 60 * 60 * 1000;
-  const $ = (id) => document.getElementById(id);
-  const setMsg = (html) => { $("msg").innerHTML = html || ""; };
-  const clean = (v) => String(v || "").trim().replace(/^[ '\"]+|[ '\"]+$/g,"").replace(/\s+/g,"-").replace(/[^a-zA-Z0-9._-]/g,"");
-  const names = ["slug","s","pro","id","fiche","resto","restaurant"];
-
-  function pick(params){ for(const n of names){ const v = clean(params.get(n)); if(v) return v; } return ""; }
-  function readSlug(){
-    try{
-      const u = new URL(location.href);
-      let s = pick(u.searchParams);
-      if(s) return s;
-      const h = String(location.hash || "").replace(/^#/,"");
-      if(h){ s = pick(new URLSearchParams(h.includes("?") ? h.split("?").pop() : h)); if(s) return s; }
-    }catch(_){}
-    try{
-      for(const k of ["DIGIY_RESTO_SLUG","DIGIY_CURRENT_SLUG","DIGIY_PRO_SLUG","DIGIY_SLUG","slug"]){
-        const v = clean(localStorage.getItem(k) || sessionStorage.getItem(k));
-        if(v && v !== "null" && v !== "undefined") return v;
-      }
-    }catch(_){}
-    return "";
-  }
-  const slug = readSlug();
-  if(slug){
-    try{localStorage.setItem("DIGIY_RESTO_SLUG", slug);localStorage.setItem("DIGIY_CURRENT_SLUG", slug);sessionStorage.setItem("DIGIY_RESTO_SLUG", slug);sessionStorage.setItem("DIGIY_CURRENT_SLUG", slug);}catch(_){}
-    try{history.replaceState(null,"",location.pathname);}catch(_){}
-  }
-
-  async function getAnonKey(){
-    if(window.DIGIY_SUPABASE_ANON) return window.DIGIY_SUPABASE_ANON;
-    const res = await fetch("./pin.html?v=read-key-20260601", {cache:"no-store"});
-    const html = await res.text();
-    const match = html.match(/SUPABASE_ANON_KEY\s*=\s*[\r\n\s]*["']([^"']+)["']/) || html.match(/DIGIY_SUPABASE_ANON\s*=\s*["']([^"']+)["']/);
-    return match ? match[1] : "";
-  }
-
-  function saveSession(payload, acceptedModule){
-    const now = Date.now();
-    const session = {slug:clean(payload.slug)||slug,phone:payload.phone||null,owner_id:payload.owner_id||payload.owner||null,module:"RESTO",pin_module:acceptedModule,ts:now,verified_at:now,expires_at:now+SESSION_TTL_MS};
-    localStorage.setItem("DIGIY_ACCESS", JSON.stringify(session));
-    localStorage.setItem("DIGIY_RESTO_ACCESS", JSON.stringify(session));
-    try{sessionStorage.setItem("DIGIY_ACCESS", JSON.stringify(session));sessionStorage.setItem("DIGIY_RESTO_ACCESS", JSON.stringify(session));}catch(_){}
-  }
-
-  function goCockpit(){ const next = new URL(NEXT_URL, location.href); next.search=""; next.hash=""; location.assign(next.toString()); }
-  function norm(data){ return Array.isArray(data) ? (data[0] || {}) : (data || {}); }
-
-  async function enter(){
-    const pin = $("pin").value.trim();
-    if(!slug){ setMsg("<span class='bad'>❌ Accès incomplet.</span><br>Reviens depuis le QR ou le GO PIN avec le slug."); return; }
-    if(pin.length < 3){ setMsg("<span class='bad'>❌ PIN trop court.</span> Entre ton PIN RESTO."); return; }
-    $("go").disabled = true;
-    setMsg("⏳ Vérification RESTO dans Supabase…");
-    try{
-      const key = await getAnonKey();
-      if(!key) throw new Error("Clé publique Supabase introuvable dans pin.html.");
-      const sb = window.supabase.createClient(SUPABASE_URL, key, {auth:{persistSession:false}});
-      let lastError = null;
-      for(const moduleName of MODULE_CANDIDATES){
-        const {data,error} = await sb.rpc("digiy_verify_access", {p_slug:slug,p_pin:pin,p_module:moduleName});
-        if(error){ lastError = error; break; }
-        const r = norm(data);
-        if(r?.ok === true || r?.ok === 1 || r?.status === "ok"){
-          saveSession(r, moduleName);
-          setMsg("<span class='ok'>✅ PIN OK.</span> Module reconnu : <b>" + moduleName + "</b>. Ouverture…");
-          setTimeout(goCockpit, 420);
-          return;
-        }
-      }
-      $("go").disabled = false;
-      if(lastError){
-        setMsg("<span class='bad'>❌ Erreur serveur.</span><br>" + String(lastError.message || "Réessaie dans un instant."));
-      }else{
-        setMsg("<span class='bad'>❌ PIN non validé.</span><br>Le slug est lu, mais aucune ligne Supabase ne valide ce PIN avec les noms RESTO/TABLE/RESA testés.");
-        $("hint").textContent = "Diagnostic : il faut vérifier dans Supabase la ligne du pro, le slug exact et le module enregistré pour ce PIN.";
-      }
-    }catch(err){
-      $("go").disabled = false;
-      setMsg("<span class='bad'>❌ Vérification impossible.</span><br>" + (err?.message || "Connexion instable."));
-    }
-  }
-
-  if(!slug){
-    $("go").disabled = true;
-    $("subtitle").textContent = "Accès incomplet · slug requis";
-    setMsg("<span class='bad'>❌ Slug manquant.</span><br>Ouvre la page depuis le QR ou go-pin-resto.html?slug=...");
-  }else{
-    $("subtitle").textContent = "Slug reçu · PIN requis · session 8h";
-    setMsg("<span class='ok'>✅ Slug reçu.</span> Entre ton PIN RESTO.");
-    setTimeout(() => $("pin").focus(), 140);
-  }
-
-  $("go").addEventListener("click", enter);
-  $("openSpace").addEventListener("click", goCockpit);
-  $("pin").addEventListener("keydown", e => { if(e.key === "Enter") enter(); });
-  $("togglePin").addEventListener("click", () => { const input=$("pin"); const visible=input.type==="text"; input.type=visible?"password":"text"; $("togglePin").textContent=visible?"Voir":"Masquer"; input.focus(); });
-  $("listenBtn").addEventListener("click", () => { try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance("Accès Pro Resto. Entre ton code PIN. DIGIY vérifie la fiche restaurant, puis ouvre le cockpit."); u.lang="fr-FR"; u.rate=.96; speechSynthesis.speak(u);}catch(_){} });
-  $("stopBtn").addEventListener("click", () => { try{speechSynthesis.cancel();}catch(_){} });
-})();
-</script>
+  <main class="card">
+    <div class="ico">🍽️</div>
+    <div class="msg">Ancienne porte PIN détectée.<br>Ouverture du nouveau modèle téléphone + code…</div>
+    <a class="btn" id="go" href="./pin.html?v=20260601-phone-pin">Ouvrir maintenant</a>
+  </main>
+  <script>
+    (function(){
+      "use strict";
+      const old = new URL(location.href);
+      const next = new URL("./pin.html", location.href);
+      ["phone","tel","numero","slug","s"].forEach(k => {
+        const v = old.searchParams.get(k);
+        if(v) next.searchParams.set(k, v);
+      });
+      next.searchParams.set("v", "20260601-phone-pin");
+      document.getElementById("go").href = next.toString();
+      setTimeout(() => location.replace(next.toString()), 220);
+    })();
+  </script>
 </body>
 </html>
