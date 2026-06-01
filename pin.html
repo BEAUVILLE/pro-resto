@@ -8,315 +8,34 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root{
-      --bg:#061b14;
-      --bg2:#0a2b1f;
-      --card:#0b2a1f;
-      --soft:rgba(255,255,255,.065);
-      --line:rgba(255,255,255,.15);
-      --text:#eafff1;
-      --muted:rgba(234,255,241,.74);
-      --gold:#facc15;
-      --gold2:#f97316;
-      --ok:#22c55e;
-      --bad:#fb7185;
+      --bg:#061b14;--bg2:#0a2b1f;--card:#0b2a1f;--soft:rgba(255,255,255,.065);
+      --line:rgba(255,255,255,.15);--text:#eafff1;--muted:rgba(234,255,241,.74);
+      --gold:#facc15;--gold2:#f97316;--ok:#22c55e;--bad:#fb7185;
       --shadow:0 18px 55px rgba(0,0,0,.46);
     }
-
     *{box-sizing:border-box}
     html{-webkit-text-size-adjust:100%}
-
     body{
-      margin:0;
-      min-height:100vh;
-      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
-      background:
-        radial-gradient(circle at top left,rgba(250,204,21,.18),transparent 42%),
+      margin:0;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+      background:radial-gradient(circle at top left,rgba(250,204,21,.18),transparent 42%),
         radial-gradient(circle at bottom right,rgba(34,197,94,.18),transparent 40%),
         linear-gradient(135deg,var(--bg),var(--bg2));
-      color:var(--text);
-      padding:16px;
-      display:grid;
-      place-items:center;
+      color:var(--text);padding:16px;display:grid;place-items:center;
     }
-
-    .card{
-      width:min(560px,100%);
-      background:linear-gradient(145deg,rgba(11,42,31,.97),rgba(6,35,25,.97));
-      border:1px solid var(--line);
-      border-radius:26px;
-      box-shadow:var(--shadow);
-      padding:18px;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:-45%;
-      background:
-        radial-gradient(circle at 20% 0%,rgba(250,204,21,.16),transparent 42%),
-        radial-gradient(circle at 85% 95%,rgba(34,197,94,.14),transparent 42%);
-      pointer-events:none;
-    }
-
-    .inside{position:relative;z-index:2}
-
-    .top{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:12px;
-      margin-bottom:14px;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
-    }
-
-    .ico{
-      width:52px;
-      height:52px;
-      border-radius:18px;
-      display:grid;
-      place-items:center;
-      background:radial-gradient(circle at 30% 0%,var(--gold),var(--gold2));
-      color:#062015;
-      font-size:25px;
-      font-weight:1000;
-      border:1px solid rgba(250,204,21,.45);
-      box-shadow:0 12px 28px rgba(250,204,21,.28);
-      flex:0 0 auto;
-    }
-
-    .eyebrow{
-      font-size:12px;
-      color:var(--gold);
-      font-weight:1000;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      margin-bottom:4px;
-    }
-
-    h1{
-      margin:0;
-      font-size:clamp(24px,6vw,34px);
-      line-height:1.05;
-      font-weight:1000;
-      letter-spacing:-.03em;
-    }
-
-    .sub{
-      font-size:15px;
-      color:var(--muted);
-      margin-top:8px;
-      line-height:1.45;
-      font-weight:700;
-    }
-
-    .pill{
-      border:1px solid rgba(250,204,21,.35);
-      background:rgba(250,204,21,.11);
-      color:#fff7cc;
-      padding:8px 10px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:1000;
-      white-space:nowrap;
-    }
-
-    .doctrine{
-      margin:14px 0;
-      border:1px solid rgba(34,197,94,.35);
-      background:rgba(3,20,14,.44);
-      border-radius:20px;
-      padding:13px;
-      display:grid;
-      gap:8px;
-    }
-
-    .doctrine strong{color:var(--gold)}
-
-    .doctrine-title{
-      font-size:15px;
-      font-weight:1000;
-      color:#bbf7d0;
-    }
-
-    .doctrine-text{
-      font-size:14px;
-      color:#eafff1;
-      line-height:1.5;
-      font-weight:650;
-    }
-
-    .sep{
-      height:1px;
-      background:var(--line);
-      margin:14px 0;
-    }
-
-    label{
-      display:block;
-      font-size:14px;
-      color:#d1fae5;
-      margin:8px 0 8px;
-      font-weight:900;
-    }
-
-    .pin-wrap{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      background:rgba(0,0,0,.22);
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:4px 6px 4px 12px;
-    }
-
-    input{
-      width:100%;
-      min-width:0;
-      padding:14px 4px;
-      border:0;
-      background:transparent;
-      color:var(--text);
-      font-size:22px;
-      font-weight:1000;
-      letter-spacing:.22em;
-      outline:none;
-    }
-
-    .toggle{
-      width:auto;
-      margin:0;
-      padding:10px 11px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.07);
-      color:var(--text);
-      font-size:13px;
-      font-weight:1000;
-      cursor:pointer;
-      flex:0 0 auto;
-    }
-
-    .primary{
-      width:100%;
-      margin-top:13px;
-      padding:16px 14px;
-      border-radius:18px;
-      border:none;
-      background:linear-gradient(90deg,var(--ok),var(--gold));
-      color:#062015;
-      font-weight:1000;
-      font-size:17px;
-      cursor:pointer;
-      min-height:54px;
-      box-shadow:0 12px 26px rgba(34,197,94,.22);
-    }
-
-    .primary:disabled{opacity:.62;cursor:not-allowed}
-
-    .msg{
-      margin-top:12px;
-      font-size:14px;
-      color:var(--muted);
-      line-height:1.55;
-      font-weight:700;
-      min-height:22px;
-    }
-
-    .ok{color:var(--ok);font-weight:1000}
-    .bad{color:var(--bad);font-weight:1000}
-    .warn{color:var(--gold);font-weight:1000}
-
-    .row{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-top:12px;
-    }
-
-    .link,.small-btn{
-      text-align:center;
-      border:1px solid var(--line);
-      background:var(--soft);
-      padding:12px 10px;
-      border-radius:16px;
-      font-weight:1000;
-      color:var(--text);
-      text-decoration:none;
-      min-height:48px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-      font-size:14px;
-    }
-
-    .small-btn{
-      width:100%;
-      margin:0;
-      font-family:inherit;
-    }
-
-    .open-btn{
-      display:none;
-      margin-top:12px;
-      border-color:rgba(250,204,21,.45);
-      background:rgba(250,204,21,.12);
-      color:#fef3c7;
-    }
-
-    .trust{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:8px;
-    }
-
-    .trust-item{
-      border:1px solid rgba(255,255,255,.11);
-      background:rgba(255,255,255,.045);
-      border-radius:16px;
-      padding:10px;
-      font-size:12px;
-      line-height:1.35;
-      color:var(--muted);
-      font-weight:800;
-    }
-
-    .trust-item b{
-      display:block;
-      color:#eafff1;
-      font-size:13px;
-      margin-bottom:3px;
-    }
-
-    @media(max-width:560px){
-      body{padding:0}
-      .card{
-        min-height:100vh;
-        border-radius:0;
-        border-left:0;
-        border-right:0;
-        display:flex;
-        align-items:center;
-      }
-      .inside{width:100%}
-      .top{align-items:flex-start}
-      .pill{display:none}
-      .row,.trust{grid-template-columns:1fr}
-      h1{font-size:30px}
-      .sub{font-size:16px}
-    }
+    .card{width:min(560px,100%);background:linear-gradient(145deg,rgba(11,42,31,.97),rgba(6,35,25,.97));border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:18px;position:relative;overflow:hidden}
+    .card::before{content:"";position:absolute;inset:-45%;background:radial-gradient(circle at 20% 0%,rgba(250,204,21,.16),transparent 42%),radial-gradient(circle at 85% 95%,rgba(34,197,94,.14),transparent 42%);pointer-events:none}
+    .inside{position:relative;z-index:2}.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}.brand{display:flex;align-items:center;gap:12px;min-width:0}
+    .ico{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;background:radial-gradient(circle at 30% 0%,var(--gold),var(--gold2));color:#062015;font-size:28px;font-weight:1000;box-shadow:0 14px 32px rgba(250,204,21,.28);flex:0 0 auto}
+    .eyebrow{font-size:12px;font-weight:1000;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}.pill{border:1px solid rgba(250,204,21,.35);background:rgba(250,204,21,.10);padding:8px 11px;border-radius:999px;font-size:12px;font-weight:1000;color:#fde68a;white-space:nowrap}
+    h1{margin:4px 0 0;font-size:34px;line-height:1.02;letter-spacing:-.04em}.sub{margin-top:7px;color:var(--muted);font-size:17px;font-weight:760;line-height:1.35}.sep{height:1px;background:var(--line);margin:16px 0}
+    .doctrine{border:1px solid rgba(34,197,94,.28);background:rgba(34,197,94,.08);border-radius:20px;padding:13px 14px;margin:12px 0 14px}.doctrine-title{font-size:17px;font-weight:1000;color:#bbf7d0}.doctrine-text{margin-top:5px;color:#dcfce7;font-weight:650;line-height:1.5}.doctrine-text strong{color:var(--gold)}
+    label{display:block;font-size:14px;font-weight:1000;color:#bbf7d0;margin:10px 0 7px}.pin-wrap{display:flex;gap:8px}.pin-wrap input{flex:1}.toggle{width:auto;min-width:82px;background:rgba(255,255,255,.07);color:var(--text);border:1px solid var(--line);box-shadow:none}
+    input{width:100%;padding:16px;border-radius:16px;border:1px solid var(--line);background:rgba(0,0,0,.24);color:var(--text);font-size:24px;font-weight:1000;letter-spacing:.18em;outline:none}input:focus{border-color:rgba(250,204,21,.65);box-shadow:0 0 0 4px rgba(250,204,21,.10)}
+    button,.link{min-height:50px;border-radius:16px;border:none;padding:13px 14px;font-weight:1000;font-size:15px;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:7px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none}.primary{width:100%;margin-top:12px;background:linear-gradient(90deg,var(--ok),var(--gold));color:#062015;box-shadow:0 12px 28px rgba(34,197,94,.20)}button:disabled{opacity:.58;cursor:not-allowed}.small-btn{background:rgba(255,255,255,.07);color:var(--text);border:1px solid var(--line)}
+    .msg{margin-top:12px;font-size:15px;color:var(--muted);line-height:1.5;font-weight:720}.ok{color:var(--ok);font-weight:1000}.bad{color:var(--bad);font-weight:1000}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.link{border:1px solid var(--line);background:rgba(255,255,255,.07);color:var(--text);text-align:center}.open-btn{display:none;width:100%;margin-top:10px;border-color:rgba(34,197,94,.55);background:rgba(34,197,94,.14);color:#bbf7d0}.trust{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.trust-item{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.05);border-radius:16px;padding:10px;font-size:13px;color:var(--muted);line-height:1.35}.trust-item b{display:block;color:var(--gold);font-size:13px;margin-bottom:3px}.version{margin-top:12px;text-align:center;color:rgba(234,255,241,.45);font-size:11px;font-weight:800}
+    @media(max-width:560px){body{padding:0}.card{min-height:100vh;border-radius:0;border-left:0;border-right:0;display:flex;align-items:center}.inside{width:100%}.top{align-items:flex-start}.pill{display:none}.row,.trust{grid-template-columns:1fr}h1{font-size:30px}.sub{font-size:16px}}
   </style>
 </head>
-
 <body>
   <main class="card" aria-labelledby="pageTitle">
     <div class="inside">
@@ -364,9 +83,10 @@
       </div>
 
       <div class="trust" aria-label="Repères de sécurité">
-        <div class="trust-item"><b>URL propre</b>Aucun identifiant sensible affiché après lecture.</div>
+        <div class="trust-item"><b>URL propre</b>Le slug est lu puis retiré de l’adresse visible.</div>
         <div class="trust-item"><b>Session 8h</b>Tu entres une fois, puis tu travailles sans te perdre.</div>
       </div>
+      <div class="version">pin-v20260601-slug-preserve</div>
     </div>
   </main>
 
@@ -375,50 +95,31 @@
   "use strict";
 
   const PIN_MODULE = "pro_resto";
+  const MODULE_CANDIDATES = ["pro_resto", "RESTO", "resto", "PRO_RESTO", "pro-resto"];
   const PAY_MODULE = "RESTO";
   const NEXT_URL   = "./cockpit-resto.html";
   const SESSION_TTL_MS = 8 * 60 * 60 * 1000;
 
   const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
   const SUPABASE_ANON_KEY =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsBK6AbMeOid2LrIjcTdA";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3ZXNxbXdqanRzZWZ5am5sdW9zaiIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsFSBK6AbMeOid2LrIjcTdA";
 
   const $ = (id) => document.getElementById(id);
   const setMsg = (html) => { $("msg").innerHTML = html || ""; };
 
-  const SESSION_KEYS = [
-    "DIGIY_RESTO_ACCESS",
-    "DIGIY_ACCESS",
-    "DIGIY_PRO_RESTO_ACCESS",
-    "DIGIY_MODULE_ACCESS"
-  ];
+  const SESSION_KEYS = ["DIGIY_RESTO_ACCESS", "DIGIY_ACCESS", "DIGIY_PRO_RESTO_ACCESS", "DIGIY_MODULE_ACCESS"];
+  const SLUG_KEYS = ["DIGIY_RESTO_SLUG", "DIGIY_CURRENT_SLUG", "DIGIY_PRO_SLUG", "DIGIY_SLUG", "digiy_slug", "slug"];
+  const SLUG_PARAM_NAMES = ["slug", "s", "pro", "id", "fiche", "resto", "restaurant"];
 
-  const SLUG_KEYS = [
-    "DIGIY_RESTO_SLUG",
-    "DIGIY_CURRENT_SLUG",
-    "DIGIY_PRO_SLUG",
-    "DIGIY_SLUG",
-    "digiy_slug",
-    "slug"
-  ];
-
-  function readRaw(storage, key){
-    try{ return storage.getItem(key); }
-    catch(_){ return null; }
-  }
-
-  function readJsonFrom(storage, key){
-    try{ return JSON.parse(readRaw(storage, key) || "null"); }
-    catch(_){ return null; }
-  }
+  function readRaw(storage, key){ try{ return storage.getItem(key); }catch(_){ return null; } }
+  function readJsonFrom(storage, key){ try{ return JSON.parse(readRaw(storage, key) || "null"); }catch(_){ return null; } }
 
   function normalizeSlug(value){
     return String(value || "")
       .trim()
       .replace(/^['"]+|['"]+$/g, "")
       .replace(/\s+/g, "-")
-      .replace(/[^a-zA-Z0-9._-]/g, "")
-      .toLowerCase();
+      .replace(/[^a-zA-Z0-9._-]/g, "");
   }
 
   function pickParam(params, names){
@@ -429,23 +130,40 @@
     return "";
   }
 
+  function getSlugFromRawHref(){
+    const raw = String(window.location.href || document.URL || "");
+    for(const name of SLUG_PARAM_NAMES){
+      const re = new RegExp("[?&#]" + name + "=([^&#]+)", "i");
+      const match = raw.match(re);
+      if(match){
+        try{ return normalizeSlug(decodeURIComponent(match[1].replace(/\+/g, " "))); }
+        catch(_){ return normalizeSlug(match[1]); }
+      }
+    }
+    return "";
+  }
+
   function getSlugFromUrl(){
-    const names = ["slug", "s", "pro", "id", "fiche", "resto", "restaurant"];
-    const current = new URL(location.href);
-    let found = pickParam(current.searchParams, names);
-    if(found) return found;
+    const rawFound = getSlugFromRawHref();
+    if(rawFound) return rawFound;
+
+    try{
+      const current = new URL(location.href);
+      const found = pickParam(current.searchParams, SLUG_PARAM_NAMES);
+      if(found) return found;
+    }catch(_){ }
 
     const hash = String(location.hash || "").replace(/^#/, "");
     if(hash){
       const hashQuery = hash.includes("?") ? hash.split("?").pop() : hash;
       try{
-        found = pickParam(new URLSearchParams(hashQuery), names);
+        const found = pickParam(new URLSearchParams(hashQuery), SLUG_PARAM_NAMES);
         if(found) return found;
-      }catch(_){}
+      }catch(_){ }
     }
 
     const lastPath = normalizeSlug(location.pathname.split("/").filter(Boolean).pop() || "");
-    if(lastPath && !/^(pin|pin\.html|index|index\.html|go-pin|go-pin\.html)$/i.test(lastPath)){
+    if(lastPath && !/^(pin|pin\.html|pin-resto|pin-resto\.html|index|index\.html|go-pin|go-pin\.html|go-pin-resto|go-pin-resto\.html)$/i.test(lastPath)){
       return lastPath;
     }
     return "";
@@ -488,7 +206,7 @@
       localStorage.setItem("DIGIY_CURRENT_SLUG", clean);
       sessionStorage.setItem("DIGIY_RESTO_SLUG", clean);
       sessionStorage.setItem("DIGIY_CURRENT_SLUG", clean);
-    }catch(_){}
+    }catch(_){ }
     return clean;
   }
 
@@ -498,18 +216,13 @@
   }
 
   function cleanVisibleUrl(){
-    try{
-      history.replaceState(null, "", location.pathname);
-    }catch(_){}
+    try{ history.replaceState(null, "", location.pathname); }catch(_){ }
   }
 
   const slugFromUrl = getSlugFromUrl();
   const storedSession = getStoredSession();
   const slug = rememberSlug(slugFromUrl || getStoredSlug());
-
-  if(slugFromUrl){
-    cleanVisibleUrl();
-  }
+  if(slugFromUrl) cleanVisibleUrl();
 
   function goCockpit(){
     const next = new URL(NEXT_URL, location.href);
@@ -518,9 +231,7 @@
     location.assign(next.toString());
   }
 
-  function normalizeResult(data){
-    return Array.isArray(data) ? (data[0] || {}) : (data || {});
-  }
+  function normalizeResult(data){ return Array.isArray(data) ? (data[0] || {}) : (data || {}); }
 
   function saveAccessSession(payload){
     const now = Date.now();
@@ -534,15 +245,12 @@
       verified_at: now,
       expires_at: now + SESSION_TTL_MS
     };
-
     localStorage.setItem("DIGIY_ACCESS", JSON.stringify(session));
     localStorage.setItem("DIGIY_RESTO_ACCESS", JSON.stringify(session));
-
     try{
       sessionStorage.setItem("DIGIY_ACCESS", JSON.stringify(session));
       sessionStorage.setItem("DIGIY_RESTO_ACCESS", JSON.stringify(session));
-    }catch(_){}
-
+    }catch(_){ }
     return session;
   }
 
@@ -571,52 +279,47 @@
     return;
   }
 
-  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-    auth:{ persistSession:false }
-  });
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { auth:{ persistSession:false } });
 
   async function enter(){
     const pin = $("pin").value.trim();
-
-    if(!slug){
-      setMsg("<span class='bad'>❌ Accès incomplet.</span> Reviens depuis ton QR ou ton GO PIN.");
-      return;
-    }
-
-    if(pin.length < 3){
-      setMsg("<span class='bad'>❌ PIN trop court.</span> Entre ton PIN RESTO.");
-      return;
-    }
+    if(!slug){ setMsg("<span class='bad'>❌ Accès incomplet.</span> Reviens depuis ton QR ou ton GO PIN."); return; }
+    if(pin.length < 3){ setMsg("<span class='bad'>❌ PIN trop court.</span> Entre ton PIN RESTO."); return; }
 
     $("go").disabled = true;
     setMsg("⏳ Vérification de ton accès RESTO…");
 
     try{
-      const { data, error } = await sb.rpc("digiy_verify_access", {
-        p_slug: slug,
-        p_pin: pin,
-        p_module: PIN_MODULE
-      });
+      let result = null;
+      let lastError = null;
+      let acceptedModule = PIN_MODULE;
 
-      if(error){
+      for(const moduleName of MODULE_CANDIDATES){
+        const { data, error } = await sb.rpc("digiy_verify_access", { p_slug: slug, p_pin: pin, p_module: moduleName });
+        if(error){ lastError = error; break; }
+        const candidate = normalizeResult(data);
+        const ok = candidate?.ok === true || candidate?.ok === 1 || candidate?.status === "ok";
+        if(ok){ result = candidate; acceptedModule = moduleName; break; }
+      }
+
+      if(lastError){
         $("go").disabled = false;
-        setMsg("<span class='bad'>❌ Erreur serveur.</span><br>" + (error.message || "Réessaie dans un instant."));
+        const rawMsg = String(lastError.message || "Réessaie dans un instant.");
+        const cleanMsg = /api key/i.test(rawMsg) ? "Clé Supabase refusée. Le fichier doit garder la clé officielle du projet." : rawMsg;
+        setMsg("<span class='bad'>❌ Erreur serveur.</span><br>" + cleanMsg);
         return;
       }
 
-      const result = normalizeResult(data);
-      const ok = result?.ok === true || result?.ok === 1 || result?.status === "ok";
-
-      if(!ok){
+      if(!result){
         $("go").disabled = false;
-        setMsg("<span class='bad'>❌ PIN incorrect.</span><br>Vérifie le code puis recommence tranquillement.");
+        setMsg("<span class='bad'>❌ PIN non validé.</span><br>Le restaurant est reconnu, mais le couple fiche + PIN ne correspond pas encore. Vérifie le code ou l’activation RESTO.");
         return;
       }
 
+      result.accepted_module = acceptedModule;
       saveAccessSession(result);
       setMsg("<span class='ok'>✅ PIN OK.</span> Ouverture de ton espace RESTO, URL propre.");
       setTimeout(goCockpit, 420);
-
     }catch(err){
       $("go").disabled = false;
       setMsg("<span class='bad'>❌ Vérification impossible.</span><br>" + (err?.message || "Connexion instable."));
@@ -628,24 +331,22 @@
       "Accès Pro Resto.",
       "Entre ton code PIN.",
       "La session reste ouverte huit heures.",
-      "L'adresse reste propre : aucun identifiant sensible n'est affiché après la lecture.",
-      "Le restaurant garde son nom, son client, son argent et sa relation.",
-      "diji i ouvre la porte, le pro valide."
+      "L’adresse reste propre : le restaurant est reconnu, puis le lien est nettoyé.",
+      "Le restaurant garde son nom, son client, son argent et sa relation. DIGIY ouvre la porte, le pro valide."
     ].join(" ");
-
     try{
       window.speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
-      u.lang = "fr-FR";
-      u.rate = 0.96;
+      u.lang = "fr-FR"; u.rate = .94; u.pitch = 1;
       window.speechSynthesis.speak(u);
-    }catch(_){}
+    }catch(_){ }
   }
 
   $("go").addEventListener("click", enter);
-  $("openSpace").addEventListener("click", goCockpit);
   $("pin").addEventListener("keydown", (e) => { if(e.key === "Enter") enter(); });
-
+  $("openSpace").addEventListener("click", goCockpit);
+  $("listenBtn").addEventListener("click", speakHelp);
+  $("stopBtn").addEventListener("click", () => { try{ window.speechSynthesis.cancel(); }catch(_){} });
   $("togglePin").addEventListener("click", () => {
     const input = $("pin");
     const visible = input.type === "text";
@@ -653,16 +354,7 @@
     $("togglePin").textContent = visible ? "Voir" : "Masquer";
     input.focus();
   });
-
-  $("listenBtn").addEventListener("click", speakHelp);
-  $("stopBtn").addEventListener("click", () => {
-    try{ window.speechSynthesis.cancel(); }catch(_){}
-  });
 })();
 </script>
 </body>
 </html>
-
-
-
-
