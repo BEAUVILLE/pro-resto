@@ -386,37 +386,126 @@
   const $ = (id) => document.getElementById(id);
   const setMsg = (html) => { $("msg").innerHTML = html || ""; };
 
-  const SESSION_KEYS = ["DIGIY_RESTO_ACCESS", "DIGIY_ACCESS"];
+  const SESSION_KEYS = [
+    "DIGIY_RESTO_ACCESS",
+    "DIGIY_ACCESS",
+    "DIGIY_PRO_RESTO_ACCESS",
+    "DIGIY_MODULE_ACCESS"
+  ];
 
-  function readJson(key){
-    try{ return JSON.parse(localStorage.getItem(key) || "null"); }
+  const SLUG_KEYS = [
+    "DIGIY_RESTO_SLUG",
+    "DIGIY_CURRENT_SLUG",
+    "DIGIY_PRO_SLUG",
+    "DIGIY_SLUG",
+    "digiy_slug",
+    "slug"
+  ];
+
+  function readRaw(storage, key){
+    try{ return storage.getItem(key); }
     catch(_){ return null; }
   }
 
+  function readJsonFrom(storage, key){
+    try{ return JSON.parse(readRaw(storage, key) || "null"); }
+    catch(_){ return null; }
+  }
+
+  function normalizeSlug(value){
+    return String(value || "")
+      .trim()
+      .replace(/^['"]+|['"]+$/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/[^a-zA-Z0-9._-]/g, "")
+      .toLowerCase();
+  }
+
+  function pickParam(params, names){
+    for(const name of names){
+      const found = normalizeSlug(params.get(name));
+      if(found) return found;
+    }
+    return "";
+  }
+
+  function getSlugFromUrl(){
+    const names = ["slug", "s", "pro", "id", "fiche", "resto", "restaurant"];
+    const current = new URL(location.href);
+    let found = pickParam(current.searchParams, names);
+    if(found) return found;
+
+    const hash = String(location.hash || "").replace(/^#/, "");
+    if(hash){
+      const hashQuery = hash.includes("?") ? hash.split("?").pop() : hash;
+      try{
+        found = pickParam(new URLSearchParams(hashQuery), names);
+        if(found) return found;
+      }catch(_){}
+    }
+
+    const lastPath = normalizeSlug(location.pathname.split("/").filter(Boolean).pop() || "");
+    if(lastPath && !/^(pin|pin\.html|index|index\.html|go-pin|go-pin\.html)$/i.test(lastPath)){
+      return lastPath;
+    }
+    return "";
+  }
+
   function getStoredSession(){
-    for(const key of SESSION_KEYS){
-      const value = readJson(key);
-      if(value && value.slug) return value;
+    for(const storage of [localStorage, sessionStorage]){
+      for(const key of SESSION_KEYS){
+        const value = readJsonFrom(storage, key);
+        if(value && normalizeSlug(value.slug)) return value;
+      }
     }
     return null;
   }
 
+  function getStoredSlug(){
+    const session = getStoredSession();
+    const fromSession = normalizeSlug(session?.slug);
+    if(fromSession) return fromSession;
+
+    for(const storage of [localStorage, sessionStorage]){
+      for(const key of SLUG_KEYS){
+        const raw = readRaw(storage, key);
+        const direct = normalizeSlug(raw);
+        if(direct && direct !== "null" && direct !== "undefined") return direct;
+
+        const parsed = readJsonFrom(storage, key);
+        const nested = normalizeSlug(parsed?.slug || parsed?.pro_slug || parsed?.restaurant_slug);
+        if(nested) return nested;
+      }
+    }
+    return "";
+  }
+
+  function rememberSlug(value){
+    const clean = normalizeSlug(value);
+    if(!clean) return "";
+    try{
+      localStorage.setItem("DIGIY_RESTO_SLUG", clean);
+      localStorage.setItem("DIGIY_CURRENT_SLUG", clean);
+      sessionStorage.setItem("DIGIY_RESTO_SLUG", clean);
+      sessionStorage.setItem("DIGIY_CURRENT_SLUG", clean);
+    }catch(_){}
+    return clean;
+  }
+
   function isFreshSession(session){
     const ts = Number(session?.ts || session?.verified_at || 0);
-    return Boolean(session?.slug && ts && (Date.now() - ts) < SESSION_TTL_MS);
+    return Boolean(normalizeSlug(session?.slug) && ts && (Date.now() - ts) < SESSION_TTL_MS);
   }
 
   function cleanVisibleUrl(){
     try{
-      const clean = location.pathname + location.hash;
-      history.replaceState(null, "", clean);
+      history.replaceState(null, "", location.pathname);
     }catch(_){}
   }
 
-  const incomingUrl = new URL(location.href);
-  const slugFromUrl = (incomingUrl.searchParams.get("slug") || "").trim();
+  const slugFromUrl = getSlugFromUrl();
   const storedSession = getStoredSession();
-  const slug = slugFromUrl || (isFreshSession(storedSession) ? storedSession.slug : "");
+  const slug = rememberSlug(slugFromUrl || getStoredSlug());
 
   if(slugFromUrl){
     cleanVisibleUrl();
@@ -436,7 +525,7 @@
   function saveAccessSession(payload){
     const now = Date.now();
     const session = {
-      slug: payload.slug || slug,
+      slug: normalizeSlug(payload.slug) || slug,
       phone: payload.phone || null,
       owner_id: payload.owner_id || payload.owner || null,
       module: PAY_MODULE,
@@ -469,8 +558,10 @@
   if(!slug){
     $("go").disabled = true;
     $("subtitle").textContent = "Accès incomplet · QR ou lien pro requis";
-    setMsg("<span class='bad'>❌ Accès incomplet.</span><br>Reviens depuis ton QR, ton GO PIN ou contacte le support. Aucun identifiant sensible n’est affiché ici.");
+    setMsg("<span class='bad'>❌ Accès incomplet.</span><br>Le restaurant n’a pas encore été reconnu. Reviens depuis ton QR / GO PIN avec le slug, ou contacte le support. Aucun identifiant sensible n’est affiché ici.");
   }else{
+    $("subtitle").textContent = "Restaurant reconnu · PIN requis · session 8h";
+    setMsg("<span class='ok'>✅ Restaurant reconnu.</span> Entre ton PIN RESTO pour ouvrir l’espace.");
     setTimeout(() => $("pin").focus(), 140);
   }
 
@@ -571,4 +662,5 @@
 </script>
 </body>
 </html>
+
 
