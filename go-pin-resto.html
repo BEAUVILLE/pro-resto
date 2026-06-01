@@ -4,9 +4,10 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
   <meta name="theme-color" content="#061b14"/>
+  <meta name="robots" content="noindex"/>
   <title>DIGIY — GO PIN RESTO</title>
   <style>
-    :root{--bg:#061b14;--card:#0b2a1f;--line:rgba(255,255,255,.14);--text:#eafff1;--muted:rgba(234,255,241,.72);--gold:#facc15;--ok:#22c55e;--bad:#fb7185}
+    :root{--bg:#061b14;--line:rgba(255,255,255,.14);--text:#eafff1;--muted:rgba(234,255,241,.72);--gold:#facc15;--ok:#22c55e;--bad:#fb7185}
     *{box-sizing:border-box}
     body{margin:0;min-height:100vh;display:grid;place-items:center;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;background:radial-gradient(circle at top left,rgba(250,204,21,.18),transparent 42%),linear-gradient(135deg,#04160f,#0a2b1f);color:var(--text);padding:18px}
     .card{width:min(520px,92vw);background:linear-gradient(145deg,rgba(11,42,31,.97),rgba(6,35,25,.97));border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 18px 55px rgba(0,0,0,.45);text-align:center}
@@ -18,8 +19,8 @@
   <main class="card">
     <div class="ico">🍽️</div>
     <h1>GO PIN RESTO</h1>
-    <div class="msg" id="m">Lecture de la fiche restaurant…</div>
-    <a class="link" id="support" href="https://wa.me/221771342889" target="_blank" rel="noopener noreferrer" style="display:none">🛟 Support WhatsApp</a>
+    <div class="msg" id="m">Lecture du restaurant…</div>
+    <a class="link" id="open" href="./pin.html?v=20260601-phone-pin" style="display:none">Ouvrir le PIN</a>
   </main>
 
 <script>
@@ -28,51 +29,50 @@
 
   const PIN_FILE = "./pin.html";
   const $ = (id) => document.getElementById(id);
-  const PARAM_NAMES = ["slug", "s", "pro", "id", "fiche", "resto", "restaurant"];
+  const PARAM_NAMES = ["phone", "tel", "numero", "slug", "s", "pro", "id", "fiche", "resto", "restaurant"];
 
-  function normalizeSlug(value){
+  function clean(value){
     return String(value || "")
       .trim()
-      .replace(/^['"]+|['"]+$/g, "")
+      .replace(/^[ '\"]+|[ '\"]+$/g, "")
       .replace(/\s+/g, "-")
       .replace(/[^a-zA-Z0-9._-]/g, "");
   }
 
-  function pickParam(params, names){
-    for(const name of names){
-      const found = normalizeSlug(params.get(name));
-      if(found) return found;
-    }
-    return "";
+  function digits(value){
+    return String(value || "").replace(/\D/g, "");
   }
 
-  function readSlug(){
+  function readValue(){
     const raw = String(window.location.href || document.URL || "");
     for(const name of PARAM_NAMES){
       const re = new RegExp("[?&#]" + name + "=([^&#]+)", "i");
       const match = raw.match(re);
       if(match){
-        try{ return normalizeSlug(decodeURIComponent(match[1].replace(/\+/g, " "))); }
-        catch(_){ return normalizeSlug(match[1]); }
+        try{ return {name, value:clean(decodeURIComponent(match[1].replace(/\+/g, " ")))}; }
+        catch(_){ return {name, value:clean(match[1])}; }
       }
     }
 
     try{
       const u = new URL(location.href);
-      let slug = pickParam(u.searchParams, PARAM_NAMES);
-      if(slug) return slug;
-
+      for(const name of PARAM_NAMES){
+        const v = clean(u.searchParams.get(name));
+        if(v) return {name, value:v};
+      }
       const hash = String(location.hash || "").replace(/^#/, "");
       if(hash){
-        const hashQuery = hash.includes("?") ? hash.split("?").pop() : hash;
-        slug = pickParam(new URLSearchParams(hashQuery), PARAM_NAMES);
-        if(slug) return slug;
+        const hp = new URLSearchParams(hash.includes("?") ? hash.split("?").pop() : hash);
+        for(const name of PARAM_NAMES){
+          const v = clean(hp.get(name));
+          if(v) return {name, value:v};
+        }
       }
     }catch(_){ }
-    return "";
+    return {name:"", value:""};
   }
 
-  function rememberSlug(slug){
+  function storeSlug(slug){
     if(!slug) return;
     try{
       localStorage.setItem("DIGIY_RESTO_SLUG", slug);
@@ -82,20 +82,33 @@
     }catch(_){ }
   }
 
-  const slug = readSlug();
-  if(!slug){
-    $("m").innerHTML = "<span class='bad'>❌ Slug manquant.</span><br>Reviens depuis le QR ou utilise un lien avec <b>?slug=resto-...</b>.";
-    $("support").style.display = "inline-flex";
+  const found = readValue();
+  const value = found.value;
+  const next = new URL(PIN_FILE, location.href);
+
+  if(value){
+    const phone = found.name === "phone" || found.name === "tel" || found.name === "numero"
+      ? digits(value)
+      : digits(value.replace(/^resto[-_]?/i, ""));
+
+    if(found.name !== "phone" && found.name !== "tel" && found.name !== "numero"){
+      storeSlug(value);
+      next.searchParams.set("slug", value);
+    }
+
+    if(phone) next.searchParams.set("phone", phone);
+    next.searchParams.set("v", "20260601-phone-pin");
+    $("m").innerHTML = "<span class='ok'>✅ Restaurant reconnu.</span><br>Ouverture du PIN téléphone…";
+    $("open").href = next.toString();
+    $("open").style.display = "inline-flex";
+    location.replace(next.toString());
     return;
   }
 
-  rememberSlug(slug);
-  $("m").innerHTML = "<span class='ok'>✅ Restaurant reconnu.</span><br>Ouverture de la porte PIN…";
-
-  const next = new URL(PIN_FILE, location.href);
-  next.searchParams.set("slug", slug);
-  next.searchParams.set("v", "20260601-slug");
-  location.replace(next.toString());
+  next.searchParams.set("v", "20260601-phone-pin");
+  $("m").innerHTML = "<span class='bad'>❌ Accès incomplet.</span><br>Ouvre depuis un lien contenant <b>?phone=...</b> ou <b>?slug=resto-...</b>.";
+  $("open").href = next.toString();
+  $("open").style.display = "inline-flex";
 })();
 </script>
 </body>
