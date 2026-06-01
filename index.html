@@ -19,26 +19,13 @@
   <main class="card">
     <div class="ico">🍽️</div>
     <h1>RESTO PRO</h1>
-    <div class="msg" id="msg"><span class="ok">Entrée DIGIY.</span><br>Ouverture du module…</div>
-    <a class="btn" id="open" href="./hub.html">Ouvrir</a>
+    <div class="msg"><span class="ok">Entrée DIGIY.</span><br>Ouverture du HUB restaurant…</div>
+    <a class="btn" id="open" href="./hub.html?v=20260601-hub-entry">Ouvrir le HUB</a>
   </main>
 
 <script>
 (function(){
   "use strict";
-
-  const SESSION_KEYS = ["digiy_resto_session", "digiy_resto_guard_session", "digiy_guard_resto_session"];
-
-  function readSession(){
-    for(const key of SESSION_KEYS){
-      try{
-        const raw = localStorage.getItem(key) || sessionStorage.getItem(key) || "";
-        const s = JSON.parse(raw || "null");
-        if(s && s.access_ok && (!s.expires_at || Date.now() < Number(s.expires_at))) return s;
-      }catch(_){ }
-    }
-    return null;
-  }
 
   function preserveSlug(){
     try{
@@ -55,11 +42,10 @@
 
   preserveSlug();
 
-  const target = readSession() ? "./hub.html" : "./pin.html";
-  const next = new URL(target, location.href);
-  next.searchParams.set("v", "20260601-index-hub");
+  const next = new URL("./hub.html", location.href);
+  next.searchParams.set("v", "20260601-hub-entry");
   document.getElementById("open").href = next.toString();
-  setTimeout(() => location.replace(next.toString()), 220);
+  setTimeout(() => location.replace(next.toString()), 180);
 })();
 </script>
 </body>
