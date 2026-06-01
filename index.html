@@ -2,33 +2,65 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-   <script>
-  window.DIGIY_SUPABASE_URL  = "https://wesqmwjjtsefyjnluosj.supabase.co";
-  window.DIGIY_SUPABASE_ANON_KEY = "sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3";
-  window.DIGIY_SUPABASE_ANON = window.DIGIY_SUPABASE_ANON_KEY;
-  window.DIGIY_MODULE = "RESTO";
-
-  // IMPORTANT : défini AVANT guard.js
-  window.DIGIY_LOGIN_URL = "./pin.html";
-
-  // Anti-flash contenu
-  document.documentElement.style.visibility = "hidden";
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="./guard.js"></script>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <meta name="robots" content="noindex,nofollow"/>
+  <meta name="theme-color" content="#1e7a46"/>
+  <title>RESTO PRO — Entrée DIGIY</title>
+  <style>
+    :root{--bg:#061b14;--line:rgba(255,255,255,.14);--text:#eafff1;--muted:rgba(234,255,241,.72);--gold:#facc15;--ok:#22c55e}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;display:grid;place-items:center;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;background:radial-gradient(circle at top left,rgba(250,204,21,.18),transparent 42%),linear-gradient(135deg,#04160f,#0a2b1f);color:var(--text);padding:18px;text-align:center}
+    .card{width:min(520px,94vw);background:linear-gradient(145deg,rgba(11,42,31,.97),rgba(6,35,25,.97));border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:0 18px 55px rgba(0,0,0,.45)}
+    .ico{width:56px;height:56px;border-radius:18px;margin:0 auto 12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--gold),#f97316);color:#062015;font-size:28px;font-weight:1000}
+    h1{margin:0;font-size:24px;line-height:1.1}.msg{margin-top:10px;color:var(--muted);font-weight:850;line-height:1.5}.ok{color:var(--ok);font-weight:1000}.btn{margin-top:14px;display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 16px;border-radius:999px;border:1px solid rgba(250,204,21,.45);background:rgba(250,204,21,.12);color:#fef3c7;text-decoration:none;font-weight:1000}
+  </style>
+</head>
 <body>
-<script>
-  // ✅ Si slug présent → porte PIN
-  const url = new URL(location.href);
-  const slug = url.searchParams.get("slug");
+  <main class="card">
+    <div class="ico">🍽️</div>
+    <h1>RESTO PRO</h1>
+    <div class="msg" id="msg"><span class="ok">Entrée DIGIY.</span><br>Ouverture du module…</div>
+    <a class="btn" id="open" href="./hub.html">Ouvrir</a>
+  </main>
 
-  if(slug){
-    location.href = "./pin.html?slug=" + encodeURIComponent(slug);
-  } else {
-    location.href = "./pin.html";
+<script>
+(function(){
+  "use strict";
+
+  const SESSION_KEYS = ["digiy_resto_session", "digiy_resto_guard_session", "digiy_guard_resto_session"];
+
+  function readSession(){
+    for(const key of SESSION_KEYS){
+      try{
+        const raw = localStorage.getItem(key) || sessionStorage.getItem(key) || "";
+        const s = JSON.parse(raw || "null");
+        if(s && s.access_ok && (!s.expires_at || Date.now() < Number(s.expires_at))) return s;
+      }catch(_){ }
+    }
+    return null;
   }
+
+  function preserveSlug(){
+    try{
+      const u = new URL(location.href);
+      const slug = u.searchParams.get("slug") || u.searchParams.get("s") || "";
+      if(slug){
+        localStorage.setItem("DIGIY_RESTO_SLUG", slug);
+        localStorage.setItem("DIGIY_CURRENT_SLUG", slug);
+        sessionStorage.setItem("DIGIY_RESTO_SLUG", slug);
+        sessionStorage.setItem("DIGIY_CURRENT_SLUG", slug);
+      }
+    }catch(_){ }
+  }
+
+  preserveSlug();
+
+  const target = readSession() ? "./hub.html" : "./pin.html";
+  const next = new URL(target, location.href);
+  next.searchParams.set("v", "20260601-index-hub");
+  document.getElementById("open").href = next.toString();
+  setTimeout(() => location.replace(next.toString()), 220);
+})();
 </script>
 </body>
 </html>
