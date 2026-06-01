@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <title>Oreille RESTO — DIGIY</title>
+  <meta name="theme-color" content="#1e7a46"/>
+  <meta name="robots" content="noindex,nofollow"/>
+  <style>
+    :root{--bg:#1e7a46;--bg2:#155a34;--bg3:#0e4226;--bar:rgba(8,50,24,.96);--gold:#facc15;--green:#22c55e;--text:#f0fff5;--muted:rgba(240,255,245,.80);--line:rgba(255,255,255,.18);--soft:rgba(255,255,255,.09);--shadow:0 18px 46px rgba(0,0,0,.24);--r:22px;--hdrH:56px;--barH:76px}
+    *{box-sizing:border-box}html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{margin:0;min-height:100dvh;color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;font-size:20px;font-weight:950;background:radial-gradient(700px 430px at 16% 0%,rgba(74,222,128,.20),transparent 58%),radial-gradient(460px 300px at 92% 8%,rgba(250,204,21,.18),transparent 52%),linear-gradient(180deg,var(--bg),var(--bg2) 60%,var(--bg3));padding:calc(var(--hdrH) + 14px) 12px calc(var(--barH) + env(safe-area-inset-bottom,0px) + 18px)}a{color:inherit;text-decoration:none}button,input,textarea{font:inherit}button{cursor:pointer;color:inherit}.top{position:fixed;top:0;left:0;right:0;height:var(--hdrH);z-index:20;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 14px;background:var(--bar);border-bottom:1px solid rgba(250,204,21,.26);backdrop-filter:blur(18px)}.top b{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}.wrap{width:min(940px,100%);margin:0 auto;display:grid;gap:14px}.card{border:1px solid rgba(255,255,255,.16);border-radius:var(--r);background:rgba(255,255,255,.10);box-shadow:var(--shadow);padding:18px}.hero{border-color:rgba(250,204,21,.42);background:radial-gradient(600px 240px at 100% 0%,rgba(255,240,168,.20),transparent 72%),linear-gradient(180deg,rgba(255,255,255,.14),rgba(5,33,16,.34))}.eyebrow{color:#fff0a8;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:1000;margin-bottom:10px}h1{margin:0 0 10px;font-size:clamp(52px,15vw,108px);font-weight:1000;line-height:.82;letter-spacing:-.075em;text-transform:uppercase}.big{display:block;color:#fff0a8;font-size:clamp(62px,18vw,132px)}.lead{color:var(--muted);font-size:clamp(20px,5vw,30px);font-weight:1000;line-height:1.16;letter-spacing:-.025em}.rule{margin-top:14px;padding:14px 16px;border-radius:20px;border:1px dashed rgba(255,255,255,.24);background:rgba(5,31,17,.36);color:rgba(240,255,245,.92);font-size:16px;font-weight:1000;line-height:1.35}.rule b{color:#fff0a8}.label{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:#fff0a8;font-weight:1000;margin-bottom:8px}textarea{width:100%;min-height:180px;border-radius:20px;border:1px solid rgba(250,204,21,.35);background:#062612;color:#fff;padding:14px;font:900 18px system-ui;line-height:1.35}.actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.btn{min-height:58px;border:1px solid rgba(255,255,255,.16);border-radius:18px;background:rgba(255,255,255,.10);display:flex;align-items:center;justify-content:center;text-align:center;padding:10px;font-weight:1000}.go{background:linear-gradient(135deg,#22c55e,#facc15);color:#06130e}.gold{background:#facc15;color:#111}.dark{background:#062612}.msg{white-space:pre-wrap;background:#062612;border:1px solid rgba(250,204,21,.25);border-radius:20px;padding:13px;font-weight:900;line-height:1.42;margin-top:10px}.bar{position:fixed;bottom:0;left:0;right:0;height:var(--barH);background:var(--bar);border-top:1px solid rgba(250,204,21,.24);display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:7px;z-index:20}.bar a{display:grid;place-items:center;text-align:center;border-radius:14px;background:rgba(255,255,255,.07);font-size:11px;color:rgba(240,255,245,.75);text-decoration:none}.bar .on{background:#facc15;color:#06130e}.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:#052e16;border:1px solid #d6a63a;border-radius:18px;padding:12px;display:none;font-weight:950}
+  </style>
+</head>
+<body>
+<header class="top"><a href="./hub.html">← HUB</a><b>OREILLE RESTO</b><span>🎙️</span></header>
+<main class="wrap">
+  <section class="card hero">
+    <div class="eyebrow">🎙️ Oreille métier RESTO</div>
+    <h1>Parle <span class="big">RESTO</span></h1>
+    <p class="lead">Le pro ou le client parle naturellement. DIGIY prépare. Le restaurant vérifie et valide.</p>
+    <div class="rule"><b>Règle d’or :</b> aucune réservation, commande, table ou paiement n’est confirmé automatiquement.</div>
+  </section>
+  <section class="card">
+    <div class="label">Ce que tu veux préparer</div>
+    <textarea id="txt">Client Awa veut réserver samedi à 20h pour 4 personnes en terrasse. Elle propose un acompte de 10000 par Wave.</textarea>
+    <div class="actions"><button class="btn go" id="listen" type="button">🎙️ Écouter</button><button class="btn" id="prep" type="button">⚡ Préparer</button><button class="btn gold" id="copy" type="button">📋 Copier</button><button class="btn dark" id="speak" type="button">🔊 Relire</button></div>
+  </section>
+  <section class="card"><div class="label">Message préparé</div><div class="msg" id="msg">Aucun message préparé.</div></section>
+</main>
+<nav class="bar"><a href="./hub.html">HUB</a><a href="./action.html">Action</a><a class="on" href="./oreille.html">Oreille</a><a href="./cockpit.html">Cockpit</a><a href="./pin.html">PIN</a></nav>
+<div class="toast" id="toast"></div>
+<script>
+(function(){
+function $(id){return document.getElementById(id)}function toast(m){var t=$('toast');t.textContent=m;t.style.display='block';setTimeout(function(){t.style.display='none'},2200)}
+function sessionOk(){var keys=['digiy_resto_session','digiy_resto_guard_session','digiy_guard_resto_session'];for(var i=0;i<keys.length;i++){try{var v=JSON.parse(localStorage.getItem(keys[i])||sessionStorage.getItem(keys[i])||'null');if(v&&v.access_ok&&(!v.expires_at||Date.now()<Number(v.expires_at)))return true}catch(e){}}return false}
+if(!sessionOk()){location.replace('./pin.html');return}
+function extract(raw){var t=String(raw||'');var low=t.toLowerCase();var nums=t.match(/\b\d+[\s.]?\d*\b/g)||[];var mode=(low.indexOf('wave')>-1?'Wave':low.indexOf('cash')>-1?'Cash':low.indexOf('orange')>-1?'Orange Money':'à vérifier');var place=(low.indexOf('terrasse')>-1?'terrasse':low.indexOf('salle')>-1?'salle':low.indexOf('emporter')>-1?'à emporter':'à préciser');return{nums:nums.join(', ')||'à vérifier',mode:mode,place:place}}
+function prepare(){var raw=$('txt').value.trim();var x=extract(raw);var msg=['Bonjour,','Nous avons bien noté la demande suivante :',raw,'','Repères à vérifier :','• Lieu / table : '+x.place,'• Chiffres / montant / personnes : '+x.nums,'• Paiement évoqué : '+x.mode,'','Merci de confirmer les détails avant validation.','', 'DIGIY RESTO : message préparé. Validation humaine obligatoire.'].join('\n');$('msg').textContent=msg;try{localStorage.setItem('DIGIY_RESTO_OREILLE_LATEST',JSON.stringify({raw:raw,msg:msg,preparedAt:new Date().toISOString()}))}catch(e){}toast('Message RESTO préparé')}
+$('prep').onclick=prepare;$('copy').onclick=function(){prepare();navigator.clipboard&&navigator.clipboard.writeText($('msg').textContent);toast('Copié')};$('speak').onclick=function(){prepare();try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance($('msg').textContent);u.lang='fr-FR';u.rate=.96;speechSynthesis.speak(u)}catch(e){toast('Lecture indisponible')}};$('listen').onclick=function(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){toast('Micro non disponible');return}var r=new SR();r.lang='fr-FR';r.onresult=function(e){$('txt').value=e.results[0][0].transcript;prepare()};r.start();toast('Micro ouvert')};
+})();
+</script>
+</body>
+</html>
