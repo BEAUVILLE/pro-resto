@@ -1,145 +1,129 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-  <meta name="theme-color" content="#1e7a46"/>
-  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet"/>
-  <title>RESTO PRO — Fiche vitrine</title>
-  <script>
-    window.DIGIY_SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
-    window.DIGIY_SUPABASE_ANON_KEY = "sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3";
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <style>
-    :root{--bg:#1e7a46;--bg2:#155a34;--bg3:#0e4226;--bar:rgba(8,50,24,.96);--gold:#facc15;--text:#f0fff5;--muted:rgba(240,255,245,.78);--line:rgba(255,255,255,.18);--soft:rgba(255,255,255,.09);--shadow:0 18px 46px rgba(0,0,0,.24);--r:22px;--hdrH:56px;--barH:76px;--ok:#22c55e;--bad:#fb7185}
-    *{box-sizing:border-box}html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-    body{margin:0;min-height:100dvh;color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;font-size:18px;font-weight:900;background:radial-gradient(700px 430px at 16% 0%,rgba(74,222,128,.20),transparent 58%),radial-gradient(460px 300px at 92% 8%,rgba(250,204,21,.18),transparent 52%),linear-gradient(180deg,var(--bg),var(--bg2) 60%,var(--bg3));padding:calc(var(--hdrH) + 14px) 12px calc(var(--barH) + env(safe-area-inset-bottom,0px) + 18px)}
-    a{color:inherit;text-decoration:none}button,input,textarea{font:inherit}button{cursor:pointer;color:inherit}.top{position:fixed;top:0;left:0;right:0;height:var(--hdrH);z-index:20;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 14px;background:var(--bar);border-bottom:1px solid rgba(250,204,21,.26);backdrop-filter:blur(18px)}.top b{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}.pill{font-size:12px;border:1px solid rgba(34,197,94,.35);background:rgba(34,197,94,.12);color:#bbf7d0;border-radius:999px;padding:7px 10px;font-weight:1000}.wrap{width:min(980px,100%);margin:0 auto;display:grid;gap:14px}.hero,.card{border:1px solid rgba(255,255,255,.16);border-radius:var(--r);background:rgba(255,255,255,.10);box-shadow:var(--shadow);padding:18px}.hero{background:radial-gradient(600px 240px at 100% 0%,rgba(255,240,168,.18),transparent 72%),linear-gradient(180deg,rgba(255,255,255,.14),rgba(5,33,16,.34))}.k{color:#fff0a8;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:1000;margin-bottom:10px}h1{margin:0;font-size:clamp(44px,13vw,88px);line-height:.86;letter-spacing:-.065em;text-transform:uppercase}h1 span{display:block;color:#fff0a8}.lead{margin:12px 0 0;color:var(--muted);font-size:clamp(18px,4.5vw,26px);line-height:1.2;font-weight:1000}.grid{display:grid;grid-template-columns:1fr;gap:12px}@media(min-width:840px){.grid{grid-template-columns:1fr 1fr}}label{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#fff0a8;font-weight:1000;margin:0 0 6px}input,textarea{width:100%;border:1px solid rgba(250,204,21,.28);border-radius:16px;background:#062612;color:#fff;padding:12px 13px;font-weight:850;outline:none}textarea{min-height:110px;resize:vertical;line-height:1.42}.field{display:grid;gap:7px;margin-top:10px}.row{display:grid;grid-template-columns:1fr;gap:10px}@media(min-width:640px){.row{grid-template-columns:1fr 1fr}}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.btn{min-height:54px;border-radius:18px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.10);display:flex;align-items:center;justify-content:center;text-align:center;padding:10px;font-weight:1000}.btn:disabled{opacity:.55;cursor:not-allowed}.go{background:linear-gradient(135deg,#22c55e,#facc15);color:#06130e}.gold{background:#facc15;color:#111}.dark{background:#062612}.publish{grid-column:1/-1;background:linear-gradient(135deg,#facc15,#22c55e);color:#06130e;border-color:rgba(250,204,21,.45)}.preview{overflow:hidden;padding:0}.cover{min-height:180px;background:linear-gradient(135deg,rgba(250,204,21,.22),rgba(34,197,94,.22)),#062612;display:grid;place-items:center;text-align:center;padding:18px}.cover img{width:100%;height:230px;object-fit:cover;display:block}.restaurant{padding:16px}.name{font-size:30px;line-height:1.05;font-weight:1000;letter-spacing:-.04em}.tag{color:#fff0a8;font-weight:1000;margin-top:5px}.desc{color:var(--muted);line-height:1.45;margin-top:12px;font-size:15px}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.chip{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);border-radius:999px;padding:7px 10px;font-size:12px;color:#eafff1;font-weight:1000}.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:12px}.photos div{min-height:74px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);display:grid;place-items:center;color:var(--muted);font-size:12px;text-align:center;overflow:hidden}.photos img{width:100%;height:100%;object-fit:cover}.menuBox{margin-top:14px;border:1px solid rgba(250,204,21,.28);border-radius:18px;background:rgba(250,204,21,.08);padding:12px}.menuTitle{color:#fff0a8;font-weight:1000;font-size:16px}.menuText{white-space:pre-wrap;color:#f0fff5;font-size:14px;line-height:1.45;margin-top:8px}.menuImg{margin-top:10px;display:none;overflow:hidden;border-radius:14px;border:1px solid rgba(255,255,255,.14)}.menuImg img{width:100%;display:block;max-height:330px;object-fit:cover}.msg{white-space:pre-wrap;background:#062612;border:1px solid rgba(250,204,21,.25);border-radius:20px;padding:13px;font-weight:900;line-height:1.42;margin-top:10px}.status{display:none;margin-top:12px;border-radius:16px;padding:12px;font-weight:1000;line-height:1.4}.status.ok{display:block;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.32);color:#bbf7d0}.status.bad{display:block;background:rgba(251,113,133,.12);border:1px solid rgba(251,113,133,.32);color:#fecdd3}.status.wait{display:block;background:rgba(250,204,21,.12);border:1px solid rgba(250,204,21,.32);color:#fde68a}.note{color:var(--muted);line-height:1.45;font-size:14px;font-weight:850}.bar{position:fixed;left:0;right:0;bottom:0;height:var(--barH);display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:7px 7px calc(7px + env(safe-area-inset-bottom,0px));background:var(--bar);border-top:1px solid rgba(250,204,21,.24);z-index:20}.bar a{display:grid;place-items:center;text-align:center;border-radius:14px;background:rgba(255,255,255,.07);font-size:11px;color:rgba(240,255,245,.76);font-weight:1000}.bar .on{background:var(--gold);color:#06130e}.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:#052e16;border:1px solid #d6a63a;border-radius:18px;padding:12px;display:none;font-weight:950;z-index:30}
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet"/>
+<meta name="theme-color" content="#1e7a46"/>
+<meta name="digiy-build" content="resto-cockpit-vitrine-memory-20260602-v2"/>
+<title>RESTO — Fiche & réservations</title>
+<style>
+:root{--bg:#1e7a46;--bg2:#0e4226;--bar:#062612;--gold:#facc15;--text:#f0fff5;--muted:rgba(240,255,245,.78);--line:rgba(255,255,255,.16);--soft:rgba(255,255,255,.09);--ok:#22c55e;--red:#ef4444}
+*{box-sizing:border-box}body{margin:0;min-height:100dvh;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:radial-gradient(700px 360px at 16% 0%,rgba(250,204,21,.18),transparent 58%),linear-gradient(180deg,var(--bg),var(--bg2));color:var(--text);font-weight:900;padding:70px 12px 86px}a{color:inherit;text-decoration:none}button{font:inherit}
+.top{position:fixed;top:0;left:0;right:0;height:56px;z-index:20;background:var(--bar);border-bottom:1px solid rgba(250,204,21,.28);display:flex;align-items:center;justify-content:space-between;padding:0 12px}
+.wrap{width:min(960px,100%);margin:auto;display:grid;gap:12px}
+.hero,.card{border-radius:26px;border:1px solid var(--line);background:var(--soft);padding:16px;box-shadow:0 18px 46px rgba(0,0,0,.22)}
+.k{color:#fff0a8;font-size:12px;letter-spacing:.14em;text-transform:uppercase}h1{font-size:clamp(42px,12vw,76px);line-height:.88;margin:8px 0;letter-spacing:-.06em}.lead{color:var(--muted);font-size:17px;line-height:1.38}
+.actions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:12px}.btn{min-height:54px;border-radius:18px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.10);display:flex;align-items:center;justify-content:center;text-align:center;padding:10px;font-weight:1000}.main{background:linear-gradient(135deg,#22c55e,#facc15);color:#06130e;border:0}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.stat{border-radius:20px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.12);padding:14px}.stat small{color:#fff0a8;text-transform:uppercase;letter-spacing:.08em}.stat b{display:block;font-size:34px;line-height:1;margin-top:7px}
+.list{display:grid;gap:8px}.row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border:1px solid rgba(255,255,255,.13);border-radius:18px;background:rgba(0,0,0,.12);padding:12px}.ico{width:42px;height:42px;border-radius:14px;background:rgba(250,204,21,.14);display:grid;place-items:center}.row small{display:block;color:var(--muted);margin-top:3px}.right{color:#fff0a8;text-align:right}
+.msg{white-space:pre-wrap;background:#062612;border:1px solid rgba(250,204,21,.25);border-radius:20px;padding:13px;line-height:1.42;color:rgba(240,255,245,.90)}
+.bar{position:fixed;bottom:0;left:0;right:0;height:76px;background:var(--bar);border-top:1px solid rgba(250,204,21,.24);display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:7px;z-index:20}.bar a{display:grid;place-items:center;text-align:center;border-radius:14px;background:rgba(255,255,255,.07);font-size:11px;color:rgba(240,255,245,.75);font-weight:1000}.bar .on{background:#facc15;color:#06130e}
+@media(max-width:650px){.actions,.stats{grid-template-columns:repeat(2,1fr)}.row{grid-template-columns:auto 1fr}.right{grid-column:2;text-align:left}}
+</style>
 </head>
 <body>
-<header class="top"><a href="./hub.html">← HUB</a><b>FICHE RESTO</b><span class="pill" id="sessionPill">Session</span></header>
+<header class="top"><a href="./hub.html">← HUB</a><b>🪧 FICHE RESTO</b><span>Vitrine</span></header>
 <main class="wrap">
-  <section class="hero">
-    <div class="k">🍽️ RESTO · vitrine à valider</div>
-    <h1>Ma fiche <span>restaurant</span></h1>
-    <p class="lead">Le restaurant prépare sa fiche. DIGIY valide. Le site public affiche seulement les fiches publiées.</p>
-  </section>
-
-  <section class="grid">
-    <section class="card">
-      <div class="k">✍️ Informations vitrine</div>
-      <div class="field"><label>Nom du restaurant</label><input id="name" placeholder="Ex : Le Coin Éthique"/></div>
-      <div class="field"><label>Slogan / promesse</label><input id="tagline" placeholder="Ex : Cuisine locale, accueil simple, goût de la Petite Côte"/></div>
-      <div class="row"><div class="field"><label>Type de cuisine</label><input id="cuisine" placeholder="Ex : Sénégalais · grillades · poisson"/></div><div class="field"><label>Ambiance</label><input id="ambiance" placeholder="Ex : familial · terrasse · bord de route"/></div></div>
-      <div class="field"><label>Description courte</label><textarea id="description" placeholder="Présente l’esprit du restaurant, les plats, l’accueil, la force du lieu."></textarea></div>
-      <div class="row"><div class="field"><label>Adresse / quartier</label><input id="address" placeholder="Ex : Saly, Petite Côte"/></div><div class="field"><label>Horaires</label><input id="hours" placeholder="Ex : Tous les jours 11h - 23h"/></div></div>
-      <div class="row"><div class="field"><label>WhatsApp du restaurant</label><input id="whatsapp" inputmode="tel" placeholder="Ex : 22177..."/></div><div class="field"><label>Google Maps URL</label><input id="maps" placeholder="Lien Google Maps si disponible"/></div></div>
-      <div class="field"><label>TikTok / Instagram / vidéo URL</label><input id="social" placeholder="Lien réseau ou vidéo si disponible"/></div>
-
-      <div class="field"><label>Carte du restaurant · titre</label><input id="menuTitle" placeholder="Ex : Carte du jour · spécialités maison"/></div>
-      <div class="field"><label>Carte du restaurant · plats / prix</label><textarea id="menuText" placeholder="Ex : Thieb poisson — 3 500 FCFA\nYassa poulet — 4 000 FCFA\nPoisson braisé — 5 000 FCFA"></textarea></div>
-      <div class="row"><div class="field"><label>Carte PDF / image URL</label><input id="menuUrl" placeholder="URL publique Supabase Storage ou autre URL validée"/></div><div class="field"><label>Photo carte URL</label><input id="menuPhoto" placeholder="URL publique Supabase Storage"/></div></div>
-
-      <div class="field"><label>Photo principale URL</label><input id="photo1" placeholder="URL publique Supabase Storage"/></div>
-      <div class="row"><div class="field"><label>Photo 2 URL</label><input id="photo2" placeholder="URL publique Supabase Storage"/></div><div class="field"><label>Photo 3 URL</label><input id="photo3" placeholder="URL publique Supabase Storage"/></div></div>
-      <div class="actions"><button class="btn go" id="save" type="button">✅ Enregistrer local</button><button class="btn" id="copy" type="button">📋 Copier JSON</button><button class="btn gold" id="previewBtn" type="button">👁️ Aperçu</button><button class="btn dark" id="reset" type="button">🧹 Nettoyer</button><button class="btn publish" id="submitFiche" type="button">📤 Envoyer ma fiche à validation DIGIY</button></div>
-      <div class="status" id="submitStatus"></div>
-      <p class="note">Les images restent des URL publiques. Supabase Database reçoit les liens, pas les fichiers bruts.</p>
-    </section>
-
-    <section class="card preview" id="preview">
-      <div class="cover" id="cover"><div>Photo principale RESTO</div></div>
-      <div class="restaurant">
-        <div class="name" id="pName">Nom du restaurant</div>
-        <div class="tag" id="pTag">Slogan du restaurant</div>
-        <div class="chips"><span class="chip" id="pCuisine">Cuisine</span><span class="chip" id="pAmbiance">Ambiance</span><span class="chip" id="pHours">Horaires</span></div>
-        <div class="desc" id="pDesc">La description vitrine apparaîtra ici.</div>
-        <div class="desc" id="pAddress">Adresse : —</div>
-        <div class="menuBox"><div class="menuTitle" id="pMenuTitle">🍽️ Carte du restaurant</div><div class="menuText" id="pMenuText">La carte du restaurant apparaîtra ici.</div><div class="menuImg" id="pMenuImg"></div><div class="actions"><a class="btn gold" id="menuBtn" href="#">Voir la carte</a></div></div>
-        <div class="photos"><div id="ph1">Photo 1</div><div id="ph2">Photo 2</div><div id="ph3">Photo 3</div></div>
-        <div class="actions"><a class="btn go" id="waBtn" href="#">WhatsApp</a><a class="btn" id="mapsBtn" href="#">Maps</a></div>
-      </div>
-    </section>
-  </section>
-
-  <section class="card"><div class="k">📦 Données vitrine</div><div class="msg" id="jsonBox">Aucune donnée enregistrée.</div></section>
+<section class="hero">
+  <div class="k">🍽️ RESTO · lecture pro</div>
+  <h1>Fiche, messages, réservations.</h1>
+  <p class="lead">RESTO vitrine lit les réservations simples et les derniers messages préparés. La caisse reste dans PAY uniquement si acompte réel.</p>
+  <div class="actions">
+    <a class="btn main" href="./action.html">🎙️ ACTION RESTO</a>
+    <a class="btn" href="./calendrier.html">📅 Calendrier</a>
+    <a class="btn" href="./public.html">🌍 Public</a>
+    <a class="btn" href="./pin.html">🔐 PIN</a>
+  </div>
+</section>
+<section class="stats">
+  <div class="stat"><small>Aujourd’hui</small><b id="today">—</b></div>
+  <div class="stat"><small>7 jours</small><b id="week">—</b></div>
+  <div class="stat"><small>Acomptes</small><b id="amount">—</b></div>
+  <div class="stat"><small>Lignes</small><b id="count">—</b></div>
+</section>
+<section class="card">
+  <div class="k">✅ Dernière ACTION RESTO</div>
+  <div class="msg" id="latest">Aucune action encore.</div>
+</section>
+<section class="card">
+  <div class="k">📋 Réservations simples</div>
+  <div class="list" id="list"></div>
+</section>
 </main>
-<nav class="bar"><a href="./hub.html">HUB</a><a href="./action.html">Action</a><a href="./calendrier.html">Résa</a><a class="on" href="./cockpit.html">Fiche</a><a href="./pin.html">PIN</a></nav>
-<div class="toast" id="toast"></div>
+<nav class="bar"><a href="./hub.html">HUB</a><a class="on" href="./cockpit.html">Fiche</a><a href="./action.html">Action</a><a href="./calendrier.html">Résa</a><a href="./pin.html">PIN</a></nav>
 <script>
+
 (function(){
-const KEYS=["digiy_resto_session","digiy_resto_guard_session","digiy_guard_resto_session"];
+  "use strict";
+  window.DIGIY_RESTO_SESSION_OK = function(){
+    const keys = [
+      "digiy_resto_session",
+      "DIGIY_RESTO_SESSION",
+      "DIGIY_SESSION_RESTO",
+      "digiy_resto_guard_session",
+      "digiy_guard_resto_session",
+      "DIGIY_ACCESS"
+    ];
+    for(const key of keys){
+      try{
+        const raw = sessionStorage.getItem(key) || localStorage.getItem(key);
+        if(!raw) continue;
+        const s = JSON.parse(raw);
+        const ok = s && (
+          s.access_ok === true ||
+          s.access === true ||
+          s.ok === true ||
+          s.pin_session_ok === true ||
+          s.preview === false
+        );
+        const sameModule = !s.module || String(s.module).toUpperCase() === "RESTO";
+        if(!ok || !sameModule) continue;
+        const exp = Number(s.expires_at || s.expiresAt || 0);
+        if(exp && exp < Date.now()) continue;
+        return true;
+      }catch(_){}
+    }
+    return false;
+  };
+})();
+
+
+(function(){
+"use strict";
+if(!window.DIGIY_RESTO_SESSION_OK()){location.replace("./pin.html");return;}
 function $(id){return document.getElementById(id)}
-function toast(m){var t=$('toast');t.textContent=m;t.style.display='block';setTimeout(function(){t.style.display='none'},2200)}
-function setStatus(kind,msg){const el=$('submitStatus');el.className='status '+kind;el.textContent=msg}
-function readSession(){for(const k of KEYS){try{const v=JSON.parse(localStorage.getItem(k)||sessionStorage.getItem(k)||'null');if(v&&v.access_ok&&(!v.expires_at||Date.now()<Number(v.expires_at)))return v}catch(_){}}return null}
-const sess=readSession();if(!sess){location.replace('./pin.html');return}
-$('sessionPill').textContent=sess.phone?('✅ '+sess.phone):'✅ ouverte';
-const KEY='DIGIY_RESTO_VITRINE::'+(sess.slug||sess.phone||'default');
-const fields=['name','tagline','cuisine','ambiance','description','address','hours','whatsapp','maps','social','menuTitle','menuText','menuUrl','menuPhoto','photo1','photo2','photo3'];
-function val(id){return ($(id).value||'').trim()}
-function set(id,v){$(id).value=v||''}
-function data(){const o={module:'RESTO',type:'fiche_vitrine',updated_at:new Date().toISOString()};fields.forEach(f=>o[f]=val(f));return o}
-function imgBox(id,url,label){const el=$(id);el.innerHTML='';if(url){const im=new Image();im.src=url;im.alt=label;el.appendChild(im)}else el.textContent=label}
-function render(){const d=data();$('pName').textContent=d.name||'Nom du restaurant';$('pTag').textContent=d.tagline||'Slogan du restaurant';$('pCuisine').textContent=d.cuisine||'Cuisine';$('pAmbiance').textContent=d.ambiance||'Ambiance';$('pHours').textContent=d.hours||'Horaires';$('pDesc').textContent=d.description||'La description vitrine apparaîtra ici.';$('pAddress').textContent='Adresse : '+(d.address||'—');$('cover').innerHTML='';if(d.photo1){const im=new Image();im.src=d.photo1;im.alt='Photo principale';$('cover').appendChild(im)}else $('cover').innerHTML='<div>Photo principale RESTO</div>';$('pMenuTitle').textContent='🍽️ '+(d.menuTitle||'Carte du restaurant');$('pMenuText').textContent=d.menuText||'La carte du restaurant apparaîtra ici.';const menuImg=$('pMenuImg');menuImg.innerHTML='';menuImg.style.display=d.menuPhoto?'block':'none';if(d.menuPhoto){const im=new Image();im.src=d.menuPhoto;im.alt='Carte du restaurant';menuImg.appendChild(im)}$('menuBtn').href=d.menuUrl||d.menuPhoto||'#';imgBox('ph1',d.photo1,'Photo 1');imgBox('ph2',d.photo2,'Photo 2');imgBox('ph3',d.photo3,'Photo 3');const phone=String(d.whatsapp||'').replace(/\D/g,'');$('waBtn').href=phone?('https://wa.me/'+phone):'#';$('mapsBtn').href=d.maps||'#';$('jsonBox').textContent=JSON.stringify(d,null,2)}
-function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d){fields.forEach(f=>set(f,d[f]||''))}}catch(_){}}
-function slugifyPhone(phone){const p=String(phone||'').replace(/\D/g,'');return p?('resto-'+p):''}
-function getSupabase(){if(window._digiyRestoSb)return window._digiyRestoSb;if(!window.supabase||!window.supabase.createClient)throw new Error('Supabase JS non chargé.');window._digiyRestoSb=window.supabase.createClient(window.DIGIY_SUPABASE_URL,window.DIGIY_SUPABASE_ANON_KEY,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});return window._digiyRestoSb}
-async function submitFiche(){
-  render();
-  const d=data();
-  const phone=String(sess.phone||d.whatsapp||'').replace(/\D/g,'');
-  const slug=String(sess.slug||slugifyPhone(phone)||'').trim();
-  if(!phone){setStatus('bad','❌ Téléphone pro introuvable. Rouvre la session PIN ou renseigne le WhatsApp du restaurant.');return}
-  if(!d.name){setStatus('bad','❌ Nom du restaurant obligatoire avant envoi.');return}
-  $('submitFiche').disabled=true;
-  setStatus('wait','⏳ Envoi de la fiche RESTO à validation DIGIY…');
-  try{
-    const sb=getSupabase();
-    const payload={source:'cockpit.html',local_key:KEY,raw:d};
-    const {data:res,error}=await sb.rpc('digiy_resto_submit_fiche',{
-      p_phone_pro:phone,
-      p_slug:slug,
-      p_nom_restaurant:d.name,
-      p_slogan:d.tagline,
-      p_cuisine:d.cuisine,
-      p_ambiance:d.ambiance,
-      p_description:d.description,
-      p_adresse:d.address,
-      p_horaires:d.hours,
-      p_whatsapp:d.whatsapp,
-      p_google_maps_url:d.maps,
-      p_social_url:d.social,
-      p_carte_titre:d.menuTitle,
-      p_carte_texte:d.menuText,
-      p_carte_url:d.menuUrl,
-      p_carte_photo_url:d.menuPhoto,
-      p_photo_principale_url:d.photo1,
-      p_photo_2_url:d.photo2,
-      p_photo_3_url:d.photo3,
-      p_payload:payload
-    });
-    if(error)throw error;
-    const row=Array.isArray(res)?res[0]:res;
-    if(!row||row.ok!==true){throw new Error(row&&row.message?row.message:'Réponse Supabase non validée.')}
-    localStorage.setItem(KEY,JSON.stringify({...d,last_submit_status:'pending',last_submit_at:new Date().toISOString(),last_fiche_id:row.fiche_id||null}));
-    setStatus('ok','✅ Fiche envoyée à validation DIGIY. Statut : pending. Elle n’apparaîtra sur le site public qu’après validation admin.');
-    toast('Fiche envoyée');
-  }catch(err){
-    setStatus('bad','❌ Envoi impossible : '+(err&&err.message?err.message:'erreur inconnue'));
-  }finally{
-    $('submitFiche').disabled=false;
+function read(key,fallback){try{return JSON.parse(localStorage.getItem(key)||"")||fallback}catch(_){return fallback}}
+function money(n){return Math.round(Number(n)||0).toLocaleString("fr-FR")+" F"}
+function today(){return new Date().toISOString().slice(0,10)}
+function addDays(d,n){var x=new Date(d+"T00:00:00");x.setDate(x.getDate()+n);return x.toISOString().slice(0,10)}
+function esc(v){return String(v??"").replace(/[&<>"']/g,function(m){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m])})}
+function load(){
+  const latest=read("DIGIY_RESTO_ACTION_LATEST",null);
+  const rows=read("DIGIY_RESTO_RESERVATIONS",[]);
+  const d=today(), weekEnd=addDays(d,7);
+  const todayRows=rows.filter(r=>String(r.booking_date||"").slice(0,10)===d);
+  const weekRows=rows.filter(r=>String(r.booking_date||"").slice(0,10)>=d && String(r.booking_date||"").slice(0,10)<=weekEnd);
+  const amount=rows.reduce((s,r)=>s+(Number(r.amount)||0),0);
+  $("today").textContent=String(todayRows.length);
+  $("week").textContent=String(weekRows.length);
+  $("amount").textContent=amount?money(amount):"—";
+  $("count").textContent=String(rows.length);
+  if(latest){
+    $("latest").textContent=[
+      "Client : "+(latest.client_name||"—"),
+      "Date : "+(latest.booking_date||"—")+" "+(latest.booking_time||""),
+      "Personnes : "+(latest.guests||"—"),
+      "Table : "+(latest.table_note||"—"),
+      "Acompte : "+(latest.amount?money(latest.amount):"—"),
+      "Note : "+(latest.note||"")
+    ].join("\n");
   }
+  const box=$("list");
+  if(!rows.length){box.innerHTML='<div class="msg">Aucune réservation préparée. Ouvre ACTION RESTO.</div>';return;}
+  box.innerHTML=rows.slice(0,12).map(r=>'<div class="row"><div class="ico">🍽️</div><div><b>'+esc(r.client_name||"Client RESTO")+'</b><small>'+esc((r.booking_date||"—")+" "+(r.booking_time||""))+' · '+esc(r.guests||"—")+' personne(s)<br>'+esc(r.table_note||"Table à confirmer")+'</small></div><div class="right">'+(r.amount?money(r.amount):"—")+'</div></div>').join("");
 }
-fields.forEach(f=>$(f).addEventListener('input',render));
-$('save').onclick=function(){const d=data();localStorage.setItem(KEY,JSON.stringify(d));render();toast('Fiche vitrine enregistrée')};
-$('copy').onclick=function(){render();navigator.clipboard&&navigator.clipboard.writeText($('jsonBox').textContent);toast('Fiche copiée')};
-$('previewBtn').onclick=function(){document.getElementById('preview').scrollIntoView({behavior:'smooth',block:'start'});render()};
-$('submitFiche').onclick=submitFiche;
-$('reset').onclick=function(){if(confirm('Nettoyer la fiche vitrine locale ?')){fields.forEach(f=>set(f,''));localStorage.removeItem(KEY);render();toast('Fiche nettoyée')}};
-load();render();
+load();
 })();
 </script>
 </body>
