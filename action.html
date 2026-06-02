@@ -2,40 +2,284 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RESTO PRO — ACTION DIGIY</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ACTION RESTO — Réservation simple</title>
 <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
 <meta name="theme-color" content="#1e7a46">
+<meta name="digiy-build" content="resto-action-reservation-memory-20260602-v2">
+
+<script>
+window.DIGIY_MODULE = "RESTO";
+window.DIGIY_LOGIN_URL = "./pin.html";
+</script>
+
 <style>
-:root{--bg:#1e7a46;--bg2:#0e4226;--bar:#062612;--gold:#facc15;--text:#f0fff5;--muted:rgba(240,255,245,.78);--line:rgba(255,255,255,.16);--soft:rgba(255,255,255,.09)}*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:radial-gradient(600px 300px at 15% 0,rgba(250,204,21,.16),transparent 60%),linear-gradient(180deg,var(--bg),var(--bg2));color:var(--text);padding:70px 12px 90px;font-weight:900}a{color:inherit;text-decoration:none}.top{position:fixed;top:0;left:0;right:0;height:56px;background:var(--bar);border-bottom:1px solid rgba(250,204,21,.28);display:flex;align-items:center;justify-content:space-between;padding:0 12px;z-index:10}.wrap{width:min(920px,100%);margin:auto;display:grid;gap:12px}.card{border-radius:26px;border:1px solid var(--line);background:var(--soft);padding:16px;box-shadow:0 18px 46px rgba(0,0,0,.22)}.k{color:#fff0a8;font-size:12px;letter-spacing:.14em;text-transform:uppercase}h1{font-size:clamp(44px,14vw,82px);line-height:.88;margin:8px 0;letter-spacing:-.055em}.lead{font-size:17px;line-height:1.38;color:var(--muted)}textarea{width:100%;min-height:150px;border-radius:20px;border:1px solid rgba(250,204,21,.35);background:#062612;color:#fff;padding:14px;font:900 17px system-ui;margin-top:10px;line-height:1.4}.actions,.templates{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:10px}.btn,.tpl{min-height:58px;border-radius:18px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.1);color:#fff;font-weight:1000;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px;text-decoration:none}.tpl{font-size:14px;line-height:1.2;justify-content:flex-start;text-align:left}.go{background:linear-gradient(135deg,#22c55e,#facc15);color:#06130e}.gold{background:#facc15;color:#111}.dark{background:#062612}.msg{white-space:pre-wrap;background:#062612;border:1px solid rgba(250,204,21,.25);border-radius:20px;padding:13px;font-weight:900;line-height:1.42;margin-top:10px}.bar{position:fixed;bottom:0;left:0;right:0;height:76px;background:var(--bar);border-top:1px solid rgba(250,204,21,.24);display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:7px}.bar a{display:grid;place-items:center;text-align:center;border-radius:14px;background:rgba(255,255,255,.07);font-size:11px;color:rgba(240,255,245,.75);text-decoration:none}.bar .on{background:#facc15;color:#06130e}.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:#052e16;border:1px solid #d6a63a;border-radius:18px;padding:12px;display:none;font-weight:950}.mini{font-size:13px;color:var(--muted);line-height:1.45;margin-top:9px}@media(max-width:560px){.actions,.templates{grid-template-columns:1fr}.tpl{min-height:52px}}
+:root{--bg:#1e7a46;--bg2:#0e4226;--bar:#062612;--gold:#facc15;--text:#f0fff5;--muted:rgba(240,255,245,.78);--line:rgba(255,255,255,.16);--soft:rgba(255,255,255,.09);--ok:#22c55e}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:radial-gradient(600px 300px at 15% 0,rgba(250,204,21,.16),transparent 60%),linear-gradient(180deg,var(--bg),var(--bg2));color:var(--text);padding:70px 12px 90px;font-weight:900}
+a{color:inherit;text-decoration:none}button,textarea{font:inherit}
+.top{position:fixed;top:0;left:0;right:0;height:56px;background:var(--bar);border-bottom:1px solid rgba(250,204,21,.28);display:flex;align-items:center;justify-content:space-between;padding:0 12px;z-index:10}
+.wrap{width:min(920px,100%);margin:auto;display:grid;gap:12px}
+.card{border-radius:26px;border:1px solid var(--line);background:var(--soft);padding:16px;box-shadow:0 18px 46px rgba(0,0,0,.22)}
+.k{color:#fff0a8;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+h1{font-size:clamp(42px,13vw,78px);line-height:.88;margin:8px 0;letter-spacing:-.055em}
+.lead{font-size:17px;line-height:1.38;color:var(--muted)}
+textarea{width:100%;min-height:142px;border-radius:20px;border:1px solid rgba(250,204,21,.35);background:#062612;color:#fff;padding:14px;font:900 17px system-ui;margin-top:10px;line-height:1.4;resize:vertical}
+.actions,.templates{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:10px}
+.btn,.tpl{min-height:58px;border-radius:18px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.1);color:#fff;font-weight:1000;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px;text-decoration:none;cursor:pointer}
+.tpl{font-size:14px;line-height:1.2;justify-content:flex-start;text-align:left}
+.go{background:linear-gradient(135deg,#22c55e,#facc15);color:#06130e}
+.gold{background:#facc15;color:#111}
+.dark{background:#062612}
+.blue{background:rgba(56,189,248,.12);border-color:rgba(56,189,248,.25);color:#d9f4ff}
+.msg{white-space:pre-wrap;background:#062612;border:1px solid rgba(250,204,21,.25);border-radius:20px;padding:13px;font-weight:900;line-height:1.42;margin-top:10px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.field{background:#062612;border:1px solid rgba(250,204,21,.24);border-radius:18px;padding:11px}
+.field small{display:block;color:#fff0a8;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.field b{display:block;margin-top:4px;word-break:break-word}
+.proof{border-color:rgba(34,197,94,.34);background:rgba(34,197,94,.10)}
+.bar{position:fixed;bottom:0;left:0;right:0;height:76px;background:var(--bar);border-top:1px solid rgba(250,204,21,.24);display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:7px;z-index:10}
+.bar a{display:grid;place-items:center;text-align:center;border-radius:14px;background:rgba(255,255,255,.07);font-size:11px;color:rgba(240,255,245,.75);text-decoration:none}
+.bar .on{background:#facc15;color:#06130e}
+.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:#052e16;border:1px solid #d6a63a;border-radius:18px;padding:12px;display:none;font-weight:950;z-index:30}
+@media(max-width:560px){.actions,.templates,.grid{grid-template-columns:1fr}.tpl{min-height:52px}}
 </style>
 </head>
 <body>
-<header class="top"><a href="./hub.html">← HUB</a><b>RESTO ACTION</b><span>⚡</span></header>
+<header class="top"><a href="./hub.html">← HUB</a><b>🎙️ ACTION RESTO</b><span>🍽️</span></header>
+
 <main class="wrap">
-<section class="card"><div class="k">🍽️ RESTO · modèles client</div><h1>Confirme propre.</h1><p class="lead">Prépare un message client : réservation prise en compte, meilleure table selon disponibilité, ou attente courte. Le restaurant relit et valide avant envoi.</p><textarea id="txt">Bonjour, votre demande de réservation est bien prise en compte. Nous vous réservons la meilleure table disponible selon l’arrivée et l’organisation du service. Merci et à très bientôt.</textarea><div class="actions"><button class="btn go" id="listen" type="button">🎙️ Écouter</button><button class="btn" id="prep" type="button">⚡ Préparer</button><button class="btn gold" id="copy" type="button">📋 Copier</button><a class="btn dark" href="./pense-bete.html">📝 Pense-bête</a></div><p class="mini" id="status">Prêt. Rien n’est envoyé automatiquement.</p></section>
-<section class="card"><div class="k">🧩 Exemples prêts à adapter</div><div class="templates">
-<button class="tpl" data-tpl="Bonjour, votre réservation est bien prise en compte pour [jour] à [heure] pour [nombre] personne(s). Merci pour votre confiance, nous vous attendons avec plaisir.">✅ Confirmation simple</button>
-<button class="tpl" data-tpl="Bonjour, votre réservation est bien prise en compte. Nous ferons le nécessaire pour vous réserver la meilleure table disponible selon l’arrivée et l’organisation du service. Merci et à très bientôt.">🌟 Meilleure table possible</button>
-<button class="tpl" data-tpl="Bonjour, merci pour votre demande. Votre réservation peut se faire dans environ 15 minutes. Nous revenons vers vous rapidement pour confirmer la disponibilité exacte. Merci pour votre patience.">⏳ Réservation possible dans 15 min</button>
-<button class="tpl" data-tpl="Bonjour, nous avons bien reçu votre demande de réservation. Pour vous accueillir dans les meilleures conditions, merci de nous confirmer le nombre de personnes et l’heure souhaitée.">📌 Infos à confirmer</button>
-<button class="tpl" data-tpl="Bonjour, votre réservation est notée avec plaisir. En cas de forte affluence, nous garderons la meilleure option possible pour vous accueillir confortablement. Merci de votre compréhension.">🤝 Forte affluence</button>
-<button class="tpl" data-tpl="Bonjour, votre réservation est bien prise en compte. Merci de nous prévenir si vous avez un peu de retard afin que nous puissions organiser la table au mieux.">🕐 Retard possible</button>
-<button class="tpl" data-tpl="Bonjour, merci pour votre réservation. Pour sécuriser votre table, un acompte peut être demandé selon l’heure, le groupe ou l’affluence. Nous vous confirmons les détails avant toute validation.">💳 Acompte demandé</button>
-<button class="tpl" data-tpl="Bonjour, votre demande est bien reçue. Nous vérifions la disponibilité et nous vous confirmons la réservation dans quelques instants. Merci.">🔎 Vérification disponibilité</button>
-</div></section>
-<section class="card"><h2>📋 Message préparé</h2><div class="msg" id="msg">Aucun message préparé.</div></section>
+<section class="card">
+  <div class="k">🍽️ RESTO · réservation simple</div>
+  <h1>Préparer la réservation.</h1>
+  <p class="lead">RESTO vitrine prépare le message client et garde la réservation simple. Le restaurant relit et valide. PAY reçoit seulement un acompte réel.</p>
+
+  <textarea id="txt">Client Awa, réservation samedi 20h, 4 personnes, meilleure table disponible, acompte 10000 Wave.</textarea>
+
+  <div class="actions">
+    <button class="btn go" id="listen" type="button">🎙️ Écouter</button>
+    <button class="btn gold" id="prep" type="button">✨ Préparer</button>
+    <button class="btn" id="copy" type="button">📋 Copier message</button>
+    <button class="btn dark" id="pay" type="button">💳 Acompte PAY</button>
+    <a class="btn blue" href="./calendrier.html">📅 Calendrier</a>
+    <a class="btn blue" href="./cockpit.html">🪧 Ma fiche</a>
+  </div>
+
+  <p id="status">Prêt. Rien n’est envoyé automatiquement.</p>
+</section>
+
+<section class="card">
+  <div class="k">🧩 Exemples prêts à adapter</div>
+  <div class="templates">
+    <button class="tpl" data-tpl="Client Awa, réservation samedi 20h, 4 personnes, meilleure table disponible, acompte 10000 Wave.">✅ Réservation + acompte</button>
+    <button class="tpl" data-tpl="Client Mamadou, ce soir 21h, 2 personnes, table calme si disponible, sans acompte.">🌟 Meilleure table possible</button>
+    <button class="tpl" data-tpl="Client Fatou, demain 13h30, 6 personnes, anniversaire, à confirmer rapidement.">🎂 Groupe / anniversaire</button>
+    <button class="tpl" data-tpl="Bonjour, votre demande est bien reçue. Nous vérifions la disponibilité et nous vous confirmons dans quelques instants.">🔎 Vérification disponibilité</button>
+  </div>
+</section>
+
+<section class="card">
+  <h2>📋 Fiche préparée</h2>
+  <div class="grid">
+    <div class="field"><small>Client</small><b id="fClient">—</b></div>
+    <div class="field"><small>Date / heure</small><b id="fDate">—</b></div>
+    <div class="field"><small>Personnes</small><b id="fGuests">—</b></div>
+    <div class="field"><small>Table / note</small><b id="fTable">—</b></div>
+    <div class="field"><small>Acompte</small><b id="fAmount">—</b></div>
+    <div class="field"><small>Canal</small><b id="fChannel">—</b></div>
+  </div>
+  <div class="msg" id="msg">Aucun message préparé.</div>
+</section>
+
+<section class="card proof">
+  <h2>✅ Preuve ACTION RESTO</h2>
+  <div class="msg" id="proof">Aucune preuve encore.</div>
+</section>
 </main>
-<nav class="bar"><a href="./hub.html">HUB</a><a class="on" href="./action.html">Action</a><a href="./pense-bete.html">Pense</a><a href="./calendrier.html">Résa</a><a href="./pin.html">PIN</a></nav>
+
+<nav class="bar"><a href="./hub.html">HUB</a><a class="on" href="./action.html">Action</a><a href="./cockpit.html">Fiche</a><a href="./calendrier.html">Résa</a><a href="./pin.html">PIN</a></nav>
 <div class="toast" id="toast"></div>
+
 <script>
+
 (function(){
-function $(id){return document.getElementById(id)}function toast(m){var t=$('toast');t.textContent=m;t.style.display='block';setTimeout(function(){t.style.display='none'},2200)}
-function sessionOk(){var keys=['digiy_resto_session','digiy_resto_guard_session','digiy_guard_resto_session'];for(var i=0;i<keys.length;i++){try{var v=JSON.parse(localStorage.getItem(keys[i])||sessionStorage.getItem(keys[i])||'null');if(v&&v.access_ok&&(!v.expires_at||Date.now()<Number(v.expires_at)))return true}catch(e){}}return false}
-if(!sessionOk()){location.replace('./pin.html');return}
-function prepare(){var raw=$('txt').value.trim();var msg=['RESTO — message client préparé',raw,'','À relire par le restaurant avant envoi.','Validation humaine obligatoire. Rien n’est envoyé automatiquement.'].join('\n');$('msg').textContent=msg;try{localStorage.setItem('DIGIY_RESTO_ACTION_LATEST',JSON.stringify({raw:raw,msg:msg,preparedAt:new Date().toISOString()}))}catch(e){}$('status').textContent='Message RESTO préparé.';toast('Message prêt')}
-document.addEventListener('click',function(e){var b=e.target.closest('[data-tpl]');if(!b)return;$('txt').value=b.getAttribute('data-tpl')||'';prepare()});
-$('prep').onclick=prepare;$('copy').onclick=function(){prepare();navigator.clipboard&&navigator.clipboard.writeText($('msg').textContent);toast('Copié')};$('listen').onclick=function(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){toast('Micro non disponible');return}var r=new SR();r.lang='fr-FR';r.onresult=function(e){$('txt').value=e.results[0][0].transcript;prepare()};r.start();toast('Micro ouvert')};
+  "use strict";
+  window.DIGIY_RESTO_SESSION_OK = function(){
+    const keys = [
+      "digiy_resto_session",
+      "DIGIY_RESTO_SESSION",
+      "DIGIY_SESSION_RESTO",
+      "digiy_resto_guard_session",
+      "digiy_guard_resto_session",
+      "DIGIY_ACCESS"
+    ];
+    for(const key of keys){
+      try{
+        const raw = sessionStorage.getItem(key) || localStorage.getItem(key);
+        if(!raw) continue;
+        const s = JSON.parse(raw);
+        const ok = s && (
+          s.access_ok === true ||
+          s.access === true ||
+          s.ok === true ||
+          s.pin_session_ok === true ||
+          s.preview === false
+        );
+        const sameModule = !s.module || String(s.module).toUpperCase() === "RESTO";
+        if(!ok || !sameModule) continue;
+        const exp = Number(s.expires_at || s.expiresAt || 0);
+        if(exp && exp < Date.now()) continue;
+        return true;
+      }catch(_){}
+    }
+    return false;
+  };
+})();
+
+
+(function(){
+"use strict";
+
+if(!window.DIGIY_RESTO_SESSION_OK()){
+  location.replace("./pin.html");
+  return;
+}
+
+function $(id){return document.getElementById(id)}
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";setTimeout(function(){t.style.display="none"},2200)}
+function norm(v){return String(v||"").replace(/\s+/g," ").trim()}
+function low(v){return norm(v).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
+function money(n){return Math.round(Number(n)||0).toLocaleString("fr-FR")+" F"}
+
+function nextWeekday(target){
+  var now=new Date(), day=now.getDay(), diff=(target-day+7)%7;
+  if(diff===0) diff=7;
+  var d=new Date(now); d.setDate(now.getDate()+diff);
+  return d.toISOString().slice(0,10);
+}
+function parseDate(text){
+  var raw=low(text);
+  var iso=norm(text).match(/\b(20\d{2}-\d{2}-\d{2})\b/);
+  if(iso) return iso[1];
+  if(raw.includes("aujourd")||raw.includes("ce soir")) return new Date().toISOString().slice(0,10);
+  if(raw.includes("demain")){var d=new Date();d.setDate(d.getDate()+1);return d.toISOString().slice(0,10)}
+  var map={dimanche:0,lundi:1,mardi:2,mercredi:3,jeudi:4,vendredi:5,samedi:6};
+  for(var k in map){if(raw.includes(k)) return nextWeekday(map[k])}
+  return new Date().toISOString().slice(0,10);
+}
+function parseTime(text){
+  var m=norm(text).match(/\b([01]?\d|2[0-3])\s*(?:h|:)\s*([0-5]\d)?\b/i);
+  return m?String(m[1]).padStart(2,"0")+":"+String(m[2]||"00").padStart(2,"0"):"";
+}
+function parseClient(text){
+  var m=norm(text).match(/\bclient\s+([A-Za-zÀ-ÿ' -]{2,45})(?=,|;|\.|\s+reservation|\s+réservation|\s+ce soir|\s+demain|$)/i);
+  return m?m[1].trim():"Client RESTO";
+}
+function parseGuests(text){
+  var m=norm(text).match(/\b(\d{1,2})\s*(personnes|personne|pers|pax|couverts?)\b/i);
+  return m?Number(m[1]):1;
+}
+function parseTable(text){
+  var raw=low(text);
+  if(raw.includes("meilleure table")) return "Meilleure table disponible";
+  if(raw.includes("table calme")) return "Table calme si disponible";
+  if(raw.includes("terrasse")) return "Terrasse si disponible";
+  var m=norm(text).match(/\btable\s+([A-Za-zÀ-ÿ0-9' -]{2,35})(?=,|;|\.|$)/i);
+  return m?("Table "+m[1].trim()):"À attribuer";
+}
+function parseAmount(text){
+  var m=norm(text).match(/\bacompte\s+(\d[\d\s.,]*)/i);
+  return m?Number(String(m[1]).replace(/[^0-9]/g,"")):0;
+}
+function parseChannel(text){
+  var raw=low(text);
+  if(raw.includes("wave")) return "Wave";
+  if(raw.includes("cash")||raw.includes("espece")||raw.includes("espèce")) return "Cash";
+  if(raw.includes("orange")) return "Orange Money";
+  if(raw.includes("carte")) return "Carte";
+  return "";
+}
+function build(){
+  var raw=$("txt").value.trim();
+  var d=parseDate(raw), t=parseTime(raw), amount=parseAmount(raw), channel=parseChannel(raw);
+  return {
+    id:"RESTO-ACTION-"+Date.now()+"-"+Math.random().toString(36).slice(2,8),
+    source:"ACTION_RESTO",
+    status:"pending",
+    client_name:parseClient(raw),
+    booking_date:d,
+    booking_time:t,
+    guests:parseGuests(raw),
+    table_note:parseTable(raw),
+    amount:amount,
+    channel:channel,
+    note:raw,
+    raw_text:raw,
+    created_at:new Date().toISOString(),
+    validation_required:true
+  };
+}
+function save(r){
+  try{localStorage.setItem("DIGIY_RESTO_ACTION_LATEST",JSON.stringify(r));}catch(_){}
+  try{
+    var rows=JSON.parse(localStorage.getItem("DIGIY_RESTO_RESERVATIONS")||"[]");
+    if(!Array.isArray(rows)) rows=[];
+    rows.unshift(r);
+    localStorage.setItem("DIGIY_RESTO_RESERVATIONS",JSON.stringify(rows.slice(0,150)));
+  }catch(_){}
+}
+function display(r){
+  $("fClient").textContent=r.client_name||"—";
+  $("fDate").textContent=[r.booking_date,r.booking_time].filter(Boolean).join(" · ")||"—";
+  $("fGuests").textContent=String(r.guests||"—");
+  $("fTable").textContent=r.table_note||"—";
+  $("fAmount").textContent=r.amount?money(r.amount):"—";
+  $("fChannel").textContent=r.channel||"—";
+  var message=[
+    "RESTO — message client préparé",
+    "Bonjour "+(r.client_name||"")+", votre demande de réservation est bien prise en compte.",
+    "Date : "+(r.booking_date||"—")+" "+(r.booking_time||""),
+    "Personnes : "+(r.guests||"—"),
+    "Table : "+(r.table_note||"à confirmer"),
+    r.amount?("Acompte : "+money(r.amount)+" "+(r.channel||"")):"",
+    "",
+    "Le restaurant vérifie et confirme. Rien n’est envoyé automatiquement."
+  ].filter(Boolean).join("\n");
+  $("msg").textContent=message;
+}
+function prepare(){
+  var r=build();
+  display(r);
+  save(r);
+  $("proof").textContent=[
+    "PREUVE ACTION RESTO — DIGIYLYFE",
+    "Statut : BROUILLON GARDÉ",
+    "Référence : "+r.id,
+    "Client : "+r.client_name,
+    "Date : "+r.booking_date+" "+(r.booking_time||""),
+    "Personnes : "+r.guests,
+    "Table : "+r.table_note,
+    "Acompte : "+(r.amount?money(r.amount):"—"),
+    "Canal : "+(r.channel||"—"),
+    "Validation humaine : oui"
+  ].join("\n");
+  $("status").textContent="Réservation RESTO gardée. Ouvre Calendrier ou Fiche pour vérifier.";
+  toast("Message RESTO prêt");
+  return r;
+}
+function openPay(){
+  var r=prepare();
+  var phrase=r.amount?("acompte RESTO "+r.amount+" "+(r.channel||"Wave")+" client "+r.client_name):("brouillon RESTO sans acompte client "+r.client_name);
+  try{navigator.clipboard&&navigator.clipboard.writeText(phrase)}catch(_){}
+  window.open("https://pro-pay.digiylyfe.com/action.html","_blank","noopener");
+  toast("Phrase PAY copiée");
+}
+
+document.addEventListener("click",function(e){var b=e.target.closest("[data-tpl]");if(!b)return;$("txt").value=b.getAttribute("data-tpl")||"";prepare()});
+$("prep").onclick=prepare;
+$("copy").onclick=function(){prepare();try{navigator.clipboard&&navigator.clipboard.writeText($("msg").textContent);toast("Copié")}catch(_){prompt("Copie le message :", $("msg").textContent)}};
+$("pay").onclick=openPay;
+$("listen").onclick=function(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){toast("Micro non disponible");return}var r=new SR();r.lang="fr-FR";r.onresult=function(e){$("txt").value=e.results[0][0].transcript;prepare()};r.start();toast("Micro ouvert")};
 })();
 </script>
 </body>
