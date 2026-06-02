@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <title>RESTO PRO — Calendrier Réservations</title>
 <meta name="theme-color" content="#1e7a46"/>
-<meta name="robots" content="noindex,nofollow"/>
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet"/>
+<meta name="digiy-build" content="resto-calendrier-sync-action-cockpit-final-20260602"/>
 <style>
 :root{--bg:#1e7a46;--bg2:#155a34;--bar:#062612;--gold:#facc15;--green:#22c55e;--red:#fb7185;--text:#f0fff5;--muted:rgba(240,255,245,.78);--line:rgba(255,255,255,.18);--soft:rgba(255,255,255,.09);--hdrH:56px;--barH:76px}*{box-sizing:border-box}body{margin:0;min-height:100dvh;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:18px;font-weight:900;background:radial-gradient(700px 430px at 16% 0%,rgba(74,222,128,.20),transparent 58%),radial-gradient(460px 300px at 92% 8%,rgba(250,204,21,.16),transparent 52%),linear-gradient(180deg,var(--bg),var(--bg2));padding:calc(var(--hdrH) + 14px) 12px calc(var(--barH) + env(safe-area-inset-bottom,0px) + 18px)}a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}button{cursor:pointer;color:inherit}.top{position:fixed;top:0;left:0;right:0;height:var(--hdrH);z-index:20;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 14px;background:var(--bar);border-bottom:1px solid rgba(250,204,21,.25)}.top b{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}.pill{font-size:12px;border:1px solid rgba(34,197,94,.35);background:rgba(34,197,94,.12);color:#bbf7d0;border-radius:999px;padding:7px 10px;font-weight:1000}.wrap{width:min(980px,100%);margin:0 auto;display:grid;gap:14px}.hero,.card{border:1px solid rgba(255,255,255,.16);border-radius:22px;background:rgba(255,255,255,.10);box-shadow:0 18px 46px rgba(0,0,0,.24);padding:18px}.hero{background:radial-gradient(600px 240px at 100% 0%,rgba(255,240,168,.18),transparent 72%),linear-gradient(180deg,rgba(255,255,255,.14),rgba(5,33,16,.34))}.k{color:#fff0a8;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:1000;margin-bottom:10px}h1{margin:0;font-size:clamp(42px,13vw,88px);line-height:.86;letter-spacing:-.06em;text-transform:uppercase}h1 span{display:block;color:#fff0a8}.lead{margin:12px 0 0;color:var(--muted);font-size:clamp(18px,4.5vw,26px);line-height:1.2;font-weight:1000}.grid{display:grid;grid-template-columns:1fr;gap:10px}@media(min-width:780px){.grid{grid-template-columns:.9fr 1.1fr}}label{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#fff0a8;font-weight:1000;margin:0 0 6px}.field{display:grid;gap:7px;margin-top:10px}input,textarea,select{width:100%;border:1px solid rgba(250,204,21,.28);border-radius:16px;background:#062612;color:#fff;padding:12px 13px;font-weight:850;outline:none}textarea{min-height:90px;resize:vertical;line-height:1.42}.row{display:grid;grid-template-columns:1fr;gap:10px}@media(min-width:560px){.row{grid-template-columns:1fr 1fr}}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.btn{min-height:54px;border-radius:18px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.10);display:flex;align-items:center;justify-content:center;text-align:center;padding:10px;font-weight:1000}.go{background:linear-gradient(135deg,#22c55e,#facc15);color:#06130e}.dark{background:#062612}.slots{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}.slot{border:1px solid rgba(250,204,21,.28);background:rgba(250,204,21,.08);border-radius:14px;padding:10px;text-align:center;font-weight:1000;color:#fff0a8}.list{display:grid;gap:10px}.item{border:1px solid rgba(255,255,255,.14);border-radius:18px;background:rgba(6,38,18,.52);padding:12px;display:grid;gap:8px}.itemTop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.name{font-size:20px;font-weight:1000;line-height:1.05}.meta{color:var(--muted);font-size:13px;line-height:1.35;margin-top:4px}.badge{border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:6px 9px;font-size:12px;font-weight:1000;white-space:nowrap}.ok{border-color:rgba(34,197,94,.35);background:rgba(34,197,94,.12);color:#bbf7d0}.wait{border-color:rgba(250,204,21,.35);background:rgba(250,204,21,.12);color:#fde68a}.bad{border-color:rgba(251,113,133,.35);background:rgba(251,113,133,.12);color:#fecdd3}.smallActions{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.smallActions button{min-height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);font-size:12px;font-weight:1000}.note{color:var(--muted);line-height:1.45;font-size:14px;font-weight:850}.bar{position:fixed;left:0;right:0;bottom:0;height:var(--barH);display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:7px 7px calc(7px + env(safe-area-inset-bottom,0px));background:var(--bar);border-top:1px solid rgba(250,204,21,.24);z-index:20}.bar a{display:grid;place-items:center;text-align:center;border-radius:14px;background:rgba(255,255,255,.07);font-size:10px;color:rgba(240,255,245,.76);font-weight:1000}.bar .on{background:var(--gold);color:#06130e}.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:#052e16;border:1px solid #d6a63a;border-radius:18px;padding:12px;display:none;font-weight:950;z-index:30}
 </style>
@@ -23,25 +24,271 @@
 <div class="toast" id="toast"></div>
 <script>
 (function(){
-const KEYS=['digiy_resto_session','digiy_resto_guard_session','digiy_guard_resto_session'];
+"use strict";
+
+const KEYS=[
+  "digiy_resto_session",
+  "DIGIY_RESTO_SESSION",
+  "DIGIY_SESSION_RESTO",
+  "digiy_resto_guard_session",
+  "digiy_guard_resto_session",
+  "DIGIY_ACCESS"
+];
+
 function $(id){return document.getElementById(id)}
-function toast(m){var t=$('toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',2200)}
-function readSession(){for(const k of KEYS){try{const v=JSON.parse(localStorage.getItem(k)||sessionStorage.getItem(k)||'null');if(v&&v.access_ok&&(!v.expires_at||Date.now()<Number(v.expires_at)))return v}catch(_){}}return null}
-const sess=readSession();if(!sess){location.replace('./pin.html');return}
-const KEY='DIGIY_RESTO_RESAS::'+(sess.slug||sess.phone||'default');
-function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(_){return[]}}
-function saveRows(rows){localStorage.setItem(KEY,JSON.stringify(rows))}
-function uid(){return 'resa_'+Date.now()+'_'+Math.random().toString(16).slice(2)}
-function today(){const d=new Date();return d.toISOString().slice(0,10)}
-function niceTime(t){return t==='11:30'?'11h30':t==='13:30'?'13h30':t==='18:30'?'18h30':t==='20:15'?'20h15':(t||'—')}
-function badge(s){if(s==='confirmee')return '<span class="badge ok">Confirmée</span>';if(s==='attente_15')return '<span class="badge wait">15 mn</span>';if(s==='annulee')return '<span class="badge bad">Annulée</span>';return '<span class="badge wait">À confirmer</span>'}
-function statusText(s){return s==='confirmee'?'Confirmée':s==='attente_15'?'Possible dans 15 minutes':s==='annulee'?'Annulée':'À confirmer'}
-function render(){const rows=load().sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));$('countPill').textContent=String(rows.length);const list=$('list');list.innerHTML='';if(!rows.length){list.innerHTML='<div class="item"><div class="name">Aucune réservation</div><div class="meta">Ajoute une demande pour commencer.</div></div>';return}rows.forEach(r=>{const safeNote=String(r.note||'').replace(/[<>]/g,'');const el=document.createElement('div');el.className='item';el.innerHTML='<div class="itemTop"><div><div class="name">'+(r.client||'Client')+' · '+(r.people||'?')+' pers.</div><div class="meta">📅 '+(r.date||'—')+' · 🕒 '+niceTime(r.time)+'<br>📞 '+(r.phone||'—')+'<br>'+safeNote+'</div></div>'+badge(r.status)+'</div><div class="smallActions"><button data-act="confirm" data-id="'+r.id+'">✅ OK</button><button data-act="wait" data-id="'+r.id+'">⏳ 15 mn</button><button data-act="del" data-id="'+r.id+'">🗑️</button></div>';list.appendChild(el)})}
-function clearForm(){$('date').value=today();$('time').value='11:30';$('client').value='';$('people').value='';$('phone').value='';$('note').value='';$('status').value='a_confirmer'}
-$('save').onclick=function(){const r={id:uid(),date:$('date').value||today(),time:$('time').value,client:$('client').value.trim(),people:$('people').value.trim(),phone:$('phone').value.trim(),note:$('note').value.trim(),status:$('status').value,created_at:new Date().toISOString()};const rows=load();rows.push(r);saveRows(rows);render();toast('Réservation notée');clearForm()};
-$('clear').onclick=clearForm;
-document.addEventListener('click',function(e){const b=e.target.closest('[data-act]');if(!b)return;const rows=load();const id=b.getAttribute('data-id');const act=b.getAttribute('data-act');if(act==='del'){saveRows(rows.filter(x=>x.id!==id));render();toast('Supprimée');return}const i=rows.findIndex(x=>x.id===id);if(i<0)return;if(act==='confirm')rows[i].status='confirmee';if(act==='wait')rows[i].status='attente_15';saveRows(rows);render();toast(statusText(rows[i].status))});
-clearForm();render();
+
+function toast(m){
+  var t=$("toast");
+  t.textContent=m;
+  t.style.display="block";
+  setTimeout(()=>t.style.display="none",2200);
+}
+
+function readSession(){
+  for(const k of KEYS){
+    try{
+      const raw=localStorage.getItem(k)||sessionStorage.getItem(k);
+      if(!raw) continue;
+      const v=JSON.parse(raw);
+      const ok=v && (
+        v.access_ok===true ||
+        v.access===true ||
+        v.ok===true ||
+        v.pin_session_ok===true ||
+        v.preview===false
+      );
+      const sameModule=!v.module || String(v.module).toUpperCase()==="RESTO";
+      if(ok && sameModule && (!v.expires_at || Date.now()<Number(v.expires_at))) return v;
+    }catch(_){}
+  }
+  return null;
+}
+
+const sess=readSession();
+if(!sess){
+  location.replace("./pin.html");
+  return;
+}
+
+/*
+  Deux mémoires synchronisées :
+  - SCOPED_KEY : mémoire calendrier par compte/téléphone
+  - SHARED_KEY : mémoire commune relue par ACTION RESTO / Cockpit RESTO
+*/
+const SCOPED_KEY="DIGIY_RESTO_RESAS::"+(sess.slug||sess.phone||"default");
+const SHARED_KEY="DIGIY_RESTO_RESERVATIONS";
+const LATEST_KEY="DIGIY_RESTO_ACTION_LATEST";
+
+function readKey(key){
+  try{
+    const rows=JSON.parse(localStorage.getItem(key)||"[]");
+    return Array.isArray(rows)?rows:[];
+  }catch(_){
+    return [];
+  }
+}
+
+function uid(){
+  return "resa_"+Date.now()+"_"+Math.random().toString(16).slice(2);
+}
+
+function today(){
+  const d=new Date();
+  return d.toISOString().slice(0,10);
+}
+
+function niceTime(t){
+  return t==="11:30"?"11h30":
+         t==="13:30"?"13h30":
+         t==="18:30"?"18h30":
+         t==="20:15"?"20h15":(t||"—");
+}
+
+function normalizeStatus(s){
+  s=String(s||"").toLowerCase();
+  if(s==="confirmee" || s==="confirmed" || s==="ok") return "confirmee";
+  if(s==="annulee" || s==="cancelled" || s==="canceled") return "annulee";
+  if(s==="attente_15" || s.includes("15")) return "attente_15";
+  return "a_confirmer";
+}
+
+function toCalendarRow(r){
+  if(!r) return null;
+  return {
+    id: r.id || r.reference || uid(),
+    date: String(r.date || r.booking_date || r.created_date || today()).slice(0,10),
+    time: String(r.time || r.booking_time || "11:30").slice(0,5),
+    client: String(r.client || r.client_name || r.customer_name || "Client RESTO"),
+    people: String(r.people || r.guests || r.guests_count || "1"),
+    phone: String(r.phone || r.client_phone || ""),
+    note: String(r.note || r.note_text || r.table_note || r.raw_text || ""),
+    status: normalizeStatus(r.status),
+    amount: Number(r.amount || r.price_fcfa || 0) || 0,
+    channel: String(r.channel || ""),
+    created_at: r.created_at || new Date().toISOString(),
+    source: r.source || "CALENDRIER_RESTO"
+  };
+}
+
+function toSharedRow(r){
+  return {
+    id: r.id || uid(),
+    source: r.source || "CALENDRIER_RESTO",
+    status: normalizeStatus(r.status),
+    client_name: r.client || "Client RESTO",
+    client_phone: r.phone || "",
+    booking_date: r.date || today(),
+    booking_time: r.time || "11:30",
+    guests: Number(r.people) || r.people || 1,
+    table_note: r.note || "Calendrier RESTO",
+    amount: Number(r.amount || 0) || 0,
+    channel: r.channel || "",
+    note: r.note || "",
+    raw_text: r.note || "",
+    created_at: r.created_at || new Date().toISOString(),
+    validation_required: true
+  };
+}
+
+function dedupe(rows){
+  const map=new Map();
+  rows.map(toCalendarRow).filter(Boolean).forEach(r=>{
+    const key=String(r.id || [r.date,r.time,r.client,r.people].join("|"));
+    map.set(key,Object.assign({},map.get(key)||{},r));
+  });
+  return Array.from(map.values());
+}
+
+function load(){
+  return dedupe([
+    ...readKey(SCOPED_KEY),
+    ...readKey(SHARED_KEY)
+  ]);
+}
+
+function saveRows(rows){
+  const clean=dedupe(rows);
+  localStorage.setItem(SCOPED_KEY,JSON.stringify(clean));
+  localStorage.setItem(SHARED_KEY,JSON.stringify(clean.map(toSharedRow)));
+}
+
+function badge(s){
+  if(s==="confirmee") return '<span class="badge ok">Confirmée</span>';
+  if(s==="attente_15") return '<span class="badge wait">15 mn</span>';
+  if(s==="annulee") return '<span class="badge bad">Annulée</span>';
+  return '<span class="badge wait">À confirmer</span>';
+}
+
+function statusText(s){
+  return s==="confirmee"?"Confirmée":
+         s==="attente_15"?"Possible dans 15 minutes":
+         s==="annulee"?"Annulée":"À confirmer";
+}
+
+function safe(v){
+  return String(v||"").replace(/[<>]/g,"");
+}
+
+function render(){
+  const rows=load().sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+  $("countPill").textContent=String(rows.length);
+  const list=$("list");
+  list.innerHTML="";
+
+  if(!rows.length){
+    list.innerHTML='<div class="item"><div class="name">Aucune réservation</div><div class="meta">Ajoute une demande ici ou prépare-la dans ACTION RESTO.</div></div>';
+    return;
+  }
+
+  rows.forEach(r=>{
+    const safeNote=safe(r.note);
+    const el=document.createElement("div");
+    el.className="item";
+    el.innerHTML=
+      '<div class="itemTop"><div><div class="name">'+safe(r.client||"Client")+' · '+safe(r.people||"?")+' pers.</div>'+
+      '<div class="meta">📅 '+safe(r.date||"—")+' · 🕒 '+niceTime(r.time)+'<br>📞 '+safe(r.phone||"—")+'<br>'+safeNote+
+      (r.amount ? '<br>💳 Acompte préparé : '+Number(r.amount).toLocaleString("fr-FR")+' F '+safe(r.channel||"") : '')+
+      '</div></div>'+badge(r.status)+'</div>'+
+      '<div class="smallActions"><button data-act="confirm" data-id="'+safe(r.id)+'">✅ OK</button><button data-act="wait" data-id="'+safe(r.id)+'">⏳ 15 mn</button><button data-act="del" data-id="'+safe(r.id)+'">🗑️</button></div>';
+    list.appendChild(el);
+  });
+}
+
+function clearForm(){
+  $("date").value=today();
+  $("time").value="11:30";
+  $("client").value="";
+  $("people").value="";
+  $("phone").value="";
+  $("note").value="";
+  $("status").value="a_confirmer";
+}
+
+$("save").onclick=function(){
+  const r={
+    id:uid(),
+    date:$("date").value||today(),
+    time:$("time").value,
+    client:$("client").value.trim(),
+    people:$("people").value.trim() || "1",
+    phone:$("phone").value.trim(),
+    note:$("note").value.trim(),
+    status:$("status").value,
+    amount:0,
+    channel:"",
+    created_at:new Date().toISOString(),
+    source:"CALENDRIER_RESTO"
+  };
+
+  const rows=load();
+  rows.push(r);
+  saveRows(rows);
+
+  try{
+    localStorage.setItem(LATEST_KEY,JSON.stringify(toSharedRow(r)));
+  }catch(_){}
+
+  render();
+  toast("Réservation notée");
+  clearForm();
+};
+
+$("clear").onclick=clearForm;
+
+document.addEventListener("click",function(e){
+  const b=e.target.closest("[data-act]");
+  if(!b) return;
+
+  let rows=load();
+  const id=b.getAttribute("data-id");
+  const act=b.getAttribute("data-act");
+
+  if(act==="del"){
+    rows=rows.filter(x=>String(x.id)!==String(id));
+    saveRows(rows);
+    render();
+    toast("Supprimée");
+    return;
+  }
+
+  const i=rows.findIndex(x=>String(x.id)===String(id));
+  if(i<0) return;
+
+  if(act==="confirm") rows[i].status="confirmee";
+  if(act==="wait") rows[i].status="attente_15";
+
+  saveRows(rows);
+
+  try{
+    localStorage.setItem(LATEST_KEY,JSON.stringify(toSharedRow(rows[i])));
+  }catch(_){}
+
+  render();
+  toast(statusText(rows[i].status));
+});
+
+clearForm();
+render();
 })();
 </script>
 </body>
