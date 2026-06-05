@@ -5,8 +5,29 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
   <title>RESTO PRO — HUB Vitrine</title>
   <meta name="theme-color" content="#1e7a46"/>
-  <meta name="digiy-build" content="resto-hub-action-clean-20260602"/>
+  <meta name="digiy-build" content="resto-hub-action-clean-20260602-pin-lock"/>
   <meta name="robots" content="noindex,nofollow,noarchive,nosnippet"/>
+  <script>
+    (function(){
+      "use strict";
+      var KEYS=["digiy_resto_session","DIGIY_RESTO_SESSION","DIGIY_SESSION_RESTO","digiy_resto_guard_session","digiy_guard_resto_session","DIGIY_ACCESS"];
+      function ok(){
+        for(var i=0;i<KEYS.length;i++){
+          try{
+            var raw=sessionStorage.getItem(KEYS[i])||localStorage.getItem(KEYS[i]);
+            if(!raw) continue;
+            var s=JSON.parse(raw);
+            var access=s&&(s.access_ok===true||s.access===true||s.ok===true||s.pin_session_ok===true||s.preview===false);
+            var same=!s.module||String(s.module).toUpperCase()==="RESTO";
+            var exp=Number(s.expires_at||s.expiresAt||0);
+            if(access&&same&&(!exp||Date.now()<exp)) return true;
+          }catch(_){ }
+        }
+        return false;
+      }
+      if(!ok()) location.replace("./pin.html");
+    })();
+  </script>
   <style>
     :root{--bg:#1e7a46;--bg2:#155a34;--bg3:#0e4226;--bar:rgba(8,50,24,.96);--gold:#facc15;--green:#22c55e;--text:#f0fff5;--muted:rgba(240,255,245,.78);--line:rgba(255,255,255,.18);--soft:rgba(255,255,255,.09);--shadow:0 18px 46px rgba(0,0,0,.24);--r:22px;--hdrH:56px;--barH:76px}
     *{box-sizing:border-box}html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
