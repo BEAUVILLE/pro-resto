@@ -29,15 +29,7 @@
 </main>
 <nav class="bar"><a href="./hub.html">HUB</a><a href="./action.html">Action</a><a class="on" href="./oreille.html">Oreille</a><a href="./cockpit.html">Cockpit</a><a href="./pin.html">PIN</a></nav>
 <div class="toast" id="toast"></div>
-<script>
-(function(){
-function $(id){return document.getElementById(id)}function toast(m){var t=$('toast');t.textContent=m;t.style.display='block';setTimeout(function(){t.style.display='none'},2200)}
-function sessionOk(){var keys=['digiy_resto_session','digiy_resto_guard_session','digiy_guard_resto_session'];for(var i=0;i<keys.length;i++){try{var v=JSON.parse(localStorage.getItem(keys[i])||sessionStorage.getItem(keys[i])||'null');if(v&&v.access_ok&&(!v.expires_at||Date.now()<Number(v.expires_at)))return true}catch(e){}}return false}
-if(!sessionOk()){location.replace('./pin.html');return}
-function extract(raw){var t=String(raw||'');var low=t.toLowerCase();var nums=t.match(/\b\d+[\s.]?\d*\b/g)||[];var mode=(low.indexOf('wave')>-1?'Wave':low.indexOf('cash')>-1?'Cash':low.indexOf('orange')>-1?'Orange Money':'à vérifier');var place=(low.indexOf('terrasse')>-1?'terrasse':low.indexOf('salle')>-1?'salle':low.indexOf('emporter')>-1?'à emporter':'à préciser');return{nums:nums.join(', ')||'à vérifier',mode:mode,place:place}}
-function prepare(){var raw=$('txt').value.trim();var x=extract(raw);var msg=['Bonjour,','Nous avons bien noté la demande suivante :',raw,'','Repères à vérifier :','• Lieu / table : '+x.place,'• Chiffres / montant / personnes : '+x.nums,'• Paiement évoqué : '+x.mode,'','Merci de confirmer les détails avant validation.','', 'DIGIY RESTO : message préparé. Validation humaine obligatoire.'].join('\n');$('msg').textContent=msg;try{localStorage.setItem('DIGIY_RESTO_OREILLE_LATEST',JSON.stringify({raw:raw,msg:msg,preparedAt:new Date().toISOString()}))}catch(e){}toast('Message RESTO préparé')}
-$('prep').onclick=prepare;$('copy').onclick=function(){prepare();navigator.clipboard&&navigator.clipboard.writeText($('msg').textContent);toast('Copié')};$('speak').onclick=function(){prepare();try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance($('msg').textContent);u.lang='fr-FR';u.rate=.96;speechSynthesis.speak(u)}catch(e){toast('Lecture indisponible')}};$('listen').onclick=function(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){toast('Micro non disponible');return}var r=new SR();r.lang='fr-FR';r.onresult=function(e){$('txt').value=e.results[0][0].transcript;prepare()};r.start();toast('Micro ouvert')};
-})();
-</script>
+<script src="./assets/js/digiy-resto-pro-memory.js?v=resto-pro-memory-official-20260606"></script>
+<script src="./assets/js/oreille-resto.js?v=oreille-resto-official-20260606"></script>
 </body>
 </html>
