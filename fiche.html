@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <title>Fiche RESTO — Restaurant</title>
+  <meta name="theme-color" content="#1e7a46"/>
+  <meta name="robots" content="index,follow"/>
+  <meta name="description" content="Fiche restaurant DIGIY RESTO : présentation, horaires, menu, ambiance, contact direct et demande de table."/>
+
+  <meta property="og:title" content="Fiche RESTO — Restaurant"/>
+  <meta property="og:description" content="Menu, horaires, ambiance, contact direct et demande de table."/>
+  <meta property="og:type" content="website"/>
+
+  <style>
+    :root{
+      --bg:#1e7a46;
+      --bg2:#155a34;
+      --bg3:#0e4226;
+      --ink:#f7fff8;
+      --muted:rgba(247,255,248,.78);
+      --soft:rgba(255,255,255,.09);
+      --line:rgba(255,255,255,.18);
+      --gold:#facc15;
+      --gold2:#fff0a8;
+      --green:#22c55e;
+      --dark:#062612;
+      --shadow:0 18px 46px rgba(0,0,0,.24);
+      --r:24px;
+      --max:980px;
+      --barH:78px;
+    }
+    *{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100dvh;
+      color:var(--ink);
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      font-size:18px;
+      font-weight:900;
+      background:
+        radial-gradient(720px 420px at 14% -4%,rgba(250,204,21,.18),transparent 60%),
+        radial-gradient(640px 380px at 100% 0%,rgba(34,197,94,.20),transparent 62%),
+        linear-gradient(180deg,var(--bg),var(--bg2) 58%,var(--bg3));
+      padding:12px 12px calc(var(--barH) + env(safe-area-inset-bottom,0px) + 18px);
+    }
+    a{color:inherit;text-decoration:none}
+    button{font:inherit;color:inherit;cursor:pointer}
+    .wrap{width:min(var(--max),100%);margin:0 auto;display:grid;gap:14px}
+    .top{
+      position:sticky;top:0;z-index:20;
+      margin:-12px -12px 4px;
+      padding:10px 12px calc(10px + env(safe-area-inset-top,0px));
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      background:rgba(8,50,24,.96);
+      border-bottom:1px solid rgba(250,204,21,.24);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+    }
+    .top a,.top span{
+      min-height:38px;
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:8px 10px;border-radius:999px;
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.12);
+      font-size:13px;font-weight:1000;
+      white-space:nowrap;
+    }
+    .brand{color:var(--gold2);letter-spacing:.12em;text-transform:uppercase}
+    .hero,.card{
+      border:1px solid var(--line);
+      border-radius:var(--r);
+      background:rgba(255,255,255,.09);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .hero{
+      padding:18px;
+      background:
+        radial-gradient(640px 250px at 100% 0%,rgba(250,204,21,.20),transparent 72%),
+        linear-gradient(180deg,rgba(255,255,255,.14),rgba(5,33,16,.34));
+    }
+    .kicker{color:var(--gold2);font-size:12px;letter-spacing:.15em;text-transform:uppercase;font-weight:1000;margin-bottom:10px}
+    h1{margin:0;font-size:clamp(48px,13vw,94px);line-height:.84;letter-spacing:-.075em;text-transform:uppercase;font-weight:1000}
+    h1 span{display:block;color:var(--gold2)}
+    .lead{margin:12px 0 0;color:var(--muted);font-size:clamp(19px,4.8vw,28px);line-height:1.16;font-weight:1000;letter-spacing:-.025em;max-width:850px}
+    .quick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+    .btn{
+      min-height:62px;
+      border-radius:19px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.10);
+      display:flex;align-items:center;justify-content:center;text-align:center;
+      padding:12px 14px;
+      font-size:16px;font-weight:1000;
+      box-shadow:0 12px 28px rgba(0,0,0,.14);
+    }
+    .btn.main{background:linear-gradient(135deg,var(--green),var(--gold));color:#06130e;border-color:transparent}
+    .btn.gold{background:rgba(250,204,21,.17);border-color:rgba(250,204,21,.36);color:#fff5bf}
+    .card{padding:16px;display:grid;gap:12px}
+    h2{margin:0;font-size:clamp(27px,7vw,42px);line-height:.98;letter-spacing:-.045em;font-weight:1000;color:#fff}
+    .text{margin:0;color:var(--muted);line-height:1.42;font-size:16px;font-weight:950}
+    .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .tile{
+      min-height:102px;
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.15);
+      background:rgba(255,255,255,.08);
+      padding:14px;
+      display:flex;flex-direction:column;justify-content:center;gap:5px;
+    }
+    .tile b{font-size:20px;line-height:1.05;color:#fff;font-weight:1000}
+    .tile span{color:var(--muted);font-size:14px;line-height:1.30;font-weight:950}
+    .menuList{display:grid;gap:8px}
+    .menuItem{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:18px;
+      padding:13px 14px;
+      background:rgba(255,255,255,.07);
+    }
+    .menuItem b{font-size:17px;font-weight:1000;color:#fff}
+    .menuItem span{color:var(--gold2);font-size:14px;font-weight:1000;white-space:nowrap}
+    .photos{display:grid;grid-template-columns:1.2fr .8fr;gap:10px}
+    .photo{
+      min-height:160px;
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.16);
+      background:
+        radial-gradient(260px 140px at 70% 20%,rgba(250,204,21,.24),transparent 60%),
+        linear-gradient(135deg,rgba(6,38,18,.78),rgba(255,255,255,.10));
+      display:grid;place-items:center;text-align:center;
+      padding:16px;color:rgba(255,255,255,.86);
+      font-weight:1000;
+    }
+    .photo.small{min-height:75px;font-size:14px}
+    .rule{
+      border:1px dashed rgba(255,255,255,.24);
+      border-radius:20px;
+      padding:14px;
+      background:rgba(5,31,17,.36);
+      color:rgba(247,255,248,.92);
+      line-height:1.36;
+      font-size:15px;
+      font-weight:1000;
+    }
+    .rule b{color:var(--gold2)}
+    .bottomBar{
+      position:fixed;left:0;right:0;bottom:0;z-index:30;
+      height:var(--barH);
+      padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));
+      background:rgba(8,50,24,.97);
+      border-top:1px solid rgba(250,204,21,.24);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+    }
+    .bottomInner{width:min(760px,100%);height:100%;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+    .bottomInner a{
+      min-height:56px;border-radius:15px;display:grid;place-items:center;align-content:center;gap:2px;
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);
+      color:rgba(247,255,248,.70);font-size:11px;font-weight:1000;text-align:center;
+    }
+    .bottomInner a.on{background:linear-gradient(135deg,var(--green),var(--gold));color:#06130e;border-color:transparent}
+    .toast{position:fixed;left:50%;bottom:calc(var(--barH) + 20px);transform:translateX(-50%);display:none;max-width:calc(100% - 24px);background:#062612;border:1px solid rgba(250,204,21,.42);color:#fff;border-radius:18px;padding:12px 14px;font-weight:1000;box-shadow:var(--shadow);z-index:40}
+    @media(max-width:640px){
+      body{padding-left:10px;padding-right:10px}
+      .quick{grid-template-columns:1fr 1fr}
+      .grid2{grid-template-columns:1fr 1fr}
+      .photos{grid-template-columns:1fr}
+      .photo{min-height:132px}
+      .tile{min-height:94px;padding:12px}
+      .tile b{font-size:18px}
+      .btn{font-size:15px;padding:10px;min-height:58px}
+    }
+    @media(max-width:380px){.quick,.grid2{grid-template-columns:1fr}.bottomInner a{font-size:10px}}
+  </style>
+</head>
+<body>
+  <header class="top">
+    <a href="./hub.html">← RESTO</a>
+    <span class="brand">FICHE RESTO</span>
+    <a href="#contact">Contact</a>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="kicker">🍽️ Restaurant · fiche publique</div>
+      <h1><span id="restaurantNameBig">Restaurant</span><span id="restaurantCityBig">DIGIY</span></h1>
+      <p class="lead" id="restaurantIntro">Une fiche claire pour présenter le restaurant, l’ambiance, les horaires, le menu et préparer une demande de table. Le restaurant confirme toujours lui-même.</p>
+      <div class="quick">
+        <a class="btn main" id="reserveBtn" href="#contact">📅 Demander une table</a>
+        <a class="btn gold" id="whatsappBtn" href="#contact">💬 WhatsApp</a>
+        <a class="btn" href="#menu">🍽️ Voir le menu</a>
+        <a class="btn" id="mapBtn" href="#infos">📍 Itinéraire</a>
+      </div>
+    </section>
+
+    <section class="card" id="infos">
+      <h2>Infos utiles</h2>
+      <div class="grid2">
+        <div class="tile"><b id="cuisineText">Cuisine maison</b><span>Style / spécialité</span></div>
+        <div class="tile"><b id="hoursText">Ouvert aujourd’hui</b><span>Horaires</span></div>
+        <div class="tile"><b id="areaText">Zone restaurant</b><span>Quartier / ville</span></div>
+        <div class="tile"><b id="serviceText">Sur place · à emporter</b><span>Service</span></div>
+      </div>
+      <div class="rule"><b>Règle :</b> cette fiche prépare la relation. Une réservation, une table, un menu, un acompte ou un paiement n’est jamais confirmé automatiquement.</div>
+    </section>
+
+    <section class="card">
+      <h2>Ambiance</h2>
+      <p class="text" id="ambianceText">Accueil simple, cuisine lisible, contact direct. Le client comprend vite où il arrive et comment demander une table.</p>
+      <div class="photos" aria-label="Photos restaurant">
+        <div class="photo" id="photoMain">Photo restaurant / plat</div>
+        <div style="display:grid;gap:10px">
+          <div class="photo small" id="photoSecond">Ambiance</div>
+          <div class="photo small" id="photoThird">Menu</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="menu">
+      <h2>Menu rapide</h2>
+      <p class="text">Quelques repères suffisent. Le détail peut être envoyé par WhatsApp ou montré sur place.</p>
+      <div class="menuList" id="menuList">
+        <div class="menuItem"><b>Plat du jour</b><span>à demander</span></div>
+        <div class="menuItem"><b>Poisson / viande</b><span>selon arrivage</span></div>
+        <div class="menuItem"><b>Boisson</b><span>sur place</span></div>
+      </div>
+    </section>
+
+    <section class="card" id="contact">
+      <h2>Contact direct</h2>
+      <p class="text">Le client peut demander une table ou poser une question. Le restaurant répond et confirme lui-même.</p>
+      <div class="quick">
+        <a class="btn main" id="reserveBtn2" href="#">📅 Demander une table</a>
+        <a class="btn gold" id="whatsappBtn2" href="#">💬 WhatsApp</a>
+        <a class="btn" id="callBtn" href="#">☎️ Appeler</a>
+        <button class="btn" id="shareBtn" type="button">🔗 Partager</button>
+      </div>
+      <div class="rule"><b>PAY :</b> un acompte peut être demandé seulement si le restaurant le confirme. PAY trace l’argent réel, RESTO garde la fiche et la relation client.</div>
+    </section>
+  </main>
+
+  <nav class="bottomBar" aria-label="Navigation fiche RESTO">
+    <div class="bottomInner">
+      <a class="on" href="#infos">Infos</a>
+      <a href="#menu">Menu</a>
+      <a href="#contact">Contact</a>
+      <a href="./oreille.html">Oreille</a>
+      <a href="./hub.html">Pro</a>
+    </div>
+  </nav>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function(){
+      "use strict";
+
+      const CONFIG = {
+        name: "Restaurant DIGIY",
+        city: "Saly",
+        cuisine: "Cuisine maison",
+        hours: "Ouvert aujourd’hui",
+        area: "Saly · Petite Côte",
+        service: "Sur place · à emporter",
+        ambiance: "Restaurant simple et accueillant. Le client peut découvrir l’ambiance, demander une table et contacter directement le restaurant.",
+        phone: "",
+        whatsapp: "",
+        mapsQuery: "Restaurant Saly Sénégal",
+        menu: [
+          ["Plat du jour", "à demander"],
+          ["Grillade / poisson", "selon arrivage"],
+          ["Boissons", "sur place"],
+          ["Réservation groupe", "sur demande"]
+        ]
+      };
+
+      const $ = (id) => document.getElementById(id);
+      const qs = new URLSearchParams(location.search);
+      const get = (key, fallback="") => String(qs.get(key) || fallback || "").trim();
+      const onlyDigits = (v) => String(v || "").replace(/[^\d]/g, "");
+      const toast = (msg) => {
+        const t = $("toast");
+        if(!t) return;
+        t.textContent = msg;
+        t.style.display = "block";
+        clearTimeout(window.__digiyRestoToast);
+        window.__digiyRestoToast = setTimeout(()=>{ t.style.display = "none"; }, 2400);
+      };
+
+      const data = {
+        name: get("name", CONFIG.name),
+        city: get("city", CONFIG.city),
+        cuisine: get("cuisine", CONFIG.cuisine),
+        hours: get("hours", CONFIG.hours),
+        area: get("area", CONFIG.area),
+        service: get("service", CONFIG.service),
+        ambiance: get("ambiance", CONFIG.ambiance),
+        phone: onlyDigits(get("phone", CONFIG.phone)),
+        whatsapp: onlyDigits(get("wa", CONFIG.whatsapp || CONFIG.phone)),
+        mapsQuery: get("map", CONFIG.mapsQuery)
+      };
+
+      document.title = data.name + " — Fiche RESTO";
+      $("restaurantNameBig").textContent = data.name;
+      $("restaurantCityBig").textContent = data.city;
+      $("restaurantIntro").textContent = data.ambiance;
+      $("cuisineText").textContent = data.cuisine;
+      $("hoursText").textContent = data.hours;
+      $("areaText").textContent = data.area;
+      $("serviceText").textContent = data.service;
+      $("ambianceText").textContent = data.ambiance;
+
+      const menuList = $("menuList");
+      if(menuList){
+        menuList.innerHTML = "";
+        CONFIG.menu.forEach(([label, price]) => {
+          const row = document.createElement("div");
+          row.className = "menuItem";
+          row.innerHTML = `<b>${label}</b><span>${price}</span>`;
+          menuList.appendChild(row);
+        });
+      }
+
+      const message = encodeURIComponent("Bonjour, je souhaite réserver une table au restaurant " + data.name + ".");
+      const wa = data.whatsapp ? "https://wa.me/" + data.whatsapp + "?text=" + message : "#contact";
+      const call = data.phone ? "tel:+" + data.phone : "#contact";
+      const map = data.mapsQuery ? "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(data.mapsQuery) : "#infos";
+
+      ["reserveBtn","reserveBtn2","whatsappBtn","whatsappBtn2"].forEach(id => {
+        const el = $(id);
+        if(el) el.href = wa;
+      });
+      const callBtn = $("callBtn");
+      if(callBtn) callBtn.href = call;
+      const mapBtn = $("mapBtn");
+      if(mapBtn){ mapBtn.href = map; mapBtn.target = "_blank"; mapBtn.rel = "noopener"; }
+
+      if(!data.whatsapp){
+        ["reserveBtn","reserveBtn2","whatsappBtn","whatsappBtn2"].forEach(id => {
+          const el = $(id);
+          if(el) el.addEventListener("click", function(e){ e.preventDefault(); toast("WhatsApp non renseigné sur cette fiche."); });
+        });
+      }
+      if(!data.phone && callBtn){
+        callBtn.addEventListener("click", function(e){ e.preventDefault(); toast("Téléphone non renseigné sur cette fiche."); });
+      }
+
+      const shareBtn = $("shareBtn");
+      if(shareBtn){
+        shareBtn.addEventListener("click", async function(){
+          const title = data.name + " — RESTO";
+          const text = "Découvre la fiche restaurant : " + data.name;
+          try{
+            if(navigator.share){ await navigator.share({title, text, url:location.href}); }
+            else{
+              await navigator.clipboard.writeText(location.href);
+              toast("Lien copié.");
+            }
+          }catch(_){ toast("Partage annulé."); }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
