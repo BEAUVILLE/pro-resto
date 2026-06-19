@@ -1,175 +1,43 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-
-  <title>RESTO PRO — Menu direct</title>
-  <meta name="theme-color" content="#1e7a46"/>
-  <meta name="digiy-build" content="resto-menu-direct-compact-fiche-link-20260612"/>
-  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet"/>
-
-  <script>
-    (function(){
-      "use strict";
-      var KEYS=["digiy_resto_session","DIGIY_RESTO_SESSION","DIGIY_SESSION_RESTO","digiy_resto_guard_session","digiy_guard_resto_session","DIGIY_ACCESS"];
-      function ok(){
-        for(var i=0;i<KEYS.length;i++){
-          try{
-            var raw=sessionStorage.getItem(KEYS[i])||localStorage.getItem(KEYS[i]);
-            if(!raw) continue;
-            var s=JSON.parse(raw);
-            var access=s&&(s.access_ok===true||s.access===true||s.ok===true||s.pin_session_ok===true||s.preview===false);
-            var same=!s.module||String(s.module).toUpperCase()==="RESTO";
-            var exp=Number(s.expires_at||s.expiresAt||0);
-            if(access&&same&&(!exp||Date.now()<exp)) return true;
-          }catch(_){ }
-        }
-        return false;
-      }
-      if(!ok()) location.replace("./pin.html");
-    })();
-  </script>
-
-  <style>
-    :root{
-      --bg:#1e7a46;--bg2:#155a34;--bg3:#0e4226;--bar:rgba(8,50,24,.96);
-      --gold:#facc15;--gold2:#fff0a8;--green:#22c55e;--text:#f0fff5;
-      --muted:rgba(240,255,245,.78);--line:rgba(255,255,255,.18);
-      --soft:rgba(255,255,255,.09);--shadow:0 16px 40px rgba(0,0,0,.22);
-      --r:20px;--hdrH:54px;--barH:76px;--max:940px
-    }
-    *{box-sizing:border-box}
-    html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-    body{
-      margin:0;min-height:100dvh;color:var(--text);
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-      font-size:18px;font-weight:950;
-      background:
-        radial-gradient(680px 390px at 14% 0%,rgba(74,222,128,.20),transparent 58%),
-        radial-gradient(460px 300px at 92% 8%,rgba(250,204,21,.16),transparent 52%),
-        linear-gradient(180deg,var(--bg),var(--bg2) 60%,var(--bg3));
-      padding:calc(var(--hdrH) + 12px) 12px calc(var(--barH) + env(safe-area-inset-bottom,0px) + 16px)
-    }
-    a{color:inherit;text-decoration:none}
-    button{font:inherit;color:inherit;cursor:pointer}
-    .top{
-      position:fixed;top:0;left:0;right:0;height:var(--hdrH);z-index:20;
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-      padding:0 14px;background:var(--bar);border-bottom:1px solid rgba(250,204,21,.25);
-      backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)
-    }
-    .top a,.pill{font-size:12px;font-weight:1000;white-space:nowrap}
-    .top b{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
-    .pill{border:1px solid rgba(34,197,94,.35);background:rgba(34,197,94,.12);color:#bbf7d0;border-radius:999px;padding:7px 10px}
-    .wrap{width:min(var(--max),100%);margin:0 auto;display:grid;gap:11px}
-    .head{display:grid;gap:7px;padding:2px 2px 0}
-    .k{color:#fff0a8;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:1000}
-    h1{margin:0;font-size:clamp(32px,8vw,52px);line-height:.9;letter-spacing:-.055em;font-weight:1000}
-    .lead{color:var(--muted);font-size:15px;line-height:1.3;font-weight:950;max-width:740px}
-    .panel{
-      border:1px solid rgba(255,255,255,.16);border-radius:22px;background:rgba(255,255,255,.09);
-      box-shadow:var(--shadow);padding:11px;display:grid;gap:10px
-    }
-    .label{font-size:11px;font-weight:1000;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,255,245,.55)}
-    .quick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
-    .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
-    .tile{
-      min-height:108px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.08);
-      padding:12px;display:flex;flex-direction:column;justify-content:space-between;gap:8px;
-      box-shadow:0 12px 26px rgba(0,0,0,.14);-webkit-tap-highlight-color:transparent
-    }
-    .tile.main{background:linear-gradient(135deg,rgba(34,197,94,.26),rgba(250,204,21,.18));border-color:rgba(250,204,21,.34)}
-    .tile.pay{background:linear-gradient(135deg,rgba(250,204,21,.20),rgba(34,197,94,.14));border-color:rgba(250,204,21,.38)}
-    .tile b{font-size:19px;line-height:1.04;color:#fff;font-weight:1000;letter-spacing:-.02em}
-    .tile small{color:var(--muted);font-size:12.5px;line-height:1.23;font-weight:900}
-    .ico{font-size:25px;line-height:1}
-    details.more{
-      border:1px solid rgba(250,204,21,.26);border-radius:20px;background:rgba(255,255,255,.07);
-      overflow:hidden
-    }
-    details.more summary{
-      min-height:54px;display:flex;align-items:center;justify-content:space-between;gap:10px;
-      padding:0 14px;list-style:none;font-weight:1000;color:#fff0a8;cursor:pointer
-    }
-    details.more summary::-webkit-details-marker{display:none}
-    .moreGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:0 10px 10px}
-    .mini{min-height:70px;border-radius:16px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);padding:10px;display:grid;align-content:center;gap:3px}
-    .mini b{font-size:15px}.mini small{font-size:11px;color:var(--muted);font-weight:900}
-    .bar{
-      position:fixed;left:0;right:0;bottom:0;height:var(--barH);display:grid;grid-template-columns:repeat(6,1fr);gap:5px;
-      padding:7px 7px calc(7px + env(safe-area-inset-bottom,0px));background:var(--bar);border-top:1px solid rgba(250,204,21,.24);z-index:20
-    }
-    .bar a{display:grid;place-items:center;text-align:center;border-radius:14px;background:rgba(255,255,255,.07);font-size:10px;color:rgba(240,255,245,.76);font-weight:1000}
-    .bar .on{background:var(--gold);color:#06130e}
-    @media(max-width:680px){
-      .quick{grid-template-columns:repeat(3,minmax(0,1fr))}
-      .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .tile{min-height:100px;padding:11px}
-      .tile b{font-size:17px}
-      .tile small{font-size:12px}
-      .moreGrid{grid-template-columns:1fr 1fr}
-    }
-    @media(max-width:380px){
-      body{padding-left:9px;padding-right:9px}
-      .quick{grid-template-columns:1fr}
-      .grid{grid-template-columns:1fr 1fr}
-      .tile{min-height:92px}
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>DIGIY PRO RESTO — Réservation de table</title>
+<meta name="theme-color" content="#1e7a46">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<meta name="description" content="DIGIY PRO RESTO — réservation de table : le client demande, le restaurant confirme, paiement direct au pro, 0% commission.">
+<meta name="digiy-build" content="pro-resto-reservation-table-propre-20260619">
+<style>
+:root{--bg:#061b14;--bg2:#0b2a1d;--ink:#f4fff8;--muted:#cfe9d7;--gold:#facc15;--orange:#f97316;--green:#22c55e;--line:rgba(255,255,255,.14);--card:rgba(255,255,255,.075);--shadow:0 18px 55px rgba(0,0,0,.36);--font:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100svh;padding-bottom:92px;background:radial-gradient(800px 430px at 8% -8%,rgba(250,204,21,.16),transparent 60%),radial-gradient(700px 380px at 100% 0%,rgba(34,197,94,.16),transparent 58%),linear-gradient(180deg,var(--bg2),var(--bg));color:var(--ink);font-family:var(--font);font-weight:850}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}button{cursor:pointer;color:inherit}.wrap{width:min(1100px,calc(100% - 24px));margin:0 auto}.top{position:sticky;top:0;z-index:60;background:rgba(6,27,20,.96);border-bottom:1px solid rgba(255,255,255,.10);backdrop-filter:blur(14px)}.topin{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}.brand{display:flex;align-items:center;gap:10px}.logo{width:46px;height:46px;border-radius:17px;background:linear-gradient(135deg,var(--gold),var(--orange));display:grid;place-items:center;color:#061b14;font-size:24px;box-shadow:0 10px 28px rgba(250,204,21,.24)}.brand b{display:block;color:var(--gold);letter-spacing:.10em;text-transform:uppercase;font-size:14px;font-weight:1000}.brand span{display:block;color:var(--muted);font-size:12px;margin-top:3px}.toplinks{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.pill{min-height:40px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.07);padding:0 12px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:1000}.pill.gold{background:linear-gradient(135deg,var(--gold),var(--orange));color:#061b14;border:0}.hero{padding:16px 0}.heroCard{border:1px solid rgba(255,255,255,.12);border-radius:32px;background:var(--card);box-shadow:var(--shadow);padding:20px}.kicker{display:inline-flex;align-items:center;min-height:34px;padding:0 12px;border-radius:999px;border:1px solid rgba(250,204,21,.28);background:rgba(250,204,21,.11);color:#fde68a;font-size:12px;font-weight:1000;letter-spacing:.08em;text-transform:uppercase}.hero h1{margin:12px 0 8px;font-size:clamp(38px,8vw,76px);line-height:.92;letter-spacing:-.06em;font-weight:1000}.hero h1 span{background:linear-gradient(135deg,var(--gold),var(--green));-webkit-background-clip:text;color:transparent}.hero p{margin:0;color:var(--muted);line-height:1.55;max-width:78ch;font-size:16px}.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.badge{border:1px solid rgba(255,255,255,.12);background:rgba(2,6,23,.25);border-radius:999px;padding:8px 11px;color:var(--muted);font-size:12px;font-weight:1000}.doors{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:16px}.door{min-height:92px;border:1px solid var(--line);border-radius:21px;background:rgba(255,255,255,.07);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:5px;padding:10px}.door strong{font-size:26px}.door b{font-size:14px;font-weight:1000}.door small{color:var(--muted);font-size:11px;font-weight:900}.door.gold{background:linear-gradient(135deg,var(--gold),var(--orange));color:#061b14;border:0}.door.gold small{color:rgba(6,27,20,.75)}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:12px}.panel{border:1px solid rgba(255,255,255,.11);border-radius:27px;background:var(--card);box-shadow:0 14px 38px rgba(0,0,0,.24);padding:16px;margin-bottom:12px}.panel h2{margin:0 0 10px;color:var(--gold);font-size:27px;line-height:1;font-weight:1000;letter-spacing:-.03em}.panel p{margin:0 0 12px;color:var(--muted);line-height:1.5;font-size:14px}.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;color:#fde68a;font-weight:1000;letter-spacing:.07em;text-transform:uppercase}.input,.select,.area{width:100%;min-height:50px;border-radius:17px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.94);color:#061b14;padding:10px 12px;outline:none;font-weight:900}.area{min-height:96px;resize:vertical;line-height:1.45}.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.btn{min-height:52px;border-radius:17px;border:1px solid var(--line);background:rgba(255,255,255,.08);display:inline-flex;align-items:center;justify-content:center;text-align:center;padding:0 14px;font-weight:1000}.btn.gold{background:linear-gradient(135deg,var(--gold),var(--orange));color:#061b14;border:0}.btn.green{background:rgba(34,197,94,.15);border-color:rgba(34,197,94,.35);color:#bbf7d0}.preview{white-space:pre-wrap;border:1px solid rgba(250,204,21,.24);border-radius:20px;background:rgba(2,6,23,.30);min-height:260px;padding:14px;color:#fff4b8;line-height:1.45;font-size:14px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card{border:1px solid rgba(255,255,255,.10);border-radius:22px;background:rgba(255,255,255,.06);padding:14px}.card .ico{font-size:30px}.card h3{margin:8px 0 7px;color:#fff;font-size:18px}.card p{margin:0;color:var(--muted);line-height:1.5;font-size:13px}.notice{border:1px solid rgba(34,197,94,.28);background:rgba(34,197,94,.10);color:#bbf7d0;border-radius:20px;padding:14px;line-height:1.5}.bottom{position:fixed;left:0;right:0;bottom:0;z-index:80;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:rgba(6,27,20,.96);border-top:1px solid rgba(255,255,255,.10);backdrop-filter:blur(12px)}.bottomin{width:min(760px,100%);margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.bottom a{min-height:54px;border-radius:15px;display:grid;place-items:center;align-content:center;gap:2px;text-align:center;color:rgba(244,255,248,.78);font-size:11px;font-weight:1000}.bottom .active{background:linear-gradient(135deg,var(--gold),var(--orange));color:#061b14}.toast{position:fixed;left:50%;bottom:94px;transform:translateX(-50%) translateY(16px);opacity:0;z-index:100;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(2,6,23,.86);color:#fff;padding:11px 15px;font-weight:1000;transition:.18s}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}footer{padding:18px 0 34px;text-align:center;color:var(--muted);font-size:12px;font-weight:900}@media(max-width:980px){.doors{grid-template-columns:repeat(3,1fr)}.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:860px){.grid{grid-template-columns:1fr}.form{grid-template-columns:1fr}.toplinks{display:none}}@media(max-width:520px){.doors{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:1fr}.heroCard,.panel{padding:14px}.door{min-height:84px}.bottomin{grid-template-columns:repeat(5,1fr)}}
+</style>
 </head>
 <body>
-<header class="top">
-  <a href="./index.html">← Entrée</a>
-  <b>RESTO PRO</b>
-  <span class="pill">Menu</span>
-</header>
-
-<main class="wrap">
-  <section class="head">
-    <div class="k">🍽️ Restaurant · vitrine pro</div>
-    <h1>Que veux-tu faire ?</h1>
-    <div class="lead">Le restaurant ouvre le bon geste : fiche, réservation, oreille, action, Wolof ou argent.</div>
-  </section>
-
-  <section class="panel" aria-label="Départ rapide RESTO">
-    <div class="label">Départ rapide</div>
-    <div class="quick">
-      <a class="tile main" href="./fiche.html"><span class="ico">🪧</span><b>Fiche resto</b><small>Voir la fiche client.</small></a>
-      <a class="tile main" href="./calendrier.html"><span class="ico">📅</span><b>Résa</b><small>Voir les réservations.</small></a>
-      <a class="tile main" href="./oreille.html"><span class="ico">🎙️</span><b>Oreille</b><small>Réponse client à préparer.</small></a>
-    </div>
-  </section>
-
-  <section class="panel" aria-label="Portes utiles RESTO">
-    <div class="label">Portes utiles</div>
-    <div class="grid">
-      <a class="tile" href="./action.html"><span class="ico">⚡</span><b>Action</b><small>Réservation, message, acompte.</small></a>
-      <a class="tile" href="https://resto.digiylyfe.com/lexique-resto.html?v=lexique-resto-v2-mobile-20260607"><span class="ico">🇸🇳</span><b>Wolof</b><small>Accueil, menu, addition.</small></a>
-      <a class="tile pay" href="https://pay.digiylyfe.com/"><span class="ico">💳</span><b>Mon argent</b><small>Ouvrir le module PAY.</small></a>
-      <a class="tile" href="./pin.html"><span class="ico">🔐</span><b>Accès</b><small>PIN et session pro.</small></a>
-    </div>
-  </section>
-
-  <details class="more">
-    <summary><span>＋ Plus</span><span>Vitrine · maison · doctrine</span></summary>
-    <div class="moreGrid">
-      <a class="mini" href="./cockpit.html"><b>🛠️ Modifier fiche</b><small>Ouvrir le cockpit vitrine.</small></a>
-      <a class="mini" href="https://resto.digiylyfe.com/"><b>🌍 Côté client</b><small>Voir la vitrine publique.</small></a>
-      <a class="mini" href="https://digiylyfe.com/"><b>🦅 DIGIY</b><small>Maison publique.</small></a>
-      <a class="mini" href="https://digiy-hub.digiylyfe.com/"><b>🧭 HUB général</b><small>Retour aux portes.</small></a>
-    </div>
-  </details>
+<header class="top"><div class="wrap topin"><a class="brand" href="#top"><div class="logo">🍽️</div><div><b>DIGIY PRO RESTO</b><span>Réservation de table · le resto confirme</span></div></a><div class="toplinks"><a class="pill gold" href="#demande">📲 Réserver</a><a class="pill" href="#fiche">🪪 Fiche QR</a><a class="pill" href="#qr">🔳 QR seul</a><a class="pill" href="https://digiylyfe.com/">DIGIYLYFE</a></div></div></header>
+<main class="wrap" id="top">
+<section class="hero"><div class="heroCard"><span class="kicker">Module métier · restaurant · table</span><h1>Le client demande. <span>Le resto confirme.</span></h1><p>DIGIY PRO RESTO prépare une demande claire de table : nom, téléphone, date, heure, nombre de personnes, préférence et message. Le restaurant garde la main et confirme directement.</p><div class="badges"><span class="badge">Réservation de table</span><span class="badge">QR intégré</span><span class="badge">Paiement direct au pro</span><span class="badge">0% commission DIGIY</span><span class="badge">Confirmation restaurant</span></div><nav class="doors"><a class="door gold" href="#demande"><strong>📲</strong><b>Demande table</b><small>message prêt</small></a><a class="door" href="#planning"><strong>🗓️</strong><b>Planning</b><small>service midi/soir</small></a><a class="door" href="#fiche"><strong>🪪</strong><b>Fiche QR</b><small>QR intégré</small></a><a class="door" href="#qr"><strong>🔳</strong><b>QR seul</b><small>impression</small></a><a class="door" href="#pay"><strong>💰</strong><b>PAY</b><small>acompte si besoin</small></a><a class="door" href="#regle"><strong>✅</strong><b>Règle</b><small>le resto confirme</small></a></nav></div></section>
+<section class="grid"><div class="panel" id="demande"><h2>📲 Demande de table</h2><p>Remplis le minimum. Le message WhatsApp est prêt. Le restaurant confirme ensuite.</p><form class="form" id="restoForm"><div class="field"><label>Nom client</label><input class="input" id="clientName" placeholder="Nom client" autocomplete="name" required></div><div class="field"><label>Téléphone</label><input class="input" id="clientPhone" placeholder="WhatsApp client" inputmode="tel" autocomplete="tel"></div><div class="field"><label>Date</label><input class="input" id="resaDate" type="date" required></div><div class="field"><label>Heure</label><input class="input" id="resaTime" type="time" value="20:00" step="900" required></div><div class="field"><label>Personnes</label><input class="input" id="people" type="number" min="1" value="2"></div><div class="field"><label>Service</label><select class="select" id="service"><option>Dîner</option><option>Déjeuner</option><option>Petit-déjeuner</option><option>Anniversaire</option><option>Groupe</option><option>Terrasse</option><option>Autre demande</option></select></div><div class="field full"><label>Préférence / message</label><textarea class="area" id="note" placeholder="Ex : table calme, terrasse, enfant, anniversaire, allergie, heure flexible..."></textarea></div><div class="field full"><button class="btn gold" type="submit">✅ Préparer le message</button></div></form></div><div class="panel"><h2>Message préparé</h2><div class="preview" id="preview">Remplis la demande puis clique “Préparer le message”.</div><div class="btns"><a class="btn gold" id="waBtn" href="https://wa.me/?text=Bonjour%2C%20je%20souhaite%20r%C3%A9server%20une%20table." target="_blank" rel="noopener noreferrer">📲 Envoyer WhatsApp</a><button class="btn green" type="button" onclick="copyMessage()">📋 Copier</button><button class="btn" type="button" onclick="nativeShare()">↗️ Partager</button></div><p style="margin-top:12px">Le bouton WhatsApp ouvre un partage. Tu choisis le contact du restaurant.</p></div></section>
+<section class="panel" id="fiche"><h2>🪪 Fiche restaurant avec QR intégré</h2><div class="cards"><div class="card"><div class="ico">🏷️</div><h3>Nom & activité</h3><p>Nom du restaurant, spécialité, zone, horaires et contact public.</p></div><div class="card"><div class="ico">🔳</div><h3>QR intégré</h3><p>La fiche affiche un QR qui mène vers la demande de table.</p></div><div class="card"><div class="ico">📲</div><h3>WhatsApp</h3><p>Le client scanne, demande une table, le restaurant répond.</p></div><div class="card"><div class="ico">💰</div><h3>Acompte</h3><p>Possible si besoin, mais paiement direct au restaurant.</p></div></div></section>
+<section class="grid"><div class="panel" id="planning"><h2>🗓️ Planning table</h2><div class="notice">Version propre : midi / soir, créneaux 15 minutes, nombre de personnes, statut demande ou confirmé. Le restaurant garde la main.</div></div><div class="panel" id="qr"><h2>🔳 QR seul</h2><p>QR seul pour impression : comptoir, carte, flyer, vitrine, table.</p><div class="btns"><button class="btn gold" onclick="window.print()">🖨️ Imprimer la page</button><button class="btn" onclick="copyPublicLink()">🔗 Copier lien public</button></div></div></section>
+<section class="grid" id="regle"><div class="panel"><h2>✅ Règle terrain</h2><div class="notice"><strong>La réservation n’est pas automatique.</strong><br><br>Le client demande. Le restaurant confirme. DIGIY prépare le message et garde la route simple.</div></div><div class="panel" id="pay"><h2>💰 PAY</h2><p>Si un acompte est demandé, il se règle directement avec le restaurant. DIGIY ne prend pas de commission.</p><div class="btns"><a class="btn green" href="https://pay.digiylyfe.com/" target="_blank" rel="noopener noreferrer">Ouvrir PAY</a></div></div></section>
 </main>
-
-<nav class="bar">
-  <a class="on" href="./hub.html">Menu</a>
-  <a href="./fiche.html">Fiche</a>
-  <a href="./calendrier.html">Résa</a>
-  <a href="./oreille.html">Oreille</a>
-  <a href="https://resto.digiylyfe.com/lexique-resto.html?v=lexique-resto-v2-mobile-20260607">Wolof</a>
-  <a href="./pin.html">PIN</a>
-</nav>
+<footer class="wrap">DIGIY PRO RESTO · Réservation de table · Paiement direct au pro · 0% commission · Le resto confirme.</footer>
+<nav class="bottom"><div class="bottomin"><a class="active" href="#demande"><span>📲</span><span>Table</span></a><a href="#planning"><span>🗓️</span><span>Planning</span></a><a href="#fiche"><span>🪪</span><span>Fiche</span></a><a href="#qr"><span>🔳</span><span>QR</span></a><a href="#pay"><span>💰</span><span>PAY</span></a></div></nav><div class="toast" id="toast">OK</div>
+<script>
+const $=id=>document.getElementById(id);let currentMessage='';
+function today(){return new Date().toISOString().slice(0,10)}
+function toast(t){const el=$('toast');el.textContent=t;el.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('show'),1700)}
+function val(id){return ($(id)?.value||'').trim()}
+function roundQuarter(v){if(!v)return v;const p=v.split(':').map(Number);const total=p[0]*60+p[1];const q=Math.round(total/15)*15;return String(Math.floor(q/60)%24).padStart(2,'0')+':'+String(q%60).padStart(2,'0')}
+function buildMessage(){const name=val('clientName')||'Client';const phone=val('clientPhone')||'À rappeler';const d=val('resaDate')||'À préciser';const t=roundQuarter(val('resaTime')||'20:00');const people=val('people')||'2';const service=val('service')||'Table';const note=val('note')||'Aucune préférence';return `Bonjour, je viens depuis DIGIY PRO RESTO.\n\nDemande de réservation de table.\nNom : ${name}\nTéléphone : ${phone}\nDate : ${d}\nHeure souhaitée : ${t}\nPersonnes : ${people}\nService : ${service}\nPréférence : ${note}\n\nMerci de confirmer la disponibilité.\nPaiement direct au restaurant · 0% commission DIGIY.`}
+function refresh(){if($('resaTime'))$('resaTime').value=roundQuarter($('resaTime').value||'20:00');currentMessage=buildMessage();$('preview').textContent=currentMessage;$('waBtn').href='https://wa.me/?text='+encodeURIComponent(currentMessage)}
+$('resaDate').value=today();['clientName','clientPhone','resaDate','resaTime','people','service','note'].forEach(id=>$(id).addEventListener('input',refresh));$('restoForm').addEventListener('submit',e=>{e.preventDefault();refresh();toast('Message prêt')});
+async function copyMessage(){refresh();try{await navigator.clipboard.writeText(currentMessage);toast('Message copié')}catch(e){toast('Copie impossible')}}
+async function nativeShare(){refresh();if(navigator.share){try{await navigator.share({title:'DIGIY PRO RESTO',text:currentMessage});toast('Partage ouvert')}catch(e){}}else{copyMessage()}}
+async function copyPublicLink(){try{await navigator.clipboard.writeText(location.href.split('#')[0]);toast('Lien copié')}catch(e){toast('Copie impossible')}}
+refresh();
+</script>
 </body>
 </html>
 
