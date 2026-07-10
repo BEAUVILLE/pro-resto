@@ -1,6 +1,31 @@
 <!doctype html>
 <html lang="fr">
 <head>
+  <meta name="digiy-build" content="resto-index-pin-guard-20260710">
+  <style id="digiy-resto-cloak">html{visibility:hidden!important}</style>
+  <script>
+    (function(){
+      "use strict";
+      var keys=["digiy_resto_session","digiy_resto_guard_session","digiy_guard_resto_session","DIGIY_RESTO_SESSION"];
+      var now=Date.now(), maxAge=8*60*60*1000, ok=false;
+      function valid(raw){
+        try{
+          var s=JSON.parse(raw||"");
+          if(!s||String(s.module||"RESTO").toUpperCase()!=="RESTO")return false;
+          var exp=Number(s.expires_at||s.expiresAt||0);
+          var start=Number(s.validated_at||s.created_at||s.createdAt||0);
+          var live=exp?exp>now:(start>0&&now-start<maxAge);
+          return live&&(s.access===true||s.access_ok===true||s.ok===true);
+        }catch(_){return false}
+      }
+      keys.some(function(k){
+        try{if(valid(sessionStorage.getItem(k))||valid(localStorage.getItem(k))){ok=true;return true}}catch(_){}
+        return false;
+      });
+      if(!ok){location.replace("./pin.html");return}
+      var cloak=document.getElementById("digiy-resto-cloak");if(cloak)cloak.remove();
+    })();
+  </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>DIGIY PRO RESTO — Réservation de table · Fiche QR</title>
