@@ -1,131 +1,299 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta name="digiy-build" content="resto-index-pin-guard-20260710">
-  <style id="digiy-resto-cloak">html{visibility:hidden!important}</style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <title>DIGIY BUILD PRO — Cockpit services</title>
+  <meta name="theme-color" content="#1e7a46"/>
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet"/>
+  <meta name="description" content="DIGIY BUILD PRO V2 — cockpit mono-fichier : Oreille, note, service, PAY, fiche, QR et Plus."/>
+  <meta name="digiy-build" content="build-pro-verite-build-guard-storage-import-pay-20260710"/>
+
+  <script>
+    window.DIGIY_SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
+    window.DIGIY_SUPABASE_ANON_KEY = "sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3";
+    window.DIGIY_SUPABASE_ANON = window.DIGIY_SUPABASE_ANON_KEY;
+    window.DIGIY_SUPABASE_KEY = window.DIGIY_SUPABASE_ANON_KEY;
+    window.DIGIY_MODULE = "BUILD";
+    window.DIGIY_ABOS_MODULE = "BUILD";
+    window.DIGIY_LOGIN_URL = "./pin.html";
+    window.DIGIY_PAY_URL = "https://pay.digiylyfe.com/";
+  </script>
+
+  <style id="digiy-guard-cloak">html{visibility:hidden!important}</style>
+  <style>
+    :root{
+      --bg:#f4efe2;--paper:#fffaf0;--ink:#10251c;--muted:#66746e;
+      --green:#1e7a46;--green2:#155a34;--green3:#0e4226;--gold:#c4973f;--gold2:#fff0a8;
+      --danger:#b42318;--ok:#15803d;--line:rgba(16,37,28,.13);--shadow:0 22px 62px rgba(6,59,43,.17);
+      --max:1080px;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:radial-gradient(900px 520px at 6% -8%,rgba(196,151,63,.22),transparent 58%),radial-gradient(900px 520px at 105% 0%,rgba(30,122,70,.16),transparent 54%),linear-gradient(180deg,#fff8ea 0%,#f3ecd9 55%,#eadfc8 100%);font-size:18px;font-weight:780;padding-bottom:calc(112px + env(safe-area-inset-bottom,0px))}
+    a{color:inherit;text-decoration:none} button,input,select,textarea{font:inherit} button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+    .wrap{width:min(var(--max),calc(100% - 24px));margin:0 auto}.topbar{position:sticky;top:0;z-index:90;background:rgba(255,248,234,.93);border-bottom:1px solid rgba(16,37,28,.10);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+    .top-inner{min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 0}.brand{min-width:0}.brand-title{font-size:1.15rem;font-weight:1000;letter-spacing:-.03em;line-height:1.03}.brand-sub{margin-top:4px;color:var(--muted);font-size:.84rem;font-weight:880;line-height:1.22}.session-pill{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 12px;border-radius:999px;background:rgba(30,122,70,.08);border:1px solid rgba(30,122,70,.12);color:var(--green);font-size:.82rem;font-weight:1000;white-space:nowrap}
+    .btn{border:1px solid rgba(30,122,70,.13);display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 16px;border-radius:999px;font-weight:1000;background:#fff;color:var(--green);box-shadow:0 12px 30px rgba(6,59,43,.10);text-align:center}.btn-main{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;border:0}.btn-gold{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#2d2308;border:0}.btn-soft{background:rgba(255,255,255,.78);box-shadow:none}.btn-danger{background:rgba(180,35,24,.09);color:var(--danger);box-shadow:none}.btn:disabled{opacity:.55;cursor:not-allowed}
+    .hero{padding:18px 0 10px}.hero-card{position:relative;overflow:hidden;border-radius:34px;padding:24px;color:#fff;box-shadow:var(--shadow);background:radial-gradient(circle at 88% 12%,rgba(196,151,63,.34),transparent 25%),linear-gradient(135deg,#104024,#1e7a46 58%,#22a663)}.kicker{display:inline-flex;align-items:center;gap:8px;width:max-content;max-width:100%;padding:9px 13px;border-radius:999px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);font-size:.8rem;font-weight:1000;letter-spacing:.08em;text-transform:uppercase}.hero h1{margin:14px 0 8px;font-size:clamp(2.05rem,6vw,4.3rem);line-height:.96;letter-spacing:-.055em;font-weight:1000}.hero p{margin:0;color:rgba(255,255,255,.87);line-height:1.6;font-weight:780;max-width:72ch}
+    .stats{margin-top:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{padding:13px;border-radius:20px;background:rgba(255,255,255,.90);border:1px solid rgba(16,37,28,.08);color:var(--ink)}.stat b{display:block;color:var(--green);font-size:1.42rem;font-weight:1000;line-height:1}.stat span{display:block;margin-top:4px;color:var(--muted);font-size:.78rem;font-weight:900;line-height:1.25}
+    .tabs{position:sticky;top:82px;z-index:80;background:rgba(255,248,234,.90);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(16,37,28,.08);padding:8px 0}.tabs-inner{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}.tab{min-height:58px;border-radius:18px;border:1px solid rgba(30,122,70,.11);background:rgba(255,255,255,.72);color:var(--green);font-weight:1000;display:grid;place-items:center;gap:2px;padding:6px;font-size:.78rem}.tab strong{font-size:1.18rem;line-height:1}.tab.active{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#2d2308;border:0;box-shadow:0 12px 28px rgba(196,151,63,.24)}
+    .section{display:none;padding:18px 0}.section.active{display:block}.panel{background:rgba(255,255,255,.84);border:1px solid rgba(16,37,28,.09);border-radius:32px;box-shadow:0 12px 30px rgba(6,59,43,.10);padding:18px;margin-bottom:14px}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:16px}.section-head h2{margin:6px 0 0;color:var(--green);font-size:clamp(1.65rem,4vw,2.7rem);line-height:1;letter-spacing:-.045em;font-weight:1000}.section-head p{margin:7px 0 0;color:var(--muted);line-height:1.55;font-weight:820;max-width:720px}.pill{display:inline-flex;align-items:center;gap:8px;min-height:32px;padding:0 12px;border-radius:999px;background:rgba(30,122,70,.08);border:1px solid rgba(30,122,70,.10);color:var(--green);font-size:.78rem;font-weight:1000;text-transform:uppercase;letter-spacing:.05em}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.wide{grid-column:1/-1}.label{display:grid;gap:6px;color:var(--green);font-size:.84rem;font-weight:1000}.field,textarea.field,select.field{width:100%;border:1px solid rgba(16,37,28,.13);background:#fff;color:var(--ink);border-radius:22px;min-height:54px;padding:0 15px;outline:none;font-weight:900;box-shadow:0 8px 22px rgba(6,59,43,.08)}textarea.field{min-height:112px;padding:14px 15px;resize:vertical;line-height:1.45}.hint{margin-top:10px;color:var(--muted);font-size:.83rem;font-weight:850;line-height:1.45}.result{margin-top:12px;padding:12px 14px;border-radius:20px;background:rgba(30,122,70,.07);border:1px solid rgba(30,122,70,.10);font-size:.88rem;font-weight:900;color:#31483d;line-height:1.45;display:none}.result.show{display:block}
+    .quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.quick{min-height:94px;border-radius:22px;border:1px solid rgba(16,37,28,.10);background:#fff;display:grid;align-content:center;gap:6px;padding:14px;box-shadow:0 10px 26px rgba(6,59,43,.09)}.quick.hot{background:linear-gradient(135deg,rgba(255,240,168,.84),rgba(30,122,70,.12));border-color:rgba(196,151,63,.30)}.quick b{color:var(--green);font-size:1.12rem;line-height:1.05;font-weight:1000}.quick span{color:var(--muted);font-size:.83rem;line-height:1.25;font-weight:880}.ico{font-size:28px;line-height:1}
+    .cards-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.service-card,.note-card,.move{border-radius:24px;background:#fff;border:1px solid rgba(16,37,28,.09);box-shadow:0 12px 30px rgba(6,59,43,.08);padding:15px}.service-card h3,.note-card h3{margin:0;color:var(--green);font-size:1.22rem;line-height:1.05;font-weight:1000}.service-card p,.note-card p{margin:8px 0 0;color:#4f5f58;line-height:1.42;font-size:.9rem;font-weight:820}.meta-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}.meta{display:inline-flex;align-items:center;min-height:30px;padding:0 9px;border-radius:999px;background:rgba(30,122,70,.06);border:1px solid rgba(30,122,70,.08);color:#31483d;font-size:.75rem;font-weight:950}.card-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.card-actions .btn{min-height:44px;padding:0 10px;box-shadow:none;font-size:.82rem}
+    .pay-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:14px}.movement-list{display:grid;gap:9px}.move{display:flex;justify-content:space-between;gap:10px}.move b{color:var(--green)}.move.in b{color:var(--ok)}.move.out b{color:var(--danger)}.move small{display:block;color:var(--muted);font-weight:850;margin-top:3px}.pay-temp{padding:16px;border-radius:24px;background:linear-gradient(135deg,rgba(30,122,70,.08),rgba(196,151,63,.13));border:1px solid rgba(30,122,70,.10);font-weight:900;line-height:1.5;color:#31483d}
+    .more-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.mini-card{padding:16px;border-radius:24px;background:#fff;border:1px solid rgba(16,37,28,.09);box-shadow:0 12px 30px rgba(6,59,43,.08)}.mini-card h3{margin:0 0 8px;color:var(--green);font-size:1.12rem;line-height:1.08}.mini-card p{margin:0;color:var(--muted);line-height:1.45;font-weight:820;font-size:.9rem}.mini-card .btn{margin-top:12px;box-shadow:none;width:100%}
+    .bottom-actions{position:fixed;left:0;right:0;bottom:0;z-index:100;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:rgba(14,66,38,.96);border-top:1px solid rgba(255,255,255,.14);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}.bottom-inner{width:min(100%,760px);margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.bottom-inner button{min-height:62px;border-radius:18px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.08);color:#f0fff5;font-size:.74rem;font-weight:1000;display:grid;place-items:center;padding:6px 3px}.bottom-inner button strong{font-size:1.24rem;line-height:1}.bottom-inner button.active{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#2d2308;border:0}
+    .toast{position:fixed;left:50%;bottom:calc(94px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);z-index:140;max-width:min(520px,calc(100% - 28px));border-radius:999px;padding:12px 16px;background:#10251c;color:#fff;font-size:.9rem;font-weight:1000;box-shadow:0 18px 44px rgba(0,0,0,.24);opacity:0;pointer-events:none;transition:.18s}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    @media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}.form-grid,.pay-grid,.cards-grid,.more-grid{grid-template-columns:1fr}.quick-grid{grid-template-columns:1fr 1fr}.quick-grid .wide-quick{grid-column:1/-1}.section-head{display:block}.tabs{display:none}.hero-card{padding:20px}}
+    @media(max-width:420px){body{font-size:17px}.top-inner{min-height:74px}.brand-title{font-size:1rem}.quick-grid{grid-template-columns:1fr}.bottom-inner{gap:5px}.bottom-inner button{font-size:.68rem;border-radius:15px}.bottom-inner button strong{font-size:1.12rem}}
+  </style>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./assets/js/digiy-abos-access.js?v=abos-20260522"></script>
+  <script src="./guard.js?v=build-guard-simple-20260603"></script>
+  <script src="./assets/js/digiy-module-bridge.js?v=bridge-20260520" defer></script>
+
+  <header class="topbar"><div class="wrap top-inner">
+    <a class="btn btn-soft" href="https://digiy-hub.digiylyfe.com/">← HUB</a>
+    <div class="brand"><div class="brand-title">DIGIY BUILD PRO</div><div class="brand-sub">Une page pour agir · le reste dans Plus</div></div>
+    <div class="session-pill" id="sessionPill">session…</div>
+  </div></header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="kicker">🧰 MES SERVICES · V2</div>
+        <h1>L’artisan travaille. DIGIY prépare.</h1>
+        <p>Oreille intégrée, note terrain, service, trace locale pour PAY et fiche publique. Le pro garde son client, son prix et sa décision.</p>
+        <div class="stats" aria-label="Résumé BUILD PRO">
+          <div class="stat"><b id="statServices">0</b><span>services</span></div>
+          <div class="stat"><b id="statNotes">0</b><span>notes</span></div>
+          <div class="stat"><b id="statIn">0</b><span>entrées FCFA</span></div>
+          <div class="stat"><b id="statOut">0</b><span>sorties FCFA</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="tabs"><div class="wrap tabs-inner">
+    <button class="tab active" data-tab="talk"><strong>🎙️</strong>Parler</button>
+    <button class="tab" data-tab="note"><strong>✍️</strong>Note</button>
+    <button class="tab" data-tab="service"><strong>🧰</strong>Service</button>
+    <button class="tab" data-tab="pay"><strong>💳</strong>PAY</button>
+    <button class="tab" data-tab="more"><strong>⋯</strong>Plus</button>
+  </div></nav>
+
+  <main class="wrap">
+    <section class="section active" id="tab-talk">
+      <div class="panel">
+        <div class="section-head"><div><span class="pill">👂 Oreille BUILD V2</span><h2>Parler ou écrire</h2><p>Dis une demande terrain : fuite, devis, chantier, acompte, dépense, client. BUILD prépare l’action, le pro valide.</p></div></div>
+        <textarea class="field" id="voiceText" placeholder="Exemples : client Saly fuite lavabo devis demain · note chantier plomberie 7500 transport · acompte reçu 20000"></textarea>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+          <button class="btn btn-main" id="btnPrepare" type="button">🧠 Préparer</button>
+          <button class="btn btn-gold" id="btnListen" type="button">🎙️ Parler</button>
+          <button class="btn btn-soft" id="btnExample" type="button">✨ Exemple</button>
+        </div>
+        <div class="result" id="intentResult">—</div>
+      </div>
+      <div class="quick-grid">
+        <button class="quick hot" data-fill="devis"><span class="ico">🧾</span><b>Préparer devis</b><span>Demande client claire.</span></button>
+        <button class="quick" data-fill="depense"><span class="ico">⛽</span><b>Noter dépense</b><span>Trace terrain rapide.</span></button>
+        <button class="quick wide-quick" data-fill="acompte"><span class="ico">💳</span><b>Acompte reçu</b><span>Trace locale préparée pour PAY.</span></button>
+      </div>
+    </section>
+
+    <section class="section" id="tab-note">
+      <div class="panel">
+        <div class="section-head"><div><span class="pill">✍️ Note terrain</span><h2>Tracer une demande</h2><p>Une note simple pour ne pas perdre le client, le chantier ou la dépense.</p></div></div>
+        <form id="noteForm" class="form-grid">
+          <label class="label">Client / chantier<input class="field" id="nClient" placeholder="Client Saly, chantier Mbour…"/></label>
+          <label class="label">Zone<input class="field" id="nZone" placeholder="Saly, Mbour, Dakar…"/></label>
+          <label class="label wide">Note<textarea class="field" id="nText" placeholder="Fuite salle de bain, devis demandé, intervention demain matin…"></textarea></label>
+          <button class="btn btn-main wide" type="submit">Enregistrer note</button>
+        </form>
+      </div>
+      <div class="cards-grid" id="notesGrid"></div>
+    </section>
+
+    <section class="section" id="tab-service">
+      <div class="panel">
+        <div class="section-head"><div><span class="pill">🧰 Service</span><h2>Mon offre terrain</h2><p>Ajouter un service clair : plomberie, maçonnerie, électricité, peinture, dépannage.</p></div></div>
+        <form id="serviceForm" class="form-grid">
+          <label class="label">Service<input class="field" id="sName" placeholder="Plomberie petits travaux"/></label>
+          <label class="label">Prix indicatif<input class="field" id="sPrice" inputmode="numeric" placeholder="15000"/></label>
+          <label class="label">Zone<input class="field" id="sZone" placeholder="Saly / Mbour"/></label>
+          <label class="label">Délai<input class="field" id="sDelay" placeholder="Aujourd’hui / demain"/></label>
+          <label class="label wide">Description<textarea class="field" id="sDesc" placeholder="Fuite, robinetterie, évacuation, installation…"></textarea></label>
+          <button class="btn btn-main wide" type="submit">Ajouter service</button>
+        </form>
+      </div>
+      <div class="cards-grid" id="servicesGrid"></div>
+    </section>
+
+    <section class="section" id="tab-pay">
+      <div class="pay-grid">
+        <div class="panel">
+          <div class="section-head"><div><span class="pill">💳 Trace pour PAY</span><h2>Préparer un mouvement</h2><p>Entrée ou sortie. BUILD garde une trace locale ; ouvre ensuite PAY pour valider réellement.</p></div></div>
+          <div class="form-grid">
+            <label class="label">Type<select class="field" id="mType"><option value="in">Entrée</option><option value="out">Sortie</option></select></label>
+            <label class="label">Montant FCFA<input class="field" id="mAmount" inputmode="numeric" placeholder="20000"/></label>
+            <label class="label wide">Note<input class="field" id="mNote" placeholder="Acompte client / achat matériel / transport…"/></label>
+            <button class="btn btn-gold" id="btnPreparePay" type="button">Préparer la trace</button>
+            <button class="btn btn-main" id="btnConfirmPay" type="button" disabled>Enregistrer localement</button>
+            <a class="btn btn-main wide" href="https://pay.digiylyfe.com/" target="_blank" rel="noopener noreferrer">💳 Ouvrir PAY pour valider</a>
+          </div>
+          <div class="result show" id="payPreview">Aucun mouvement préparé.</div>
+        </div>
+        <div class="panel"><div class="pay-temp" id="payAdvice">Conseiller local BUILD : en attente de traces.</div><div class="movement-list" id="movementList" style="margin-top:12px"></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="tab-more">
+      <div class="panel">
+        <div class="section-head"><div><span class="pill">⋯ Plus</span><h2>Tout le bruit rangé</h2><p>Les anciens fichiers restent utiles. Ils ne gênent plus le travail quotidien.</p></div></div>
+        <div class="more-grid">
+          <div class="mini-card"><h3>🪪 Fiche</h3><p>Métier, zone, contact, présentation publique.</p><a class="btn btn-main" href="./fiche.html">Ouvrir</a></div>
+          <div class="mini-card"><h3>🔳 QR</h3><p>Partager la porte du pro sur téléphone ou support terrain.</p><a class="btn btn-main" href="./qr.html">Ouvrir</a></div>
+          <div class="mini-card"><h3>🧱 Métiers</h3><p>Artisans, services, exemples et catégories.</p><a class="btn btn-main" href="./metiers.html">Ouvrir</a></div>
+          <div class="mini-card"><h3>🇸🇳 Wolof</h3><p>Lexique terrain : besoin, devis, acompte, chantier.</p><a class="btn btn-main" href="https://build.digiylyfe.com/lexique-build.html?v=lexique-build-v2-mobile-20260607">Ouvrir</a></div>
+          <div class="mini-card"><h3>🧭 Retour BUILD</h3><p>Revenir au cockpit BUILD PRO V2 sans repasser par l’ancien menu.</p><a class="btn btn-gold" href="./index.html?v=build-pro-v2-20260613">Revenir</a></div>
+          <div class="mini-card"><h3>🔐 Accès</h3><p>PIN, session et sécurité locale.</p><a class="btn btn-soft" href="./pin.html">Ouvrir</a></div>
+          <div class="mini-card"><h3>📤 Export</h3><p>Sauvegarde locale BUILD PRO en JSON.</p><button class="btn btn-soft" id="btnExport" type="button">Exporter</button></div>
+          <div class="mini-card"><h3>📥 Import</h3><p>Restaurer un export BUILD PRO.</p><input class="field" id="importFile" type="file" accept="application/json"/></div>
+          <div class="mini-card"><h3>🦅 DIGIYLYFE</h3><p>Retour à la maison du Club Entreprises.</p><a class="btn btn-gold" href="https://digiylyfe.com/">Maison</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="bottom-actions" aria-label="Navigation basse BUILD PRO"><div class="bottom-inner">
+    <button class="active" data-tab="talk"><strong>🎙️</strong>Parler</button><button data-tab="note"><strong>✍️</strong>Note</button><button data-tab="service"><strong>🧰</strong>Service</button><button data-tab="pay"><strong>💳</strong>PAY</button><button data-tab="more"><strong>⋯</strong>Plus</button>
+  </div></div>
+  <div class="toast" id="toast">Action prête</div>
+
   <script>
     (function(){
       "use strict";
-      var keys=["digiy_resto_session","digiy_resto_guard_session","digiy_guard_resto_session","DIGIY_RESTO_SESSION"];
-      var now=Date.now(), maxAge=8*60*60*1000, ok=false;
-      function valid(raw){
+      const LEGACY_STORE="digiy_build_pro_v2";
+      let STORE="";
+      const $=id=>document.getElementById(id);
+      const money=n=>Number(n||0).toLocaleString("fr-FR");
+      const digits=v=>String(v||"").replace(/[^\d]/g,"");
+      const clean=v=>String(v||"").trim();
+      const text=(v,max=600)=>clean(v).slice(0,max);
+      const uuid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,9);
+      const safeId=v=>/^[a-z0-9_-]{4,80}$/i.test(String(v||""))?String(v):uuid();
+      let pendingPay=null;
+      let state={services:[],notes:[],moves:[]};
+
+      function hash(raw){let h=2166136261;for(const ch of String(raw||"")){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)}return (h>>>0).toString(36)}
+      function sessionMaterial(st){
+        const fields=["owner_id","user_id","profile_id","pro_id","member_id","artisan_id","subscription_id","slug","phone","email","pin_id"];
+        for(const k of fields){if(st&&st[k])return `${k}:${st[k]}`}
+        let raw="";try{raw=JSON.stringify(st||{})}catch(_){}
         try{
-          var s=JSON.parse(raw||"");
-          if(!s||String(s.module||"RESTO").toUpperCase()!=="RESTO")return false;
-          var exp=Number(s.expires_at||s.expiresAt||0);
-          var start=Number(s.validated_at||s.created_at||s.createdAt||0);
-          var live=exp?exp>now:(start>0&&now-start<maxAge);
-          return live&&(s.access===true||s.access_ok===true||s.ok===true);
-        }catch(_){return false}
+          [localStorage,sessionStorage].forEach(store=>{
+            for(let i=0;i<store.length;i++){
+              const k=store.key(i)||"";
+              if(/digiy|pin|access|session/i.test(k)) raw+=`|${k}:${store.getItem(k)||""}`;
+            }
+          });
+        }catch(_){}
+        return raw;
       }
-      keys.some(function(k){
-        try{if(valid(sessionStorage.getItem(k))||valid(localStorage.getItem(k))){ok=true;return true}}catch(_){}
-        return false;
-      });
-      if(!ok){location.replace("./pin.html");return}
-      var cloak=document.getElementById("digiy-resto-cloak");if(cloak)cloak.remove();
+      function activateStore(st){
+        const material=sessionMaterial(st);
+        if(!material) throw new Error("Identité artisan absente");
+        STORE="digiy_build_pro_"+hash(material);
+        try{if(!localStorage.getItem(STORE)){const old=localStorage.getItem(LEGACY_STORE);if(old)localStorage.setItem(STORE,old)}}catch(_){}
+        state=load();ensure();
+      }
+      function load(){if(!STORE)return {services:[],notes:[],moves:[]};try{return JSON.parse(localStorage.getItem(STORE)||"{}")}catch(_){return {}}}
+      function normalizeService(s){return {id:safeId(s?.id),name:text(s?.name,120)||"Service BUILD",price:Math.max(0,Math.min(Number(s?.price||0),1e12)),zone:text(s?.zone,100)||"Zone à préciser",delay:text(s?.delay,100)||"À préciser",desc:text(s?.desc,800),created_at:validDate(s?.created_at)}}
+      function normalizeNote(n){return {id:safeId(n?.id),client:text(n?.client,120)||"Client à préciser",zone:text(n?.zone,100)||"Zone à préciser",text:text(n?.text,1000),created_at:validDate(n?.created_at)}}
+      function normalizeMove(m){return {id:safeId(m?.id),type:m?.type==="out"?"out":"in",amount:Math.max(0,Math.min(Number(m?.amount||0),1e12)),note:text(m?.note,500)||"Mouvement BUILD",created_at:validDate(m?.created_at),status:"prepared_for_pay"}}
+      function validDate(v){const d=new Date(v||Date.now());return Number.isFinite(d.getTime())?d.toISOString():new Date().toISOString()}
+      function ensure(){
+        state=state&&typeof state==="object"?state:{};
+        state.services=(Array.isArray(state.services)?state.services:[]).slice(0,500).map(normalizeService);
+        state.notes=(Array.isArray(state.notes)?state.notes:[]).slice(0,500).map(normalizeNote);
+        state.moves=(Array.isArray(state.moves)?state.moves:[]).slice(0,1000).map(normalizeMove);
+      }
+      function save(){if(!STORE)return;ensure();localStorage.setItem(STORE,JSON.stringify(state));renderAll()}
+      function escapeHtml(v){return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#039;")}
+      function toast(t){const el=$("toast");el.textContent=t||"Action prête";el.classList.add("show");clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove("show"),2400)}
+
+      function setTab(name){document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));const sec=$("tab-"+name);if(sec)sec.classList.add("active");document.querySelectorAll("[data-tab]").forEach(b=>b.classList.toggle("active",b.dataset.tab===name));if(sec)window.scrollTo({top:Math.max(0,sec.offsetTop-150),behavior:"smooth"})}
+      function fillNote(o={}){$("nClient").value=o.client||"";$("nZone").value=o.zone||"";$("nText").value=o.text||"";setTab("note")}
+      function fillService(o={}){$("sName").value=o.name||"";$("sPrice").value=o.price||"";$("sZone").value=o.zone||"";$("sDelay").value=o.delay||"";$("sDesc").value=o.desc||"";setTab("service")}
+      function fillPay(type,amount,note){$("mType").value=type||"in";$("mAmount").value=amount||"";$("mNote").value=note||"";setTab("pay");if(amount)preparePay()}
+
+      function detectZone(txt){const s=(txt||"").toLowerCase();const zones=["saly","mbour","dakar","ngaparou","thiès","thies","touba","aibd","sarlat","arcachon"];return zones.find(z=>s.includes(z))||""}
+      function prepareIntent(){
+        const raw=clean($("voiceText").value);if(!raw){toast("Écris ou parle une demande");return}
+        const txt=raw.toLowerCase();const amount=Number((txt.match(/(\d[\d\s\.]*)/)||[])[1]?.replace(/[^\d]/g,"")||0);const zone=detectZone(raw);let msg="";
+        if(/dépense|depense|sortie|achat|matériel|materiel|transport|gasoil|carburant|frais/.test(txt)){
+          fillPay("out",amount||"",raw);msg="Sortie préparée comme trace locale. Vérifie puis ouvre PAY pour la valider réellement.";
+        }else if(/acompte|reçu|recu|payé|paye|paiement|encaissé|encaisse|versé|verse|entrée|entree|wave|cash|espèces|especes|orange money|free money/.test(txt)){
+          fillPay("in",amount||"",raw);msg="Entrée préparée comme trace locale. Vérifie puis ouvre PAY pour la valider réellement.";
+        }else if(/devis|service|plomb|fuite|maçon|macon|électric|electric|peinture|menuis|carrelage|clim|réparation|reparation|installation/.test(txt)){
+          const name=raw.replace(/\b(devis|service|client|demande|besoin|à|a|pour|fcfa|francs?)\b/gi," ").replace(/\d[\d\s\.]*/g," ").trim()||"Service BUILD";
+          fillService({name,price:amount||"",zone,delay:/demain/.test(txt)?"Demain":(/aujourd/.test(txt)?"Aujourd’hui":"À préciser"),desc:raw});
+          msg="Service / devis préparé. Vérifie puis ajoute à ton offre.";
+        }else if(/note|chantier|client|rdv|rendez|demain|aujourd/.test(txt)){
+          fillNote({client:raw.match(/client\s+([^,\.]+)/i)?.[1]||"Client à préciser",zone,text:raw});msg="Note terrain préparée. Vérifie puis enregistre.";
+        }else msg="Intention entendue. Dis par exemple : devis fuite Saly demain, note chantier, acompte reçu, ou dépense transport.";
+        $("intentResult").textContent=msg;$("intentResult").classList.add("show");
+      }
+      function listen(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){toast("Reconnaissance vocale non disponible ici");return}const rec=new SR();rec.lang="fr-FR";rec.interimResults=false;rec.maxAlternatives=1;$("btnListen").disabled=true;$("btnListen").textContent="🎧 Écoute…";rec.onresult=e=>{$("voiceText").value=e.results[0][0].transcript;prepareIntent()};rec.onerror=()=>toast("Écoute interrompue");rec.onend=()=>{$("btnListen").disabled=false;$("btnListen").textContent="🎙️ Parler"};rec.start()}
+
+      function addNote(){const client=clean($("nClient").value)||"Client à préciser";const zone=clean($("nZone").value)||"Zone à préciser";const body=clean($("nText").value);if(!body){toast("Note nécessaire");return}state.notes.unshift(normalizeNote({id:uuid(),client,zone,text:body,created_at:new Date().toISOString()}));$("noteForm").reset();save();toast("Note enregistrée")}
+      function addService(){const name=clean($("sName").value);if(!name){toast("Nom du service nécessaire");return}state.services.unshift(normalizeService({id:uuid(),name,price:Number(digits($("sPrice").value)||0),zone:clean($("sZone").value)||"Zone à préciser",delay:clean($("sDelay").value)||"À préciser",desc:clean($("sDesc").value),created_at:new Date().toISOString()}));$("serviceForm").reset();save();toast("Service ajouté")}
+      function deleteNote(id){if(!confirm("Retirer cette note terrain ?"))return;state.notes=state.notes.filter(n=>n.id!==id);save();toast("Note retirée")}
+      function deleteService(id){if(!confirm("Retirer ce service ?"))return;state.services=state.services.filter(s=>s.id!==id);save();toast("Service retiré")}
+      function serviceToPay(id){const s=state.services.find(x=>x.id===id);if(!s)return;fillPay("in",s.price||"","Acompte / service · "+s.name)}
+      async function shareService(id){const s=state.services.find(x=>x.id===id);if(!s)return;const value=`${s.name} — ${s.zone}. ${s.price?money(s.price)+" FCFA indicatif. ":""}${s.desc||"Service disponible."}`;try{await navigator.clipboard.writeText(value);toast("Texte service copié")}catch(_){toast(value)}}
+
+      function preparePay(){const type=$("mType").value;const amount=Number(digits($("mAmount").value)||0);const note=clean($("mNote").value);if(!amount){toast("Montant nécessaire");return}pendingPay=normalizeMove({id:uuid(),type,amount,note:note||"Mouvement BUILD",created_at:new Date().toISOString()});$("payPreview").textContent=(type==="in"?"Entrée":"Sortie")+" préparée localement : "+money(amount)+" FCFA · "+pendingPay.note;$("btnConfirmPay").disabled=false;toast("Trace locale préparée")}
+      function confirmPay(){if(!pendingPay){toast("Prépare d’abord la trace");return}state.moves.unshift(pendingPay);pendingPay=null;$("btnConfirmPay").disabled=true;$("payPreview").textContent="Trace enregistrée sur cet appareil. Ouvre PAY pour valider l’opération réelle.";$("mAmount").value="";$("mNote").value="";save();toast("Trace locale enregistrée")}
+
+      function renderStats(){ensure();const moves=state.moves;$("statServices").textContent=String(state.services.length);$("statNotes").textContent=String(state.notes.length);$("statIn").textContent=money(moves.filter(m=>m.type==="in").reduce((a,m)=>a+Number(m.amount||0),0));$("statOut").textContent=money(moves.filter(m=>m.type==="out").reduce((a,m)=>a+Number(m.amount||0),0));const inSum=moves.filter(m=>m.type==="in").reduce((a,m)=>a+Number(m.amount||0),0);const outSum=moves.filter(m=>m.type==="out").reduce((a,m)=>a+Number(m.amount||0),0);const solde=inSum-outSum;$("payAdvice").textContent=solde>=0?`Conseiller local BUILD : traces positives ${money(solde)} FCFA. Vérifie ensuite dans PAY.`:`Conseiller local BUILD : écart de ${money(Math.abs(solde))} FCFA. Vérifie ensuite dans PAY.`}
+      function renderNotes(){const grid=$("notesGrid");if(!state.notes.length){grid.innerHTML='<div class="note-card" style="grid-column:1/-1"><h3>Aucune note</h3><p>Utilise Oreille ou écris une note terrain.</p></div>';return}grid.innerHTML=state.notes.map(n=>`<article class="note-card"><h3>${escapeHtml(n.client)}</h3><p>${escapeHtml(n.text)}</p><div class="meta-row"><span class="meta">${escapeHtml(n.zone)}</span><span class="meta">${new Date(n.created_at).toLocaleDateString("fr-FR")}</span></div><div class="card-actions"><button class="btn btn-danger" data-note-del="${safeId(n.id)}">Retirer</button><button class="btn btn-soft" data-note-pay="${safeId(n.id)}">Préparer PAY</button></div></article>`).join("")}
+      function renderServices(){const grid=$("servicesGrid");if(!state.services.length){grid.innerHTML='<div class="service-card" style="grid-column:1/-1"><h3>Aucun service</h3><p>Ajoute un service ou dicte une demande à Oreille BUILD.</p></div>';return}grid.innerHTML=state.services.map(s=>`<article class="service-card"><h3>${escapeHtml(s.name)}</h3><p>${escapeHtml(s.desc||"Service BUILD prêt à présenter au client.")}</p><div class="meta-row"><span class="meta">${money(s.price)} FCFA</span><span class="meta">${escapeHtml(s.zone)}</span><span class="meta">${escapeHtml(s.delay)}</span></div><div class="card-actions"><button class="btn btn-main" data-service-pay="${safeId(s.id)}">Préparer PAY</button><button class="btn btn-soft" data-service-share="${safeId(s.id)}">Partager</button><button class="btn btn-danger" data-service-del="${safeId(s.id)}">Retirer</button></div></article>`).join("")}
+      function renderMoves(){const list=$("movementList");const moves=state.moves;if(!moves.length){list.innerHTML='<div class="move"><div><b>Aucune trace locale pour PAY.</b><small>Prépare une entrée ou une sortie, puis valide-la dans PAY.</small></div></div>';return}list.innerHTML=moves.slice(0,10).map(m=>`<div class="move ${m.type==="in"?"in":"out"}"><div><b>Trace ${m.type==="in"?"entrée":"sortie"} · ${money(m.amount)} FCFA</b><small>${escapeHtml(m.note||"Mouvement BUILD")}</small></div><small>${new Date(m.created_at).toLocaleDateString("fr-FR")}</small></div>`).join("")}
+      function renderAll(){ensure();renderStats();renderNotes();renderServices();renderMoves()}
+      function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="digiy-build-pro-export.json";a.click();URL.revokeObjectURL(a.href);toast("Export préparé")}
+      function importData(file){
+        if(!file)return;if(file.size>2*1024*1024){toast("Fichier trop lourd · maximum 2 Mo");return}
+        const r=new FileReader();r.onload=()=>{try{const raw=JSON.parse(r.result);if(!raw||typeof raw!=="object"||Array.isArray(raw))throw new Error();state={services:(Array.isArray(raw.services)?raw.services:[]).slice(0,500).map(normalizeService),notes:(Array.isArray(raw.notes)?raw.notes:[]).slice(0,500).map(normalizeNote),moves:(Array.isArray(raw.moves)?raw.moves:[]).slice(0,1000).map(normalizeMove)};save();toast("Import contrôlé et restauré")}catch(_){toast("Fichier BUILD invalide")}};r.readAsText(file)
+      }
+
+      document.addEventListener("click",e=>{const tab=e.target.closest("[data-tab]");if(tab){setTab(tab.dataset.tab);return}const fill=e.target.closest("[data-fill]");if(fill){const v=fill.dataset.fill;if(v==="devis"){$("voiceText").value="devis fuite lavabo client Saly demain 15000";prepareIntent()}if(v==="depense"){$("voiceText").value="dépense transport chantier 7500";prepareIntent()}if(v==="acompte"){$("voiceText").value="acompte reçu client 20000 wave";prepareIntent()}return}const sd=e.target.closest("[data-service-del]");if(sd){deleteService(sd.dataset.serviceDel);return}const sp=e.target.closest("[data-service-pay]");if(sp){serviceToPay(sp.dataset.servicePay);return}const ss=e.target.closest("[data-service-share]");if(ss){shareService(ss.dataset.serviceShare);return}const nd=e.target.closest("[data-note-del]");if(nd){deleteNote(nd.dataset.noteDel);return}const np=e.target.closest("[data-note-pay]");if(np){fillPay("in","","Suite note terrain");return}});
+      $("noteForm").addEventListener("submit",e=>{e.preventDefault();addNote()});$("serviceForm").addEventListener("submit",e=>{e.preventDefault();addService()});
+      $("btnPrepare").onclick=prepareIntent;$("btnListen").onclick=listen;$("btnExample").onclick=()=>{$("voiceText").value="client Saly demande devis plomberie fuite lavabo demain 15000";prepareIntent()};$("btnPreparePay").onclick=preparePay;$("btnConfirmPay").onclick=confirmPay;$("btnExport").onclick=exportData;$("importFile").onchange=e=>importData(e.target.files&&e.target.files[0]);
+
+      function isVerified(st,authResult){return authResult===true||!!(st&&(st.access_ok||st.access===true||st.ok===true||st.has_access||st.pin_session_ok||st.authenticated))}
+      function pinRedirect(){const next=location.pathname+location.search+location.hash;location.replace("./pin.html?next="+encodeURIComponent(next))}
+      (async function boot(){
+        try{window.DIGIY_MODULE_BRIDGE?.cleanVisibleUrl?.()}catch(_){}
+        try{
+          if(!window.DIGIY_GUARD||typeof window.DIGIY_GUARD.ready!=="function")throw new Error("guard absent");
+          let readyOut=window.DIGIY_GUARD.ready({redirect:true,preserve_validation:true,allow_soft_session:false});
+          if(readyOut&&typeof readyOut.then==="function")readyOut=await readyOut;
+          let authOut=null;
+          if(typeof window.DIGIY_GUARD.isAuthenticated==="function"){
+            authOut=window.DIGIY_GUARD.isAuthenticated();if(authOut&&typeof authOut.then==="function")authOut=await authOut;
+          }
+          const st=(window.DIGIY_GUARD.getSession?.()||window.DIGIY_GUARD.state||readyOut||{});
+          if(!isVerified(st,authOut)){pinRedirect();return}
+          activateStore(st);$("sessionPill").textContent="session BUILD ouverte";
+          const cloak=$("digiy-guard-cloak");if(cloak)cloak.remove();document.documentElement.style.visibility="visible";renderAll();
+        }catch(_){pinRedirect()}
+      })();
     })();
   </script>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>DIGIY PRO RESTO — Réservation de table · Fiche QR</title>
-<meta name="theme-color" content="#1e7a46">
-<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
-<meta name="description" content="DIGIY PRO RESTO — réservation de table avec fiche restaurant et QR intégré.">
-<meta name="digiy-build" content="pro-resto-fiche-qr-20260619">
-<style>
-:root{--bg:#061b14;--bg2:#0b2a1d;--ink:#f4fff8;--muted:#cfe9d7;--gold:#facc15;--orange:#f97316;--green:#22c55e;--line:rgba(255,255,255,.14);--card:rgba(255,255,255,.075);--shadow:0 18px 55px rgba(0,0,0,.36);--font:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100svh;padding-bottom:92px;background:radial-gradient(800px 430px at 8% -8%,rgba(250,204,21,.16),transparent 60%),radial-gradient(700px 380px at 100% 0%,rgba(34,197,94,.16),transparent 58%),linear-gradient(180deg,var(--bg2),var(--bg));color:var(--ink);font-family:var(--font);font-weight:850}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}button{cursor:pointer;color:inherit}.wrap{width:min(1120px,calc(100% - 24px));margin:0 auto}.top{position:sticky;top:0;z-index:60;background:rgba(6,27,20,.96);border-bottom:1px solid rgba(255,255,255,.10);backdrop-filter:blur(14px)}.topin{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}.brand{display:flex;align-items:center;gap:10px}.logo{width:46px;height:46px;border-radius:17px;background:linear-gradient(135deg,var(--gold),var(--orange));display:grid;place-items:center;color:#061b14;font-size:24px;box-shadow:0 10px 28px rgba(250,204,21,.24)}.brand b{display:block;color:var(--gold);letter-spacing:.10em;text-transform:uppercase;font-size:14px;font-weight:1000}.brand span{display:block;color:var(--muted);font-size:12px;margin-top:3px}.toplinks{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.pill{min-height:40px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.07);padding:0 12px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:1000}.pill.gold{background:linear-gradient(135deg,var(--gold),var(--orange));color:#061b14;border:0}.hero{padding:16px 0}.heroCard{border:1px solid rgba(255,255,255,.12);border-radius:32px;background:var(--card);box-shadow:var(--shadow);padding:20px}.kicker{display:inline-flex;align-items:center;min-height:34px;padding:0 12px;border-radius:999px;border:1px solid rgba(250,204,21,.28);background:rgba(250,204,21,.11);color:#fde68a;font-size:12px;font-weight:1000;letter-spacing:.08em;text-transform:uppercase}.hero h1{margin:12px 0 8px;font-size:clamp(38px,8vw,74px);line-height:.92;letter-spacing:-.06em;font-weight:1000}.hero h1 span{background:linear-gradient(135deg,var(--gold),var(--green));-webkit-background-clip:text;color:transparent}.hero p{margin:0;color:var(--muted);line-height:1.55;max-width:78ch;font-size:16px}.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.badge{border:1px solid rgba(255,255,255,.12);background:rgba(2,6,23,.25);border-radius:999px;padding:8px 11px;color:var(--muted);font-size:12px;font-weight:1000}.doors{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:16px}.door{min-height:92px;border:1px solid var(--line);border-radius:21px;background:rgba(255,255,255,.07);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:5px;padding:10px}.door strong{font-size:26px}.door b{font-size:14px;font-weight:1000}.door small{color:var(--muted);font-size:11px;font-weight:900}.door.gold{background:linear-gradient(135deg,var(--gold),var(--orange));color:#061b14;border:0}.door.gold small{color:rgba(6,27,20,.75)}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:12px}.panel{border:1px solid rgba(255,255,255,.11);border-radius:27px;background:var(--card);box-shadow:0 14px 38px rgba(0,0,0,.24);padding:16px;margin-bottom:12px}.panel h2{margin:0 0 10px;color:var(--gold);font-size:27px;line-height:1;font-weight:1000;letter-spacing:-.03em}.panel p{margin:0 0 12px;color:var(--muted);line-height:1.5;font-size:14px}.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;color:#fde68a;font-weight:1000;letter-spacing:.07em;text-transform:uppercase}.input,.select,.area{width:100%;min-height:50px;border-radius:17px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.94);color:#061b14;padding:10px 12px;outline:none;font-weight:900}.area{min-height:96px;resize:vertical;line-height:1.45}.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.btn{min-height:52px;border-radius:17px;border:1px solid var(--line);background:rgba(255,255,255,.08);display:inline-flex;align-items:center;justify-content:center;text-align:center;padding:0 14px;font-weight:1000}.btn.gold{background:linear-gradient(135deg,var(--gold),var(--orange));color:#061b14;border:0}.btn.green{background:rgba(34,197,94,.15);border-color:rgba(34,197,94,.35);color:#bbf7d0}.btn.blue{background:rgba(59,130,246,.16);border-color:rgba(59,130,246,.28);color:#dbeafe}.preview{white-space:pre-wrap;border:1px solid rgba(250,204,21,.24);border-radius:20px;background:rgba(2,6,23,.30);min-height:230px;padding:14px;color:#fff4b8;line-height:1.45;font-size:14px}.notice{border:1px solid rgba(34,197,94,.28);background:rgba(34,197,94,.10);color:#bbf7d0;border-radius:20px;padding:14px;line-height:1.5}.ficheWrap{display:grid;grid-template-columns:1.1fr .9fr;gap:12px;align-items:start}.ficheCard{border:1px solid rgba(255,255,255,.12);border-radius:24px;background:rgba(0,0,0,.18);padding:15px}.ficheName{font-size:30px;line-height:.96;letter-spacing:-.04em;font-weight:1000;margin:0 0 8px}.ficheMeta{color:var(--muted);font-size:14px;line-height:1.45;white-space:pre-wrap}.ficheLinks{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.mediaBox{margin-top:12px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.06);padding:10px}.mediaCover{width:100%;max-height:220px;object-fit:cover;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:#061b14}.mediaGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:8px}.mediaGrid img{width:100%;height:82px;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#061b14}.videoLink{margin-top:8px;min-height:44px;border-radius:14px;border:1px solid rgba(250,204,21,.28);background:rgba(250,204,21,.10);display:flex;align-items:center;justify-content:center;text-align:center;color:#fde68a;font-size:13px;font-weight:1000}.plink{min-height:48px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;text-align:center;padding:10px;font-size:14px;font-weight:1000}.qrBox{border:1px solid rgba(250,204,21,.24);border-radius:24px;background:rgba(250,204,21,.08);padding:15px;text-align:center}.qrBox img{width:100%;max-width:240px;background:#fff;border-radius:16px;padding:8px}.qrUrl{margin-top:10px;color:var(--muted);font-size:12px;line-height:1.35;word-break:break-word}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card{border:1px solid rgba(255,255,255,.10);border-radius:22px;background:rgba(255,255,255,.06);padding:14px}.card .ico{font-size:30px}.card h3{margin:8px 0 7px;color:#fff;font-size:18px}.card p{margin:0;color:var(--muted);line-height:1.5;font-size:13px}.bottom{position:fixed;left:0;right:0;bottom:0;z-index:80;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:rgba(6,27,20,.96);border-top:1px solid rgba(255,255,255,.10);backdrop-filter:blur(12px)}.bottomin{width:min(760px,100%);margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.bottom a{min-height:54px;border-radius:15px;display:grid;place-items:center;align-content:center;gap:2px;text-align:center;color:rgba(244,255,248,.78);font-size:11px;font-weight:1000}.bottom .active{background:linear-gradient(135deg,var(--gold),var(--orange));color:#061b14}.toast{position:fixed;left:50%;bottom:94px;transform:translateX(-50%) translateY(16px);opacity:0;z-index:100;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(2,6,23,.86);color:#fff;padding:11px 15px;font-weight:1000;transition:.18s}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}footer{padding:18px 0 34px;text-align:center;color:var(--muted);font-size:12px;font-weight:900}@media(max-width:980px){.doors{grid-template-columns:repeat(3,1fr)}.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:920px){.grid,.ficheWrap{grid-template-columns:1fr}.form{grid-template-columns:1fr}.toplinks{display:none}}@media(max-width:520px){.doors{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:1fr}.heroCard,.panel{padding:14px}.door{min-height:84px}.bottomin{grid-template-columns:repeat(5,1fr)}}
-</style>
-</head>
-<body>
-<header class="top"><div class="wrap topin"><a class="brand" href="#top"><div class="logo">🍽️</div><div><b>DIGIY PRO RESTO</b><span>Réservation de table · fiche + QR</span></div></a><div class="toplinks"><a class="pill gold" href="#demande">📲 Réserver</a><a class="pill" href="#fiche">🪪 Fiche QR</a><a class="pill" href="#qr">🔳 QR seul</a><a class="pill" href="https://digiylyfe.com/">DIGIYLYFE</a></div></div></header>
-<main class="wrap" id="top">
-<section class="hero"><div class="heroCard"><span class="kicker">Module métier · restaurant · table</span><h1>Le client demande. <span>Le resto confirme.</span></h1><p>DIGIY PRO RESTO prépare une demande claire de table, et le restaurant a aussi sa fiche avec QR intégré : nom, spécialité, zone, horaires, WhatsApp public et lien à partager.</p><div class="badges"><span class="badge">Réservation de table</span><span class="badge">Fiche restaurant</span><span class="badge">Photos / vidéo URL</span><span class="badge">QR intégré</span><span class="badge">Paiement direct au pro</span><span class="badge">0% commission DIGIY</span><span class="badge">Confirmation restaurant</span></div><nav class="doors"><a class="door gold" href="#demande"><strong>📲</strong><b>Demande table</b><small>message prêt</small></a><a class="door" href="#fiche"><strong>🪪</strong><b>Fiche QR</b><small>QR intégré</small></a><a class="door" href="#qr"><strong>🔳</strong><b>QR seul</b><small>impression</small></a><a class="door" href="#planning"><strong>🗓️</strong><b>Planning</b><small>midi / soir</small></a><a class="door" href="#pay"><strong>💰</strong><b>PAY</b><small>acompte</small></a><a class="door" href="#regle"><strong>✅</strong><b>Règle</b><small>le resto confirme</small></a></nav></div></section>
-
-<section class="grid">
-  <div class="panel" id="demande"><h2>📲 Demande de table</h2><p>Remplis le minimum. Le message WhatsApp est prêt. Le restaurant confirme ensuite.</p><form class="form" id="restoForm"><div class="field"><label>Nom client</label><input class="input" id="clientName" placeholder="Nom client" autocomplete="name" required></div><div class="field"><label>Téléphone</label><input class="input" id="clientPhone" placeholder="WhatsApp client" inputmode="tel" autocomplete="tel"></div><div class="field"><label>Date</label><input class="input" id="resaDate" type="date" required></div><div class="field"><label>Heure</label><input class="input" id="resaTime" type="time" value="20:00" step="900" required></div><div class="field"><label>Personnes</label><input class="input" id="people" type="number" min="1" value="2"></div><div class="field"><label>Service</label><select class="select" id="service"><option>Dîner</option><option>Déjeuner</option><option>Petit-déjeuner</option><option>Anniversaire</option><option>Groupe</option><option>Terrasse</option><option>Autre demande</option></select></div><div class="field full"><label>Préférence / message</label><textarea class="area" id="note" placeholder="Ex : table calme, terrasse, enfant, anniversaire, allergie, heure flexible..."></textarea></div><div class="field full"><button class="btn gold" type="submit">✅ Préparer le message</button></div></form></div>
-  <div class="panel"><h2>Message préparé</h2><div class="preview" id="preview">Remplis la demande puis clique “Préparer le message”.</div><div class="btns"><a class="btn gold" id="waBtn" href="https://wa.me/?text=Bonjour%2C%20je%20souhaite%20r%C3%A9server%20une%20table." target="_blank" rel="noopener noreferrer">📲 Envoyer WhatsApp</a><button class="btn green" type="button" onclick="copyMessage()">📋 Copier</button><button class="btn blue" type="button" onclick="nativeShare()">↗️ Partager</button></div><p style="margin-top:12px">Le bouton WhatsApp ouvre un partage. Tu choisis le contact du restaurant.</p></div>
-</section>
-
-<section class="panel" id="fiche"><h2>🪪 Fiche restaurant avec QR intégré</h2><p>Renseigne le restaurant une seule fois. La fiche et le QR se mettent à jour. Tu peux garder la fiche sur l’appareil et partager le lien public.</p>
-  <div class="grid">
-    <div>
-      <form class="form" id="ficheForm">
-        <div class="field"><label>Nom restaurant</label><input class="input" id="restoName" placeholder="Nom du restaurant"></div>
-        <div class="field"><label>Spécialité</label><input class="input" id="restoType" placeholder="Resto, grill, poissons, fast-food..."></div>
-        <div class="field"><label>Zone / ville</label><input class="input" id="restoZone" placeholder="Saly, Mbour, Dakar..."></div>
-        <div class="field"><label>Horaires</label><input class="input" id="restoHours" placeholder="Midi · Soir"></div>
-        <div class="field"><label>WhatsApp public</label><input class="input" id="restoWhatsapp" placeholder="+221..." inputmode="tel"></div>
-        <div class="field"><label>Slug public</label><input class="input" id="restoSlug" placeholder="ex : resto-chez-astou"></div>
-        <div class="field full"><label>Adresse / repère</label><input class="input" id="restoAddress" placeholder="Repère simple"></div>
-        <div class="field"><label>Photo principale URL</label><input class="input" id="restoPhoto" placeholder="https://... photo vitrine ou plat" inputmode="url"></div>
-        <div class="field"><label>Vidéo URL</label><input class="input" id="restoVideo" placeholder="https://... vidéo courte" inputmode="url"></div>
-        <div class="field full"><label>Galerie photos URL</label><textarea class="area" id="restoGallery" placeholder="Une URL photo par ligne : plat, salle, terrasse..."></textarea></div>
-        <div class="field full"><label>Présentation courte</label><textarea class="area" id="restoBio" placeholder="Cuisine, ambiance, terrasse, livraison, spécialité... "></textarea></div>
-      </form>
-      <div class="btns"><button class="btn gold" type="button" onclick="saveFiche()">💾 Garder la fiche</button><button class="btn green" type="button" onclick="copyPublicLink()">🔗 Copier lien</button><button class="btn blue" type="button" onclick="copyFicheSummary()">📋 Copier fiche</button></div>
-    </div>
-    <div class="ficheWrap">
-      <div class="ficheCard">
-        <div class="ficheName" id="pvName">Mon restaurant</div>
-        <div class="ficheMeta" id="pvMeta">Spécialité · zone · horaires</div>
-        <div class="ficheMeta" id="pvBio">Présentation courte du restaurant.</div>
-        <div class="ficheLinks"><a class="plink" id="pvWa" href="#">💬 WhatsApp</a><a class="plink" id="pvOpen" href="#" target="_blank" rel="noopener noreferrer">🌍 Ouvrir lien</a></div>
-        <div class="mediaBox" id="mediaBox"><div class="ficheMeta">Ajoute photo ou vidéo URL pour enrichir la fiche.</div></div>
-      </div>
-      <div class="qrBox">
-        <img id="qrImg" alt="QR restaurant DIGIY PRO RESTO" src="">
-        <div style="font-size:18px;font-weight:1000;margin-top:8px">QR restaurant</div>
-        <div class="qrUrl" id="qrUrl">Lien en préparation…</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="grid">
-  <div class="panel" id="planning"><h2>🗓️ Planning table</h2><div class="notice">Version propre : midi / soir, créneaux 15 minutes, nombre de personnes, statut demande ou confirmé. Le restaurant garde la main.</div></div>
-  <div class="panel" id="qr"><h2>🔳 QR seul</h2><p>QR seul pour impression : comptoir, carte, flyer, vitrine, table.</p><div class="btns"><button class="btn gold" onclick="window.print()">🖨️ Imprimer la page</button><button class="btn green" onclick="copyPublicLink()">🔗 Copier lien public</button></div></div>
-</section>
-
-<section class="grid" id="regle">
-  <div class="panel"><h2>✅ Règle terrain</h2><div class="notice"><strong>La réservation n’est pas automatique.</strong><br><br>Le client demande. Le restaurant confirme. DIGIY prépare le message et garde la route simple.</div></div>
-  <div class="panel" id="pay"><h2>💰 PAY</h2><p>Si un acompte est demandé, il se règle directement avec le restaurant. DIGIY ne prend pas de commission.</p><div class="btns"><a class="btn green" href="https://pay.digiylyfe.com/" target="_blank" rel="noopener noreferrer">Ouvrir PAY</a></div></div>
-</section>
-</main>
-<footer class="wrap">DIGIY PRO RESTO · Réservation de table · Fiche restaurant · QR intégré · Paiement direct au pro · 0% commission.</footer>
-<nav class="bottom"><div class="bottomin"><a class="active" href="#demande"><span>📲</span><span>Table</span></a><a href="#fiche"><span>🪪</span><span>Fiche</span></a><a href="#qr"><span>🔳</span><span>QR</span></a><a href="#planning"><span>🗓️</span><span>Planning</span></a><a href="#pay"><span>💰</span><span>PAY</span></a></div></nav><div class="toast" id="toast">OK</div>
-<script>
-const $=id=>document.getElementById(id);
-const PUBLIC_BASE='https://resa-table-resto.digiylyfe.com/fiche.html';
-let currentMessage='';
-function today(){return new Date().toISOString().slice(0,10)}
-function toast(t){const el=$('toast');el.textContent=t;el.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('show'),1700)}
-function val(id){return ($(id)?.value||'').trim()}
-function phone(v){return String(v||'').replace(/[^\d+]/g,'').trim()}
-function slug(v){return String(v||'').trim().toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'').replace(/-+/g,'-').replace(/^-|-$/g,'')}
-function validUrl(v){v=String(v||'').trim();return /^https:\/\//i.test(v)?v:''}
-function galleryUrls(){return String(val('restoGallery')||'').split(/\n+/).map(validUrl).filter(Boolean).slice(0,6)}
-function roundQuarter(v){if(!v)return v;const p=v.split(':').map(Number);const total=p[0]*60+p[1];const q=Math.round(total/15)*15;return String(Math.floor(q/60)%24).padStart(2,'0')+':'+String(q%60).padStart(2,'0')}
-function publicUrl(){const s=slug(val('restoSlug')||val('restoName'));if(!s)return PUBLIC_BASE;const u=new URL(PUBLIC_BASE);u.searchParams.set('slug',s);return u.toString()}
-function qrUrl(){return 'https://api.qrserver.com/v1/create-qr-code/?size=420x420&margin=14&data='+encodeURIComponent(publicUrl())}
-function buildMessage(){const name=val('clientName')||'Client';const clientPhone=val('clientPhone')||'À rappeler';const d=val('resaDate')||'À préciser';const t=roundQuarter(val('resaTime')||'20:00');const people=val('people')||'2';const service=val('service')||'Table';const note=val('note')||'Aucune préférence';const resto=val('restoName')||'votre restaurant';return `Bonjour, je viens depuis DIGIY PRO RESTO.\n\nDemande de réservation de table.\nRestaurant : ${resto}\nNom : ${name}\nTéléphone : ${clientPhone}\nDate : ${d}\nHeure souhaitée : ${t}\nPersonnes : ${people}\nService : ${service}\nPréférence : ${note}\n\nMerci de confirmer la disponibilité.\nPaiement direct au restaurant · 0% commission DIGIY.`}
-function refreshMessage(){if($('resaTime'))$('resaTime').value=roundQuarter($('resaTime').value||'20:00');currentMessage=buildMessage();$('preview').textContent=currentMessage;$('waBtn').href='https://wa.me/?text='+encodeURIComponent(currentMessage)}
-function refreshFiche(){const name=val('restoName')||'Mon restaurant';const type=val('restoType')||'Spécialité à renseigner';const zone=val('restoZone')||'Zone à renseigner';const hours=val('restoHours')||'Horaires à renseigner';const address=val('restoAddress')||'Repère à renseigner';const bio=val('restoBio')||'Présentation courte du restaurant.';const wa=phone(val('restoWhatsapp'));const url=publicUrl();$('pvName').textContent=name;$('pvMeta').textContent=[type,zone,hours,address].filter(Boolean).join(' · ');$('pvBio').textContent=bio;$('pvOpen').href=url;$('pvWa').href=wa?('https://wa.me/'+encodeURIComponent(wa.replace(/^\+/,''))):url;$('qrImg').src=qrUrl();$('qrUrl').textContent=url;const photo=validUrl(val('restoPhoto'));const video=validUrl(val('restoVideo'));const gal=galleryUrls();let media='';if(photo){media+='<img class="mediaCover" src="'+photo.replace(/"/g,'&quot;')+'" alt="Photo restaurant">'}if(gal.length){media+='<div class="mediaGrid">'+gal.map(u=>'<img src="'+u.replace(/"/g,'&quot;')+'" alt="Photo resto">').join('')+'</div>'}if(video){media+='<a class="videoLink" href="'+video.replace(/"/g,'&quot;')+'" target="_blank" rel="noopener noreferrer">▶️ Voir la vidéo du restaurant</a>'}if(!media){media='<div class="ficheMeta">Ajoute photo ou vidéo URL pour enrichir la fiche.</div>'}$('mediaBox').innerHTML=media}
-function saveFiche(){const data={restoName:val('restoName'),restoType:val('restoType'),restoZone:val('restoZone'),restoHours:val('restoHours'),restoWhatsapp:val('restoWhatsapp'),restoSlug:val('restoSlug'),restoAddress:val('restoAddress'),restoPhoto:val('restoPhoto'),restoVideo:val('restoVideo'),restoGallery:val('restoGallery'),restoBio:val('restoBio')};localStorage.setItem('DIGIY_PRO_RESTO_FICHE',JSON.stringify(data));refreshFiche();refreshMessage();toast('Fiche gardée')}
-function loadFiche(){try{const raw=localStorage.getItem('DIGIY_PRO_RESTO_FICHE');if(!raw)return;const d=JSON.parse(raw);Object.keys(d).forEach(k=>{if($(k))$(k).value=d[k]||''})}catch(e){}}
-async function copyMessage(){refreshMessage();try{await navigator.clipboard.writeText(currentMessage);toast('Message copié')}catch(e){toast('Copie impossible')}}
-async function nativeShare(){refreshMessage();if(navigator.share){try{await navigator.share({title:'DIGIY PRO RESTO',text:currentMessage});toast('Partage ouvert')}catch(e){}}else{copyMessage()}}
-async function copyPublicLink(){const url=publicUrl();try{await navigator.clipboard.writeText(url);toast('Lien copié')}catch(e){toast('Copie impossible')}}
-async function copyFicheSummary(){const txt=[val('restoName')||'Mon restaurant',val('restoType'),val('restoZone'),val('restoHours'),val('restoAddress'),'Photo : '+(validUrl(val('restoPhoto'))||'—'),'Vidéo : '+(validUrl(val('restoVideo'))||'—'),'Galerie : '+(galleryUrls().join(' | ')||'—'),'',val('restoBio'),'','Lien : '+publicUrl()].join('\n');try{await navigator.clipboard.writeText(txt);toast('Fiche copiée')}catch(e){toast('Copie impossible')}}
-$('resaDate').value=today();
-['clientName','clientPhone','resaDate','resaTime','people','service','note'].forEach(id=>$(id).addEventListener('input',refreshMessage));
-['restoName','restoType','restoZone','restoHours','restoWhatsapp','restoSlug','restoAddress','restoPhoto','restoVideo','restoGallery','restoBio'].forEach(id=>$(id).addEventListener('input',()=>{refreshFiche();refreshMessage()}));
-$('restoForm').addEventListener('submit',e=>{e.preventDefault();refreshMessage();toast('Message prêt')});
-loadFiche();
-refreshFiche();
-refreshMessage();
-</script>
 </body>
 </html>
 
