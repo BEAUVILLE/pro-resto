@@ -1,316 +1,99 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-  <title>Accès RESTO • DIGIY</title>
-  <meta name="theme-color" content="#020617"/>
-
-  <!-- CONFIG — changer ces 5 lignes par module -->
-  <script>
-    window.DIGIY_SUPABASE_URL      = "https://wesqmwjjtsefyjnluosj.supabase.co";
-    window.DIGIY_SUPABASE_ANON_KEY = "sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3";
-    window.DIGIY_SUPABASE_ANON     = window.DIGIY_SUPABASE_ANON_KEY;
-   window.DIGIY_MODULE       = "RESTO";
-window.DIGIY_MODULE_LABEL = "Je gère mon resto";
-window.DIGIY_MODULE_ICON  = "🍽️";
-window.DIGIY_INDEX_URL    = "./cockpit.html";
-window.DIGIY_SLUG_PREFIX  = "resto";
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <style>
-    :root{--bg:#1e293b;--bg2:#334155;--line:rgba(148,163,184,.20);--ink:#f9fafb;--muted:#94a3b8;--gold:#facc15;--green:#22c55e;--red:#ef4444}
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body{min-height:100dvh;display:grid;place-items:center;padding:16px;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:radial-gradient(ellipse 800px 500px at 15% -5%,rgba(250,204,21,.13),transparent 55%),radial-gradient(ellipse 700px 400px at 88% 5%,rgba(34,197,94,.10),transparent 55%),linear-gradient(180deg,var(--bg2),var(--bg))}
-    .card{width:min(420px,100%);background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:28px;padding:28px 24px 24px;box-shadow:0 28px 70px rgba(0,0,0,.55)}
-    .header{text-align:center;margin-bottom:22px}
-    .ico{font-size:36px;line-height:1;display:block;margin-bottom:10px}
-    .badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;border:1px solid rgba(250,204,21,.30);background:rgba(250,204,21,.08);color:#fde68a;font-size:11px;font-weight:950;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
-    .title{font-size:1.25rem;font-weight:1100;line-height:1.2}
-    .steps{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 22px}
-    .step{display:flex;flex-direction:column;align-items:center;gap:4px}
-    .step-dot{width:32px;height:32px;border-radius:50%;border:2px solid var(--line);background:transparent;display:grid;place-items:center;font-size:13px;font-weight:1000;color:var(--muted);transition:all .25s}
-    .step-dot.active{border-color:var(--gold);background:rgba(250,204,21,.12);color:var(--gold)}
-    .step-dot.done{border-color:var(--green);background:rgba(34,197,94,.15);color:var(--green)}
-    .step-lbl{font-size:10px;font-weight:900;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
-    .step-lbl.active{color:var(--gold)}
-    .step-connector{width:32px;height:2px;background:var(--line);border-radius:2px;margin-bottom:14px;transition:background .3s}
-    .step-connector.done{background:var(--green)}
-    .panel{display:none}
-    .panel.active{display:block}
-    .label{display:block;font-size:.78rem;font-weight:950;color:var(--muted);margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase}
-    .phone-wrap{position:relative}
-    .phone-flag{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:18px;pointer-events:none}
-    .input{width:100%;padding:14px 15px 14px 42px;border-radius:14px;border:1px solid var(--line);background:rgba(0,0,0,.22);color:var(--ink);font-size:1.05rem;font-weight:900;font-family:inherit;outline:none;-webkit-appearance:none;transition:border-color .15s,box-shadow .15s}
-    .input::placeholder{color:rgba(148,163,184,.45)}
-    .input:focus{border-color:rgba(250,204,21,.50);box-shadow:0 0 0 3px rgba(250,204,21,.09)}
-    .input.err-field{border-color:rgba(239,68,68,.50)!important}
-    .phone-recap{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;border-radius:12px;border:1px solid rgba(34,197,94,.25);background:rgba(34,197,94,.06);margin-bottom:18px}
-    .phone-recap-num{font-size:.9rem;font-weight:950;color:#86efac}
-    .phone-recap-btn{font-size:.75rem;font-weight:950;color:var(--muted);cursor:pointer;background:none;border:none;font-family:inherit;padding:0;text-decoration:underline;text-underline-offset:2px}
-    .phone-recap-btn:hover{color:var(--ink)}
-    .pin-dots{display:flex;justify-content:center;gap:16px;margin:8px 0 20px}
-    .dot{width:20px;height:20px;border-radius:50%;border:2px solid rgba(148,163,184,.30);background:transparent;transition:background .12s,border-color .12s,transform .10s}
-    .dot.filled{background:var(--gold);border-color:var(--gold);transform:scale(1.12)}
-    .dot.err{border-color:var(--red)!important;background:rgba(239,68,68,.2)!important}
-    .keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px}
-    .key{appearance:none;border:1px solid rgba(148,163,184,.18);border-radius:14px;background:rgba(255,255,255,.04);color:var(--ink);font-size:1.3rem;font-weight:1000;font-family:inherit;min-height:58px;cursor:pointer;transition:background .12s,transform .08s,border-color .12s;touch-action:manipulation;user-select:none}
-    .key:hover{background:rgba(255,255,255,.08);border-color:rgba(250,204,21,.25)}
-    .key:active{transform:scale(.94);background:rgba(250,204,21,.12)}
-    .key.zero{grid-column:2}
-    .key.del{font-size:1rem;color:var(--muted)}
-    .key.del:hover{color:var(--red);border-color:rgba(239,68,68,.30)}
-    .btn{width:100%;min-height:52px;border-radius:16px;border:1px solid rgba(250,204,21,.35);background:linear-gradient(135deg,rgba(250,204,21,.22),rgba(34,197,94,.18));color:#fff;font-size:1rem;font-weight:1100;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .15s,transform .10s,background .15s;touch-action:manipulation}
-    .btn:hover:not(:disabled){background:linear-gradient(135deg,rgba(250,204,21,.32),rgba(34,197,94,.26))}
-    .btn:active:not(:disabled){transform:scale(.98)}
-    .btn:disabled{opacity:.40;cursor:not-allowed}
-    .status{margin-top:12px;min-height:0;padding:0;border-radius:12px;font-size:.84rem;font-weight:900;line-height:1.5;display:none;white-space:pre-wrap}
-    .status.show{display:block;padding:10px 13px;margin-top:12px}
-    .status.err{background:rgba(239,68,68,.10);border:1px solid rgba(239,68,68,.30);color:#fca5a5}
-    .status.ok{background:rgba(34,197,94,.10);border:1px solid rgba(34,197,94,.30);color:#86efac}
-    .status.spin{background:rgba(148,163,184,.07);border:1px solid var(--line);color:var(--muted)}
-    .note{margin-top:18px;text-align:center;color:rgba(148,163,184,.55);font-size:.74rem;font-weight:800;line-height:1.55}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
-    .shake{animation:shake .35s ease}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<meta name="theme-color" content="#061b14">
+<meta name="digiy-build" content="pro-resto-pin-reconstruit-20260712">
+<title>DIGIY PRO RESTO — Accès PIN</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#061b14;--bg2:#0a2b1f;--line:rgba(255,255,255,.15);--text:#eafff1;--muted:rgba(234,255,241,.74);--gold:#facc15;--orange:#f97316;--green:#22c55e;--bad:#fb7185}
+*{box-sizing:border-box}body{margin:0;min-height:100svh;padding:16px;display:grid;place-items:center;font-family:system-ui;background:radial-gradient(circle at top left,rgba(250,204,21,.16),transparent 42%),linear-gradient(135deg,var(--bg),var(--bg2));color:var(--text)}
+.card{width:min(560px,100%);border:1px solid var(--line);border-radius:28px;padding:20px;background:linear-gradient(145deg,rgba(11,42,31,.98),rgba(6,35,25,.98));box-shadow:0 20px 60px rgba(0,0,0,.42)}
+.top{display:flex;gap:12px;align-items:center}.ico{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(135deg,var(--gold),var(--orange));color:#061b14;font-size:26px}
+.eyebrow{color:var(--gold);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:1000}h1{margin:3px 0 0;font-size:clamp(27px,7vw,38px)}.sub{color:var(--muted);margin-top:7px;font-weight:750;line-height:1.45}
+.doctrine{margin:16px 0;border:1px solid rgba(34,197,94,.30);border-radius:20px;padding:14px;background:rgba(3,20,14,.48);line-height:1.5}.doctrine b{color:var(--gold)}
+label{display:block;margin:13px 0 7px;font-weight:1000}.pinrow{display:flex;gap:8px;border:1px solid var(--line);border-radius:18px;padding:4px 6px 4px 12px;background:rgba(0,0,0,.22)}
+input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#fff;font-size:24px;letter-spacing:.22em;font-weight:1000;padding:13px 0}
+button,a.btn{border:0;min-height:52px;border-radius:18px;font-weight:1000;display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;padding:0 14px}
+.toggle{background:rgba(255,255,255,.08);color:#fff;border:1px solid var(--line);min-height:44px}.primary{width:100%;margin-top:12px;background:linear-gradient(135deg,var(--green),var(--gold));color:#061b14;font-size:16px}
+.msg{min-height:24px;margin-top:12px;color:var(--muted);line-height:1.5;font-weight:800}.ok{color:var(--green)}.bad{color:var(--bad)}.warn{color:var(--gold)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}a.btn{border:1px solid var(--line);background:rgba(255,255,255,.07);color:#fff}
+.trust{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.trust div{border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:10px;color:var(--muted);font-size:12px;line-height:1.4}.trust b{display:block;color:#fff;margin-bottom:3px}
+@media(max-width:560px){body{padding:0}.card{min-height:100svh;border-radius:0;display:flex;flex-direction:column;justify-content:center}.actions,.trust{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-<div class="card">
-
-  <div class="header">
-    <span class="ico" id="moduleIcon">🏠</span>
-    <div class="badge">🔑 Accès DIGIY</div>
-    <div class="title" id="moduleLabel">Je loue</div>
-  </div>
-
-  <div class="steps">
-    <div class="step">
-      <div class="step-dot active" id="dot1">1</div>
-      <div class="step-lbl active" id="lbl1">Numéro</div>
-    </div>
-    <div class="step-connector" id="conn"></div>
-    <div class="step">
-      <div class="step-dot" id="dot2">2</div>
-      <div class="step-lbl" id="lbl2">Code</div>
-    </div>
-  </div>
-
-  <!-- ETAPE 1 -->
-  <div class="panel active" id="step1">
-    <label class="label" for="phoneInput">📱 Ton numéro de téléphone</label>
-    <div class="phone-wrap">
-      <span class="phone-flag">🇸🇳</span>
-      <input id="phoneInput" class="input" type="tel" inputmode="numeric"
-             placeholder="221 77 XXX XX XX" autocomplete="tel" maxlength="15"/>
-    </div>
-    <div class="status" id="status1"></div>
-    <button class="btn" id="btnContinue" type="button" style="margin-top:16px" disabled>Continuer →</button>
-  </div>
-
-  <!-- ETAPE 2 -->
-  <div class="panel" id="step2">
-    <div class="phone-recap">
-      <span class="phone-recap-num" id="phoneDisplay"></span>
-      <button class="phone-recap-btn" id="btnBack" type="button">Modifier</button>
-    </div>
-    <label class="label">🔢 Ton code secret (4 chiffres)</label>
-    <div class="pin-dots" id="pinDots">
-      <div class="dot" id="d0"></div>
-      <div class="dot" id="d1"></div>
-      <div class="dot" id="d2"></div>
-      <div class="dot" id="d3"></div>
-    </div>
-    <div class="keypad" id="keypad">
-      <button class="key" data-v="1" type="button">1</button>
-      <button class="key" data-v="2" type="button">2</button>
-      <button class="key" data-v="3" type="button">3</button>
-      <button class="key" data-v="4" type="button">4</button>
-      <button class="key" data-v="5" type="button">5</button>
-      <button class="key" data-v="6" type="button">6</button>
-      <button class="key" data-v="7" type="button">7</button>
-      <button class="key" data-v="8" type="button">8</button>
-      <button class="key" data-v="9" type="button">9</button>
-      <button class="key zero" data-v="0" type="button">0</button>
-      <button class="key del" data-v="DEL" type="button">⌫</button>
-    </div>
-    <button class="btn" id="btnEnter" type="button" disabled>Entrer →</button>
-    <div class="status" id="status2"></div>
-  </div>
-
-  <div class="note">Ton numéro et ton code ne sont jamais partagés.<br>DIGIY · 0% commission · 100% indépendance ∞</div>
+<main class="card">
+<div class="top"><div class="ico">🍽️</div><div><div class="eyebrow">DIGIY PRO RESTO</div><h1>Entrer dans mon restaurant</h1><div class="sub" id="subtitle">Porte sécurisée · PIN requis · session 8 h</div></div></div>
+<div class="doctrine"><b>Ici, on protège le restaurant.</b><br>Le pro garde son nom, son client, son argent et sa relation. DIGIY ouvre la porte, le restaurant confirme.</div>
+<label for="pin">Ton PIN RESTO</label>
+<div class="pinrow"><input id="pin" type="password" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="••••"><button class="toggle" id="toggle" type="button">Voir</button></div>
+<button class="primary" id="go" type="button">🚀 Ouvrir mon espace RESTO</button>
+<div class="msg" id="msg"></div>
+<div class="actions">
+<a class="btn" href="https://inscription-pro.digiylyfe.com/?module=resto" target="_blank" rel="noopener">📝 Activer PRO RESTO</a>
+<a class="btn" href="https://wa.me/221771342889" target="_blank" rel="noopener">🛟 Support WhatsApp</a>
 </div>
-
+<div class="trust"><div><b>Session 8 h</b>Une seule entrée PIN pour travailler pendant la session.</div><div><b>URL propre</b>Le slug est conservé en session, sans rester affiché.</div></div>
+</main>
 <script>
-(function(){
-"use strict";
-const MODULE=((window.DIGIY_MODULE)||"LOC").toUpperCase();
-const MODULE_LABEL=window.DIGIY_MODULE_LABEL||MODULE;
-const MODULE_ICON=window.DIGIY_MODULE_ICON||"∞";
-const INDEX_URL=window.DIGIY_INDEX_URL||"./index.html";
-const SLUG_PREFIX=(window.DIGIY_SLUG_PREFIX||MODULE.toLowerCase()).replace(/_/g,"-");
-const MAX_AGE=8*60*60*1000;
-const mod=MODULE.toLowerCase();
-const SKEYS=[`digiy_${mod}_session`,`digiy_${mod}_guard_session`,`digiy_guard_${mod}_session`];
-const PKEYS=[`digiy_${mod}_phone`,`digiy_${mod}_last_phone`,"DIGIY_LOC_HUB_PHONE","digiy_phone"];
-const SLKEYS=[`digiy_${mod}_last_slug`,`digiy_${mod}_slug`,"digiy_last_slug"];
-
-const $=id=>document.getElementById(id);
-$("moduleLabel").textContent=MODULE_LABEL;
-$("moduleIcon").textContent=MODULE_ICON;
-document.title=`Accès ${MODULE_LABEL} • DIGIY`;
-
-let pin="",confirmedPhone="";
-
-function norm(p){return String(p||"").replace(/\D/g,"")}
-function fmt(d){if(d.length===12&&d.startsWith("221"))return`${d.slice(0,3)} ${d.slice(3,5)} ${d.slice(5,8)} ${d.slice(8,10)} ${d.slice(10)}`;return d}
-function slug(p){return SLUG_PREFIX&&p?`${SLUG_PREFIX}-${p}`:""}
-function qp(n){try{return new URL(location.href).searchParams.get(n)||""}catch(_){return""}}
-function ls(k,v){try{if(v===undefined)return localStorage.getItem(k)||"";localStorage.setItem(k,v)}catch(_){}}
-function ss(k,v){try{if(v===undefined)return sessionStorage.getItem(k)||"";sessionStorage.setItem(k,v)}catch(_){}}
-
-function showSt(id,msg,cls){const e=$(id);e.className="status show "+cls;e.textContent=msg}
-function clearSt(id){const e=$(id);e.className="status";e.textContent=""}
-function shake(el){el.classList.remove("shake");void el.offsetWidth;el.classList.add("shake");setTimeout(()=>el.classList.remove("shake"),400)}
-
-// prefill : géré par le module au déploiement via ?phone= dans l'URL
-
-function getSb(){
-  if(window._dsb)return window._dsb;
-  const url=window.DIGIY_SUPABASE_URL||"";
-  const key=window.DIGIY_SUPABASE_ANON_KEY||window.DIGIY_SUPABASE_ANON||"";
-  if(!url||!key)throw new Error("Supabase non configuré");
-  if(!window.supabase?.createClient)throw new Error("Librairie Supabase absente");
-  window._dsb=window.supabase.createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});
-  return window._dsb;
-}
-
-function writeSession(phone,sl,token){
-  const now=Date.now();
-  const sess=JSON.stringify({slug:sl,phone,module:MODULE,validated_at:now,expires_at:now+MAX_AGE,session_token:token||"",access:true,access_ok:true});
-  SKEYS.forEach(k=>{ls(k,sess);ss(k,sess)});
-  PKEYS.forEach(k=>{ls(k,phone);ss(k,phone)});
-  if(sl){
-    SLKEYS.forEach(k=>ls(k,sl));
-    try{const m=JSON.parse(ls("digiy_module_slugs")||"{}")||{};m[MODULE]=sl;ls("digiy_module_slugs",JSON.stringify(m))}catch(_){}
-    ls("digiy_slug",sl);
+(async function(){
+  "use strict";
+  const SUPABASE_URL="https://wesqmwjjtsefyjnluosj.supabase.co";
+  const SUPABASE_KEY="sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3";
+  const CANDIDATES=["pro_resto","RESTO","resto","PRO_RESTO","pro-resto"];
+  const TTL=8*60*60*1000;
+  const $=id=>document.getElementById(id);
+  const msg=html=>{$("msg").innerHTML=html||""};
+  const normalize=v=>String(v||"").trim().replace(/^['"]+|['"]+$/g,"").replace(/\s+/g,"-").replace(/[^a-zA-Z0-9._-]/g,"").toLowerCase();
+  function read(k){try{return JSON.parse(localStorage.getItem(k)||"null")}catch(_){return null}}
+  function storedSlug(){
+    const sessions=["DIGIY_RESTO_ACCESS","DIGIY_ACCESS","DIGIY_PRO_RESTO_ACCESS"].map(read);
+    for(const s of sessions)if(s?.slug)return normalize(s.slug);
+    const keys=["DIGIY_RESTO_SLUG","DIGIY_CURRENT_SLUG","DIGIY_PRO_SLUG","DIGIY_SLUG","digiy_slug","slug"];
+    for(const k of keys){try{const v=normalize(localStorage.getItem(k));if(v)return v}catch(_){}}
+    return "";
   }
-}
-
-function redirect(sl){
-  try{const u=new URL(INDEX_URL,location.href);if(sl)u.searchParams.set("slug",sl);u.searchParams.delete("phone");location.replace(u.toString())}
-  catch(_){location.replace(INDEX_URL)}
-}
-
-// ETAPE 1
-const phoneEl=$("phoneInput");
-const btnContinue=$("btnContinue");
-function updateContinueBtn(){btnContinue.disabled=norm(phoneEl.value).length<9}
-
-function prefillPhoneFromUrl(){
-  const direct=norm(qp("phone")||qp("tel")||qp("numero"));
-  let fromSlug=cleanSlug(qp("slug")||qp("s")||"");
-  const prefix=SLUG_PREFIX+"-";
-  if(fromSlug.toLowerCase().startsWith(prefix.toLowerCase())) fromSlug=fromSlug.slice(prefix.length);
-  const guessed=direct||norm(fromSlug);
-  if(guessed){
-    phoneEl.value=guessed;
-    updateContinueBtn();
+  const u=new URL(location.href);
+  let slug="";
+  for(const k of ["slug","s","pro","id","fiche","resto","restaurant"]){slug=normalize(u.searchParams.get(k));if(slug)break}
+  slug=slug||storedSlug();
+  if(slug){try{localStorage.setItem("DIGIY_RESTO_SLUG",slug)}catch(_){};history.replaceState(null,"",location.pathname)}
+  if(!slug){$("go").disabled=true;$("subtitle").textContent="Restaurant non reconnu · lien pro requis";msg("<span class='warn'>⚠️ Le restaurant n’est pas encore reconnu.</span><br>Reviens depuis ton lien/QR pro ou ouvre l’activation RESTO.");}
+  if(!window.supabase){$("go").disabled=true;msg("<span class='bad'>❌ Connexion Supabase indisponible.</span> Recharge la page.");return}
+  const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:false}});
+  function saveSession(payload,module){
+    const now=Date.now();
+    const session={slug:normalize(payload?.slug||slug),phone:payload?.phone||null,owner_id:payload?.owner_id||payload?.owner||null,module:"RESTO",pin_module:module,access_ok:true,authenticated:true,ts:now,verified_at:now,expires_at:now+TTL};
+    for(const k of ["DIGIY_RESTO_ACCESS","DIGIY_ACCESS","DIGIY_PRO_RESTO_ACCESS"])try{localStorage.setItem(k,JSON.stringify(session))}catch(_){}
   }
-}
-
-function cleanSlug(v){return String(v||"").trim().replace(/^[ '\"]+|[ '\"]+$/g,"").replace(/\s+/g,"-").replace(/[^a-zA-Z0-9._-]/g,"")}
-
-phoneEl.addEventListener("input",()=>{clearSt("status1");phoneEl.classList.remove("err-field");updateContinueBtn()});
-phoneEl.addEventListener("keydown",e=>{if(e.key==="Enter"&&!btnContinue.disabled)goStep2()});
-prefillPhoneFromUrl();
-updateContinueBtn();
-
-async function goStep2(){
-  const raw=norm(phoneEl.value);
-  if(raw.length<9){
-    phoneEl.classList.add("err-field");
-    showSt("status1","❌ Numéro trop court.\nFormat attendu : 221 77 XXX XX XX","err");
-    shake(phoneEl);return;
-  }
-  btnContinue.disabled=true;
-  clearSt("status1");
-  confirmedPhone=raw;
-  showStep2();
-}
-btnContinue.addEventListener("click",goStep2);
-
-// ETAPE 2
-function showStep2(){
-  $("step1").classList.remove("active");$("step2").classList.add("active");
-  $("dot1").className="step-dot done";$("dot1").textContent="✓";$("lbl1").className="step-lbl";
-  $("dot2").className="step-dot active";$("lbl2").className="step-lbl active";
-  $("conn").classList.add("done");
-  $("phoneDisplay").textContent=fmt(confirmedPhone);
-  pin="";updateDots();updateEnterBtn();
-}
-function goStep1(){
-  $("step2").classList.remove("active");$("step1").classList.add("active");
-  $("dot1").className="step-dot active";$("dot1").textContent="1";$("lbl1").className="step-lbl active";
-  $("dot2").className="step-dot";$("lbl2").className="step-lbl";
-  $("conn").classList.remove("done");
-  pin="";clearSt("status2");btnContinue.disabled=false;updateDots();updateEnterBtn();
-}
-$("btnBack").addEventListener("click",goStep1);
-
-function updateDots(){
-  for(let i=0;i<4;i++){const d=$("d"+i);d.classList.toggle("filled",i<pin.length);d.classList.remove("err")}
-}
-function updateEnterBtn(){$("btnEnter").disabled=pin.length!==4}
-
-$("keypad").addEventListener("click",e=>{
-  const key=e.target.closest("[data-v]");if(!key)return;
-  const v=key.dataset.v;
-  if(v==="DEL"){pin=pin.slice(0,-1)}
-  else if(pin.length<4){pin+=v;if(pin.length===4)setTimeout(doLogin,120)}
-  updateDots();updateEnterBtn();clearSt("status2");
-});
-
-document.addEventListener("keydown",e=>{
-  if(document.activeElement===phoneEl)return;
-  if(!$("step2").classList.contains("active"))return;
-  if(/^[0-9]$/.test(e.key)&&pin.length<4){pin+=e.key;updateDots();updateEnterBtn();if(pin.length===4)setTimeout(doLogin,120)}
-  else if(e.key==="Backspace"){pin=pin.slice(0,-1);updateDots();updateEnterBtn()}
-});
-
-$("btnEnter").addEventListener("click",doLogin);
-
-async function doLogin(){
-  if(pin.length!==4)return;
-  $("btnEnter").disabled=true;
-  showSt("status2","⏳ Vérification du code…","spin");
-  try{
-    const sb=getSb();
-    const{data,error}=await sb.rpc("digiy_verify_pin",{p_phone:confirmedPhone,p_module:MODULE,p_pin:pin});
-    if(error)throw new Error(error.message||"Erreur serveur");
-    /* Le RPC retourne un tableau → on prend la première ligne */
-    const row=Array.isArray(data)?data[0]:data;
-    const ok=row===true||row?.ok===true||row?.access===true||row?.status==="ok";
-    if(!ok){
-      pin="";updateDots();updateEnterBtn();
-      for(let i=0;i<4;i++)$("d"+i).classList.add("err");
-      shake($("pinDots"));
-      showSt("status2","❌ Code incorrect.\nVérifie tes 4 chiffres et réessaie.","err");
-      return;
+  async function enter(){
+    const pin=$("pin").value.trim();
+    if(!slug){msg("<span class='bad'>❌ Restaurant non reconnu.</span>");return}
+    if(pin.length<3){msg("<span class='bad'>❌ PIN trop court.</span>");return}
+    $("go").disabled=true;msg("⏳ Vérification de l’accès RESTO…");
+    let lastError=null;
+    for(const module of CANDIDATES){
+      try{
+        const {data,error}=await sb.rpc("digiy_verify_access",{p_slug:slug,p_pin:pin,p_module:module});
+        if(error){lastError=error;continue}
+        const result=Array.isArray(data)?(data[0]||{}):(data||{});
+        const ok=result?.ok===true||result?.ok===1||result?.status==="ok"||result?.access_ok===true;
+        if(ok){saveSession(result,module);msg("<span class='ok'>✅ PIN RESTO validé.</span> Ouverture du cockpit…");setTimeout(()=>location.replace("./cockpit-resto.html"),350);return}
+      }catch(err){lastError=err}
     }
-    const rpcSlug=row?.slug||row?.identifiant||"";
-    const finalSlug=rpcSlug||slug(confirmedPhone);
-    writeSession(confirmedPhone,finalSlug,row?.session_token||"");
-    showSt("status2","✅ Accès ouvert. Redirection…","ok");
-    setTimeout(()=>redirect(finalSlug),700);
-  }catch(err){
-    pin="";updateDots();updateEnterBtn();
-    $("btnEnter").disabled=false;
-    showSt("status2","❌ Erreur : "+(err?.message||"inattendue."),"err");
+    $("go").disabled=false;
+    msg("<span class='bad'>❌ PIN incorrect ou accès RESTO inactif.</span><br>"+(lastError?.message||"Vérifie le code puis recommence."));
   }
-}
+  $("go").onclick=enter;
+  $("pin").addEventListener("keydown",e=>{if(e.key==="Enter")enter()});
+  $("toggle").onclick=()=>{const show=$("pin").type==="password";$("pin").type=show?"text":"password";$("toggle").textContent=show?"Masquer":"Voir"};
+  const existing=read("DIGIY_RESTO_ACCESS")||read("DIGIY_ACCESS");
+  const ts=Number(existing?.ts||existing?.verified_at||0);
+  if(existing?.slug&&ts&&Date.now()-ts<TTL)location.replace("./cockpit-resto.html");
 })();
 </script>
 </body>
