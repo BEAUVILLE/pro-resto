@@ -1,0 +1,26 @@
+name: PRO RESTO · porte Magic Link
+
+on:
+  pull_request:
+    paths:
+      - index.html
+      - tests/test_secure_owner_entry.py
+      - .github/workflows/secure-owner-entry.yml
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - tests/test_secure_owner_entry.py
+      - .github/workflows/secure-owner-entry.yml
+
+permissions:
+  contents: read
+
+jobs:
+  secure-owner-entry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vérifier la destination Magic Link et les paramètres autorisés
+        run: python3 -m unittest discover -s tests -p 'test_secure_owner_entry.py' -v
